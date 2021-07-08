@@ -13,8 +13,14 @@ struct EnvelopesApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            MainMenuView(userData: createUserData())
         }
+    }
+    
+    private func createUserData() -> UserData {
+        let data = UserData()
+        let challenge = Challenge(goal: "New Car", days: 50, sum: 5000)
+        data.challenges.append(challenge)
+        return data
     }
 }
