@@ -21,7 +21,7 @@ class Challenge: Identifiable, ObservableObject {
     var correction: Float
     
     
-    var envelopes: [Float]
+    @Published var envelopes: [Envelope]
     
     init(goal: String, days: Int, sum: Float) {
         self.goal = goal
@@ -30,6 +30,7 @@ class Challenge: Identifiable, ObservableObject {
         self.savedSum = 0.0
         
         var totalIncrease: Int = 0
+        
         for day in 0..<days {
             if day != 0 {
                 totalIncrease += day
@@ -41,15 +42,34 @@ class Challenge: Identifiable, ObservableObject {
         
         
         let totalActualSum = Float(days) + (Float(totalIncrease) * step)
-        self.correction = totalActualSum - sum
+        self.correction = sum - totalActualSum
+        
+        
+        print(sum)
+        print(totalActualSum)
+        print(self.correction)
+        print(totalActualSum + self.correction)
         
         
         self.envelopes = []
-        var envelopeSum: Float = 1 + correction
+        
+        var envelopeSum: Float = 1
         for _ in 1...days {
-            envelopes.append(envelopeSum)
+            let newEnv = Envelope(sum: envelopeSum)
+            envelopes.append(newEnv)
             envelopeSum += step
         }
         envelopes.shuffle()
+        envelopes[0].sum += correction
+        
+        var testSum: Float = 0
+            
+        envelopes.forEach { testSum += $0.sum }
+        print(testSum)
     }
+}
+
+struct Envelope {
+    var sum: Float
+    var opened: Bool = false
 }

@@ -13,15 +13,15 @@ struct ProgressStackView: View {
     
     var body: some View {
         VStack {
+            let savedSum = String(challenge.savedSum.roundedUpTwoDecimals()) + "$"
+            let totalSum = String(challenge.totalSum.roundedUpTwoDecimals()) + "$"
             HStack {
-                Text("Saved 30%")
+                let saved = String(Int(challenge.savedSum.roundedUpTwoDecimals() / challenge.totalSum.roundedUpTwoDecimals() * 100)) + "%"
+                Text(saved)
                 Spacer()
-                
-                let savedSum = String(challenge.savedSum.roundedUpTwoDecimals())
-                let totalSum = String(challenge.totalSum.roundedUpTwoDecimals())
-                Text(savedSum + "$" + " / " + totalSum + "$")
+                Text(savedSum + " / " + totalSum)
             }
-            ProgressView(value: 21, total: 100)
+            ProgressView(value: challenge.savedSum, total: challenge.totalSum)
         }
         .padding()
         .cornerRadius(10)
