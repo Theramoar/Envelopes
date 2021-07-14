@@ -7,10 +7,17 @@
 
 import SwiftUI
 
+
+class CreateChallengeViewModel: ObservableObject {
+}
+
 struct CreateChallengeView: View {
     @Environment(\.presentationMode) var presentationMode
+    @Environment(\.managedObjectContext) private var moc
+    @FetchRequest(entity: Challenge.entity(), sortDescriptors: []) var challenges: FetchedResults<Challenge>
     
-    @ObservedObject var userData: UserData
+    @ObservedObject var viewModel: CreateChallengeViewModel
+    
     
     @State var totalSumString: String = ""
     @State var goalString: String = ""
@@ -23,8 +30,6 @@ struct CreateChallengeView: View {
         }
     }
     @State private var date = Date()
-    
-    
     
     
     let dateRange: ClosedRange<Date> = {
@@ -45,7 +50,6 @@ struct CreateChallengeView: View {
 
     
     var body: some View {
-        NavigationView {
             ZStack {
                 Form {
                     Section {
@@ -93,7 +97,6 @@ struct CreateChallengeView: View {
                 }
             }
             .navigationTitle("New challenge")
-        }
     }
     
     
@@ -103,7 +106,57 @@ struct CreateChallengeView: View {
         guard let days = Int(pureDaysString), days > 0 else { return }
         guard !goalString.isEmpty else { return }
         
-        let newChallenge = Challenge(goal: goalString, days: days, sum: totalSum)
-        userData.challenges.append(newChallenge)
+        
+        
+        var totalIncrease: Int = 0
+        for day in 0..<days {
+            if day != 0 {
+                totalIncrease += day
+            }
+        }
+        
+        let rawStep = (totalSum - Float(days)) / Float(totalIncrease)
+        let step = rawStep.roundedUpTwoDecimals()
+        
+        let totalActualSum = Float(days) + (Float(totalIncrease) * step)
+        let correction = totalSum - totalActualSum
+        
+        
+        print(totalSum)
+        print(totalActualSum)
+        print(correction)
+        print(totalActualSum + correction)
+        
+        
+        let newChallenge = Challenge(context: self.moc)
+        newChallenge.goal = goalString
+        newChallenge.days = Int32(days)
+        newChallenge.totalSum = totalSum
+        newChallenge.savedSum = 0.0
+        newChallenge.step = step
+        newChallenge.correction = correction
+        
+        var envelopes = [Envelope]()
+        var envelopeSum: Float = 1
+        for _ in 1...days {
+            let newEnv = Envelope(context: self.moc)
+            newEnv.sum = envelopeSum
+            envelopes.append(newEnv)
+            envelopeSum += step
+        }
+        envelopes.shuffle()
+        envelopes[0].sum += correction
+
+        newChallenge.envelopes = NSOrderedSet(array: envelopes)
+        
+        if challenges.isEmpty {
+            newChallenge.isActive = true
+        }
+        
+        try? self.moc.save()
+        
+        var testSum: Float = 0
+        envelopes.forEach { testSum += $0.sum }
+        print(testSum)
     }
 }

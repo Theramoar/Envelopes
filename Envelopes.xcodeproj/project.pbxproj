@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BB1E15A0269EE4A5002CF495 /* Envelope+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E159C269EE4A5002CF495 /* Envelope+CoreDataClass.swift */; };
+		BB1E15A1269EE4A5002CF495 /* Envelope+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E159D269EE4A5002CF495 /* Envelope+CoreDataProperties.swift */; };
+		BB1E15A2269EE4A5002CF495 /* Challenge+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E159E269EE4A5002CF495 /* Challenge+CoreDataClass.swift */; };
+		BB1E15A3269EE4A5002CF495 /* Challenge+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E159F269EE4A5002CF495 /* Challenge+CoreDataProperties.swift */; };
 		D25A2B6726710195003BBFFA /* EnvelopesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25A2B6626710195003BBFFA /* EnvelopesApp.swift */; };
 		D25A2B6926710196003BBFFA /* ChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25A2B6826710196003BBFFA /* ChallengeView.swift */; };
 		D25A2B6B2671019B003BBFFA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D25A2B6A2671019B003BBFFA /* Assets.xcassets */; };
@@ -21,6 +25,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BB1E159C269EE4A5002CF495 /* Envelope+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Envelope+CoreDataClass.swift"; path = "Envelopes/Envelope+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		BB1E159D269EE4A5002CF495 /* Envelope+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Envelope+CoreDataProperties.swift"; path = "Envelopes/Envelope+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		BB1E159E269EE4A5002CF495 /* Challenge+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Challenge+CoreDataClass.swift"; path = "Envelopes/Challenge+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		BB1E159F269EE4A5002CF495 /* Challenge+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Challenge+CoreDataProperties.swift"; path = "Envelopes/Challenge+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		D25A2B6326710195003BBFFA /* Envelopes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Envelopes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D25A2B6626710195003BBFFA /* EnvelopesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvelopesApp.swift; sourceTree = "<group>"; };
 		D25A2B6826710196003BBFFA /* ChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeView.swift; sourceTree = "<group>"; };
@@ -47,6 +55,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BB1E159B269ED88A002CF495 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BB1E159C269EE4A5002CF495 /* Envelope+CoreDataClass.swift */,
+				BB1E159D269EE4A5002CF495 /* Envelope+CoreDataProperties.swift */,
+				BB1E159E269EE4A5002CF495 /* Challenge+CoreDataClass.swift */,
+				BB1E159F269EE4A5002CF495 /* Challenge+CoreDataProperties.swift */,
+				D25A2B712671019B003BBFFA /* Envelopes.xcdatamodeld */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		D25A2B5A26710195003BBFFA = {
 			isa = PBXGroup;
 			children = (
@@ -67,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				D25A2B6626710195003BBFFA /* EnvelopesApp.swift */,
+				BB1E159B269ED88A002CF495 /* Model */,
 				D2FEF00626976AC70075E397 /* MainMenuView.swift */,
 				D25A2B6826710196003BBFFA /* ChallengeView.swift */,
 				D25A2B7A2674FF98003BBFFA /* ProgressStackView.swift */,
@@ -76,7 +97,6 @@
 				D25A2B6A2671019B003BBFFA /* Assets.xcassets */,
 				D25A2B6F2671019B003BBFFA /* Persistence.swift */,
 				D25A2B742671019C003BBFFA /* Info.plist */,
-				D25A2B712671019B003BBFFA /* Envelopes.xcdatamodeld */,
 				D25A2B6C2671019B003BBFFA /* Preview Content */,
 			);
 			path = Envelopes;
@@ -160,9 +180,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D25A2B702671019B003BBFFA /* Persistence.swift in Sources */,
+				BB1E15A0269EE4A5002CF495 /* Envelope+CoreDataClass.swift in Sources */,
 				D2A3BE47267611D20058339B /* Challenge.swift in Sources */,
+				BB1E15A3269EE4A5002CF495 /* Challenge+CoreDataProperties.swift in Sources */,
+				BB1E15A2269EE4A5002CF495 /* Challenge+CoreDataClass.swift in Sources */,
 				D25A2B6926710196003BBFFA /* ChallengeView.swift in Sources */,
 				D2FEF00726976AC70075E397 /* MainMenuView.swift in Sources */,
+				BB1E15A1269EE4A5002CF495 /* Envelope+CoreDataProperties.swift in Sources */,
 				D25A2B6726710195003BBFFA /* EnvelopesApp.swift in Sources */,
 				D2A3BE4926761D030058339B /* CreateChallengeView.swift in Sources */,
 				D2A3BE4B267629520058339B /* HideKeyboard Ext.swift in Sources */,

@@ -16,13 +16,22 @@ enum AlertType: Equatable {
 }
 
 struct ChallengeView: View {
-    @ObservedObject var challenge: Challenge
+    @Environment(\.managedObjectContext) private var moc
+    
+    @FetchRequest(entity: Challenge.entity(), sortDescriptors: [], predicate: NSPredicate(format: "isActive == true")) var challenges: FetchedResults<Challenge>
+    var challenge: Challenge? {
+        challenges.first
+    }
     
     @State private var alertPresented = false
     @State private var alertMessage = ""
     @State var currentAlertType: AlertType!
     
     @State private var currentIndex: Int = 0
+    
+    @State private var presentMenuView = false
+    
+    @State private var presentCreateChallengeView = false
     
     let gridEdgePadding: CGFloat = 10
     
@@ -34,62 +43,110 @@ struct ChallengeView: View {
     ]
     
     var body: some View {
-        ZStack {
-            GeometryReader { geo in
-                ScrollView(.vertical, showsIndicators: false) {
-                    ProgressStackView(challenge: challenge)
-                        .padding(gridEdgePadding)
-                    
-                    let side = cellSide(with: geo.size.width)
-                    let spacing = gridSpacing(with: geo.size.width, cellSide: side)
-                    
-                    LazyVGrid(columns: columns, spacing: spacing) {
-                        ForEach(challenge.envelopes.indices, id: \.self) { index in
-                            
-                            let envelope = challenge.envelopes[index]
-                            let rounded = envelope.sum.roundedUpTwoDecimals()
-                            
-                            let imageName = envelope.opened ? "envelope.open" : "envelope"
-                            
-                            VStack {
-                                Image(systemName: imageName)
-                                    .font(.system(size: 60))
-                                    .foregroundColor(getColorForEnvelope(at: index))
-                                Text("Day \(index + 1)")
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.secondary)
-                            }
-                            .onTapGesture {
-                                guard !challenge.envelopes[index].opened else {
-                                    simpleSuccess(.warning)
-                                    presentAlert(type: .envelopeAlreadyOpened(rounded))
-                                    return
-                                }
-                                guard index == 0 || challenge.envelopes[index - 1].opened else {
-                                    simpleSuccess(.error)
-                                    presentAlert(type: .envelopeUnavailable)
-                                    return
-                                }
-                                currentIndex = index
-                                simpleSuccess(.success)
-                                presentAlert(type: .shouldOpenEnvelope(rounded))
-                            }
-                            
+            ZStack {
+                if let challenge = challenge {
+                GeometryReader { geo in
+                    ScrollView(.vertical, showsIndicators: false) {
+                        HStack {
+                            Text(challenge.goal!)
+                                .padding()
+                                .font(.system(size: 35, weight: .heavy, design: .rounded))
+                                .multilineTextAlignment(.center)
+                            Spacer()
+                            Button(action: { presentMenuView = true}, label: {
+                                Image(systemName: "gear")
+                                    .frame(width: 40, height: 40)
+                                    .background(Color.blue)
+                                    .cornerRadius(30)
+                                    .padding()
+                                    .foregroundColor(Color.white)
+                                    .font(.system(size: 20))
+                            })
                         }
-                        .padding(10)
-                        .frame(width: side, height: side, alignment: .center)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                         
+                        ProgressStackView(challenge: challenge)
+                            .padding(gridEdgePadding)
+                        
+                        let side = cellSide(with: geo.size.width)
+                        let spacing = gridSpacing(with: geo.size.width, cellSide: side)
+                        
+                        LazyVGrid(columns: columns, spacing: spacing) {
+                            ForEach(challenge.envelopesArray.indices, id: \.self) { index in
+
+                                let envelope = challenge.envelopesArray[index]
+                                let rounded = envelope.sum.roundedUpTwoDecimals()
+
+                                let imageName = envelope.isOpened ? "envelope.open" : "envelope"
+
+                                VStack {
+                                    Image(systemName: imageName)
+                                        .font(.system(size: 60, weight: .ultraLight))
+                                        .foregroundColor(getColorForEnvelope(at: index))
+                                    Text("Day \(index + 1)")
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.secondary)
+                                }
+                                .onTapGesture {
+                                    guard !challenge.envelopesArray[index].isOpened else {
+                                        simpleSuccess(.warning)
+                                        presentAlert(type: .envelopeAlreadyOpened(rounded))
+                                        return
+                                    }
+                                    guard index == 0 || challenge.envelopesArray[index - 1].isOpened else {
+                                        simpleSuccess(.error)
+                                        presentAlert(type: .envelopeUnavailable)
+                                        return
+                                    }
+                                    currentIndex = index
+                                    simpleSuccess(.success)
+                                    presentAlert(type: .shouldOpenEnvelope(rounded))
+                                }
+
+                            }
+                            .padding(10)
+                            .frame(width: side, height: side, alignment: .center)
+
+                        }
+                        .padding(gridEdgePadding)
                     }
-                    .padding(gridEdgePadding)
+                    .blur(radius: alertPresented ? 10 : 0)
                 }
-                .blur(radius: alertPresented ? 10 : 0)
+                } else {
+                    Button("Create new challenge") {
+                        presentCreateChallengeView = true
+                    }
+                }
+//                VStack {
+//                    HStack {
+//                        Button(action: { presentMenuView = true}, label: {
+//                            Image(systemName: "gear")
+//                                .frame(width: 40, height: 40)
+//                                .background(Color.blue)
+//                                .cornerRadius(30)
+//                                .padding()
+//                                .foregroundColor(Color.white)
+//                                .font(.system(size: 20))
+//
+//
+//
+//                        })
+//                        Spacer()
+//                    }
+//                    Spacer()
+//                }
+                if alertPresented {
+                    EnvelopeAlertView(alertType: currentAlertType, cancelAction: cancelAlert, successAction: openEnvelope)
+                        .onTapGesture(perform: cancelAlert)
+                }
             }
-            if alertPresented {
-                EnvelopeAlertView(alertType: currentAlertType, cancelAction: cancelAlert, successAction: openEnvelope)
-                    .onTapGesture(perform: cancelAlert)
+            .sheet(isPresented: $presentMenuView) {
+                MainMenuView(viewModel: MenuViewModel())
+                    .environment(\.managedObjectContext, moc)
             }
-        }
-        .navigationTitle(challenge.goal)
+            .sheet(isPresented: $presentCreateChallengeView) {
+                CreateChallengeView(viewModel: CreateChallengeViewModel())
+            }
     }
     
     func cancelAlert() {
@@ -99,8 +156,10 @@ struct ChallengeView: View {
     }
     
     func openEnvelope() {
-        addSumToTotal(sum: challenge.envelopes[currentIndex].sum)
-        challenge.envelopes[currentIndex].opened = true
+        guard let challenge = challenge else { return }
+        addSumToTotal(sum: challenge.envelopesArray[currentIndex].sum)
+        challenge.envelopesArray[currentIndex].isOpened = true
+        try? moc.save()
     }
     
     private func gridSpacing(with screenWidth: CGFloat, cellSide: CGFloat) -> CGFloat {
@@ -116,7 +175,7 @@ struct ChallengeView: View {
     }
     
     func addSumToTotal(sum: Float) {
-        challenge.savedSum += sum.roundedUpTwoDecimals()
+        challenge?.savedSum += sum.roundedUpTwoDecimals()
     }
     
     func simpleSuccess(_ notificationType: UINotificationFeedbackGenerator.FeedbackType) {
@@ -125,12 +184,12 @@ struct ChallengeView: View {
     }
     
     func getColorForEnvelope(at index: Int) -> Color {
-        let envelopes = challenge.envelopes
-        
-        guard !envelopes[index].opened else { return .secondary }
+        guard let envelopes = challenge?.envelopesArray else { return .primary }
+
+        guard !envelopes[index].isOpened else { return .secondary }
         guard index != 0 else { return .blue }
-        guard !envelopes[index - 1].opened else {
-            if index == envelopes.count - 1 || !envelopes[index + 1].opened { return .blue }
+        guard !envelopes[index - 1].isOpened else {
+            if index == envelopes.count - 1 || !envelopes[index + 1].isOpened { return .blue }
             else { return .primary }
         }
         return .primary
