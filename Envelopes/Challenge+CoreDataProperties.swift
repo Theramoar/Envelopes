@@ -25,8 +25,19 @@ extension Challenge {
     @NSManaged public var isActive: Bool
     @NSManaged public var envelopes: NSOrderedSet?
     
+    @NSManaged public var colorString: String?
+    
     public var envelopesArray: [Envelope] {
         envelopes?.array as? [Envelope] ?? []
+    }
+    
+    var accentColor: AppColor {
+        for color in AppColor.allCases {
+            if color.rawValue == colorString {
+                return color
+            }
+        }
+        return .blue
     }
 
 }

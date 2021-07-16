@@ -22,6 +22,8 @@ struct CreateChallengeView: View {
     @State var totalSumString: String = ""
     @State var goalString: String = ""
     @State var daysString: String = ""
+    @State var currentColor: AppColor = .blue
+    @State private var date = Date()
     @State var deadlineEnabled = false {
         didSet {
             if deadlineEnabled {
@@ -29,8 +31,6 @@ struct CreateChallengeView: View {
             }
         }
     }
-    @State private var date = Date()
-    
     
     let dateRange: ClosedRange<Date> = {
         let calendar = Calendar.current
@@ -47,15 +47,36 @@ struct CreateChallengeView: View {
             ...
             calendar.date(from:endComponents)!
     }()
+    
+    
+    
+    func saveCurrentColor(accentColor: AppColor) {
+        withAnimation {
+            currentColor = accentColor
+        }
+        
+    }
 
     
     var body: some View {
             ZStack {
                 Form {
                     Section {
-                        TextField("Enter final goal", text: $goalString)
+                        TextField("Enter challenge name", text: $goalString)
                         TextField("Enter total sum", text: $totalSumString)
                             .keyboardType(.decimalPad)
+                        VStack(alignment: .leading) {
+                            Text("Accent Color:")
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 20) {
+                                    ForEach(AppColorWrapper.appColors, id: \.self) { color in
+                                        AppColorView(accentColor: color,
+                                                     currentColor: currentColor == color,
+                                                     tapAction: saveCurrentColor)
+                                    }
+                                }
+                            }
+                        }
                     }
                     Section {
                         TextField("Days of challenge", text: $daysString)
@@ -64,6 +85,7 @@ struct CreateChallengeView: View {
                         Toggle(isOn: $deadlineEnabled.animation()) {
                             Text("Set challenge deadline")
                         }
+                        .toggleStyle(SwitchToggleStyle(tint: Color(hex: currentColor.rawValue)))
                         
                         if deadlineEnabled {
                             DatePicker("Deadline", selection: $date, in: dateRange, displayedComponents: [.date])
@@ -91,8 +113,10 @@ struct CreateChallengeView: View {
                         Text("Create challenge")
                             .foregroundColor(Color.white)
                             .frame(width: 300, height: 60, alignment: .center)
-                            .background(Color.blue)
+                            .background(Color(hex: currentColor.rawValue))
                             .cornerRadius(20)
+                        
+                        
                     }
                 }
             }
@@ -135,6 +159,7 @@ struct CreateChallengeView: View {
         newChallenge.savedSum = 0.0
         newChallenge.step = step
         newChallenge.correction = correction
+        newChallenge.colorString = currentColor.rawValue
         
         var envelopes = [Envelope]()
         var envelopeSum: Float = 1
@@ -149,9 +174,8 @@ struct CreateChallengeView: View {
 
         newChallenge.envelopes = NSOrderedSet(array: envelopes)
         
-        if challenges.isEmpty {
-            newChallenge.isActive = true
-        }
+        challenges.forEach {$0.isActive = false }
+        newChallenge.isActive = true
         
         try? self.moc.save()
         
