@@ -6,97 +6,74 @@
 //
 
 import SwiftUI
-
+import CoreData
 import UIKit
 import MessageUI
 
-class MenuViewModel: ObservableObject {
+
+class SettingsViewModel: ObservableObject {
     
 }
 
-extension Color {
-    init(hex: String) {
-        let a, r, g, b: UInt64
-        let hexString = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
-        var int = UInt64()
-
-        Scanner(string: hexString).scanHexInt64(&int)
-
-        switch hexString.count {
-        case 3: // RGB (12-bit)
-            (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
-        case 6: // RGB (24-bit)
-            (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
-        case 8: // ARGB (32-bit)
-            (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
-        default:
-            (a, r, g, b) = (255, 0, 0, 0)
-        }
-        
-        self.init(
-            red: Double(r) / 255,
-            green: Double(g) / 255,
-            blue: Double(b) / 255,
-            opacity: Double(a) / 255
-        )
-    }
-}
-
-struct AppColorWrapper: Identifiable {
-    var id = UUID()
-    static let appColors: [AppColor] = AppColor.allCases
-}
-
-enum AppColor: String, CaseIterable {
-    case blue = "007AFF"
-    case red = "FF3B30"
-    case yellow = "FFCC00"
-    case green = "34C759"
-    case purple = "AF52DE"
-    case orange = "FF9500"
-    case pink = "FF2D55"
-}
-
-struct AppColorView: View {
-    let accentColor: AppColor
-    let currentColor: Bool
-    
-    var tapAction: (AppColor) -> Void
-    
-    var body: some View {
-        ZStack {
-            Color(hex: accentColor.rawValue)
-                .cornerRadius(30)
-                .frame(width: 40, height: 40, alignment: .center)
-            if currentColor {
-                Image(systemName: "checkmark")
-            }
-        }
-        .onTapGesture {
-            tapAction(accentColor)
-        }
-    }
-}
 
 struct SettingsView: View {
     @Environment(\.managedObjectContext) private var moc
     @FetchRequest(entity: Challenge.entity(), sortDescriptors: []) var challenges: FetchedResults<Challenge>
     
+    @StateObject var viewModel = SettingsViewModel()
     
-    @ObservedObject var viewModel: MenuViewModel
+    var activeChallenge: Challenge? {
+        challenges.first { $0.isActive }
+    }
     
     func saveCurrentColor(accentColor: AppColor) {
         guard let challenge = challenges.first(where: { $0.isActive }) else { return }
         challenge.colorString = accentColor.rawValue
-        try? self.moc.save()
+        try? moc.save()
+    }
+    
+    @State var notificationTime: Date
+    
+
+    @State var notificationsEnabled: Bool
+    @State var navigateToCreateView = false
+    
+    static var defaultTime: Date {
+        var components = DateComponents()
+        components.hour = 12
+        components.minute = 0
+        return Calendar.current.date(from: components) ?? Date()
     }
     
     var body: some View {
         NavigationView {
             Form {
-                if let challenge = challenges.first { $0.isActive } {
+                if let challenge = activeChallenge {
                     Section(header: Text("Active challenge")) {
                         Text(challenge.goal!)
+                        Group {
+                            Toggle(isOn: $notificationsEnabled.animation()) {
+                                Text("Allow daily notifications")
+                            }
+                            .toggleStyle(SwitchToggleStyle(tint: Color(hex: challenge.accentColor.rawValue)))
+                            .onChange(of: notificationsEnabled, perform: { value in
+                                activeChallenge?.isReminderSet = notificationsEnabled
+                                try? moc.save()
+                            })
+                            if notificationsEnabled {
+                                HStack {
+                                    Text("Notification time")
+                                    DatePicker("Notification time", selection: $notificationTime, displayedComponents: .hourAndMinute)
+                                        .datePickerStyle(GraphicalDatePickerStyle())
+                                        .onChange(of: notificationTime, perform: { value in
+                                            print("notificationTime WAS SET!!!")
+                                            activeChallenge?.reminderTime = notificationTime
+                                            try? moc.save()
+                                        })
+                                }
+                            }
+                        }
+                        
                         VStack(alignment: .leading) {
                             Text("Accent Color:")
                             ScrollView(.horizontal, showsIndicators: false) {
@@ -111,7 +88,23 @@ struct SettingsView: View {
                         }
                     }
                 }
-                Section(header: Text("Your challenges")) {
+                Section(header: Text("Your challenges"), footer:
+                            NavigationLink(
+                                destination: CreateChallengeView(viewModel: CreateChallengeViewModel())) {
+                                HStack {
+                                    Spacer()
+                                    Text("Create new challenge")
+                                        .font(.system(size: 15, weight: .medium))
+                                        .foregroundColor(Color.white)
+                                        .frame(width: 300, height: 45, alignment: .center)
+                                        .background(Color(hex: activeChallenge?.accentColor.rawValue ?? AppColor.blue.rawValue))
+                                        .cornerRadius(15)
+                                        .padding()
+                                    Spacer()
+                                }
+                            }
+                        
+                        ) {
                     ForEach(challenges.indices, id: \.self) { index in
                         HStack {
                             Text(challenges[index].goal!)
@@ -126,7 +119,8 @@ struct SettingsView: View {
                         .onTapGesture {
                             challenges.forEach { $0.isActive = false }
                             challenges[index].isActive = true
-                            print(challenges[index].isActive)
+                            notificationTime = challenges[index].reminderTime ?? SettingsView.defaultTime
+                            notificationsEnabled = challenges[index].isReminderSet
                             try? self.moc.save()
                         }
                     }
@@ -137,12 +131,6 @@ struct SettingsView: View {
                         }
                         try? self.moc.save()
                     })
-                    ZStack {
-                        Text("Create new challenge")
-                            .foregroundColor(.blue)
-                        NavigationLink(
-                            destination: CreateChallengeView(viewModel: CreateChallengeViewModel())) { EmptyView() }
-                    }
                 }
                 Section(header: Text("About the developer")) {
                     HStack {
@@ -150,7 +138,12 @@ struct SettingsView: View {
                             .resizable()
                             .frame(width: 25, height: 25, alignment: .center)
                             .font(.system(size: 20, weight: .thin))
-                        NavigationLink("Let me introduce myself", destination: AboutDevView())
+                        NavigationLink("About the Developer", destination: AboutDevView(), isActive: $navigateToCreateView)
+                        EmptyView()
+                    }
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        navigateToCreateView = true
                     }
                     
                     HStack {
@@ -171,12 +164,16 @@ struct SettingsView: View {
                 }
             }
             .navigationTitle("Settings")
+            .onTapGesture {
+                hideKeyboard()
+            }
         }
+
         
     }
+    
+
 }
-
-
 // https://stackoverflow.com/questions/56784722/swiftui-send-email
 //struct MailView: UIViewControllerRepresentable {
 //    typealias UIViewControllerType = <#type#>

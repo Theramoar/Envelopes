@@ -23,9 +23,11 @@ extension Challenge {
     @NSManaged public var step: Float
     @NSManaged public var correction: Float
     @NSManaged public var isActive: Bool
+    @NSManaged public var isReminderSet: Bool
     @NSManaged public var envelopes: NSOrderedSet?
     
     @NSManaged public var colorString: String?
+    @NSManaged public var reminderTime: Date?
     
     public var envelopesArray: [Envelope] {
         envelopes?.array as? [Envelope] ?? []

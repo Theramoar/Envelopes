@@ -7,8 +7,8 @@
 
 import CoreData
 
-struct PersistenceController {
-    static let shared = PersistenceController()
+struct CoreDataManager {
+    static let shared = CoreDataManager()
 
     let container: NSPersistentContainer
 

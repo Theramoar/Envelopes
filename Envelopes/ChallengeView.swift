@@ -176,7 +176,7 @@ struct ChallengeView: View {
             }
         }
         .sheet(isPresented: $presentMenuView) {
-            SettingsView(viewModel: MenuViewModel())
+            SettingsView(notificationTime: challenge?.reminderTime ?? SettingsView.defaultTime, notificationsEnabled: challenge?.isReminderSet ?? true)
                 .environment(\.managedObjectContext, moc)
         }
         .sheet(isPresented: $presentCreateChallengeView) {

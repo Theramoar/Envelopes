@@ -6,6 +6,8 @@
         <attribute name="days" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="goal" optional="YES" attributeType="String"/>
         <attribute name="isActive" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isReminderSet" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="reminderTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="savedSum" optional="YES" attributeType="Float" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="step" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="totalSum" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -17,7 +19,7 @@
         <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Challenge" inverseName="envelopes" inverseEntity="Challenge"/>
     </entity>
     <elements>
-        <element name="Challenge" positionX="-661.411865234375" positionY="-328.5838165283203" width="128" height="178"/>
+        <element name="Challenge" positionX="-661.411865234375" positionY="-328.5838165283203" width="128" height="194"/>
         <element name="Envelope" positionX="-63" positionY="36" width="128" height="88"/>
     </elements>
 </model>
