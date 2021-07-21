@@ -54,7 +54,12 @@ struct CoreDataManager {
         newChallenge.correction = correction
         newChallenge.colorString = currentColor.rawValue
         newChallenge.reminderTime = notificationTime
-
+        
+        let challenges = loadDataFromContainer(ofType: Challenge.self)
+        challenges.forEach {$0.isActive = false}
+        
+        newChallenge.isActive = true
+        
         var envelopes = [Envelope]()
         var envelopeSum: Float = 1
         
@@ -73,9 +78,18 @@ struct CoreDataManager {
         saveContext()
     }
     
-
+    func openEnvelope(for challenge: Challenge, at index: Int) {
+        challenge.savedSum += challenge.envelopesArray[index].sum.roundedUpTwoDecimals()
+        challenge.envelopesArray[index].isOpened = true
+        saveContext()
+    }
     
-    private func saveContext() {
+    func delete(_ object: NSManagedObject) {
+        context.delete(object)
+        saveContext()
+    }
+    
+    func saveContext() {
         if context.hasChanges {
             do {
                 try context.save()

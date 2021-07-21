@@ -12,31 +12,59 @@ import MessageUI
 
 
 class SettingsViewModel: ObservableObject {
+    private let coreData: CoreDataManager = .shared
     
-}
-
-
-struct SettingsView: View {
-    @Environment(\.managedObjectContext) private var moc
-    @FetchRequest(entity: Challenge.entity(), sortDescriptors: []) var challenges: FetchedResults<Challenge>
-    
-    @StateObject var viewModel = SettingsViewModel()
-    
+    @Published var challenges: [Challenge] = []
     var activeChallenge: Challenge? {
         challenges.first { $0.isActive }
     }
     
-    func saveCurrentColor(accentColor: AppColor) {
-        guard let challenge = challenges.first(where: { $0.isActive }) else { return }
-        challenge.colorString = accentColor.rawValue
-        try? moc.save()
+    @Published var currentAppColor: String
+    @Published var activeIndex: Int?
+    
+    
+    init() {
+        let challenges = coreData.loadDataFromContainer(ofType: Challenge.self)
+        let challenge = challenges.first { $0.isActive }
+        self.challenges = challenges
+        currentAppColor = challenge?.accentColor.rawValue ?? AppColor.blue.rawValue
+        
+        for index in challenges.indices {
+            if challenges[index].isActive {
+                activeIndex =  index
+            }
+        }
     }
     
-    @State var notificationTime: Date
     
+    func saveCurrentColor(accentColor: AppColor) {
+        guard let challenge = activeChallenge else { return }
+        challenge.colorString = accentColor.rawValue
+        currentAppColor = accentColor.rawValue
+        updateChallengeInContainer()
+    }
+    
+    func updateChallengeInContainer() {
+        coreData.saveContext()
+    }
+    
+    func deleteChallengesAt(indexSet: IndexSet) {
+        for index in indexSet {
+            let challenge = challenges.remove(at: index)
+            coreData.delete(challenge)
+        }
+        
+    }
+}
 
+
+struct SettingsView: View {
+    @StateObject var viewModel = SettingsViewModel()
+    
+    @State var notificationTime: Date
     @State var notificationsEnabled: Bool
     @State var navigateToCreateView = false
+    
     
     static var defaultTime: Date {
         var components = DateComponents()
@@ -48,7 +76,7 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             Form {
-                if let challenge = activeChallenge {
+                if let challenge = viewModel.activeChallenge {
                     Section(header: Text("Active challenge")) {
                         Text(challenge.goal!)
                         Group {
@@ -57,8 +85,8 @@ struct SettingsView: View {
                             }
                             .toggleStyle(SwitchToggleStyle(tint: Color(hex: challenge.accentColor.rawValue)))
                             .onChange(of: notificationsEnabled, perform: { value in
-                                activeChallenge?.isReminderSet = notificationsEnabled
-                                try? moc.save()
+                                viewModel.activeChallenge?.isReminderSet = notificationsEnabled
+                                viewModel.updateChallengeInContainer()
                             })
                             if notificationsEnabled {
                                 HStack {
@@ -67,8 +95,8 @@ struct SettingsView: View {
                                         .datePickerStyle(GraphicalDatePickerStyle())
                                         .onChange(of: notificationTime, perform: { value in
                                             print("notificationTime WAS SET!!!")
-                                            activeChallenge?.reminderTime = notificationTime
-                                            try? moc.save()
+                                            viewModel.activeChallenge?.reminderTime = notificationTime
+                                            viewModel.updateChallengeInContainer()
                                         })
                                 }
                             }
@@ -81,7 +109,7 @@ struct SettingsView: View {
                                     ForEach(AppColorWrapper.appColors, id: \.self) { color in
                                         AppColorView(accentColor: color,
                                                      currentColor: challenge.accentColor == color,
-                                                     tapAction: saveCurrentColor)
+                                                     tapAction: viewModel.saveCurrentColor)
                                     }
                                 }
                             }
@@ -97,7 +125,7 @@ struct SettingsView: View {
                                         .font(.system(size: 15, weight: .medium))
                                         .foregroundColor(Color.white)
                                         .frame(width: 300, height: 45, alignment: .center)
-                                        .background(Color(hex: activeChallenge?.accentColor.rawValue ?? AppColor.blue.rawValue))
+                                        .background(Color(hex: viewModel.currentAppColor))
                                         .cornerRadius(15)
                                         .padding()
                                     Spacer()
@@ -105,11 +133,11 @@ struct SettingsView: View {
                             }
                         
                         ) {
-                    ForEach(challenges.indices, id: \.self) { index in
+                    ForEach(viewModel.challenges.indices, id: \.self) { index in
                         HStack {
-                            Text(challenges[index].goal!)
+                            Text(viewModel.challenges[index].goal!)
                             Spacer()
-                            if challenges[index].isActive {
+                            if viewModel.activeIndex == index {
                                 Text("ACTIVE")
                                     .foregroundColor(.secondary)
                                     .font(.system(size: 9, weight: .medium))
@@ -117,19 +145,17 @@ struct SettingsView: View {
                         }
                         .contentShape(Rectangle())
                         .onTapGesture {
-                            challenges.forEach { $0.isActive = false }
-                            challenges[index].isActive = true
-                            notificationTime = challenges[index].reminderTime ?? SettingsView.defaultTime
-                            notificationsEnabled = challenges[index].isReminderSet
-                            try? self.moc.save()
+                            viewModel.challenges.forEach { $0.isActive = false }
+                            viewModel.challenges[index].isActive = true
+                            viewModel.activeIndex = index
+                            
+                            notificationTime = viewModel.challenges[index].reminderTime ?? SettingsView.defaultTime
+                            notificationsEnabled = viewModel.challenges[index].isReminderSet
+                            viewModel.updateChallengeInContainer()
                         }
                     }
-                    
                     .onDelete(perform: { indexSet in
-                        for index in indexSet {
-                            moc.delete(challenges[index])
-                        }
-                        try? self.moc.save()
+                        viewModel.deleteChallengesAt(indexSet: indexSet)
                     })
                 }
                 Section(header: Text("About the developer")) {
@@ -168,8 +194,9 @@ struct SettingsView: View {
                 hideKeyboard()
             }
         }
-
-        
+        .onAppear(perform: {
+            viewModel.challenges = CoreDataManager.shared.loadDataFromContainer(ofType: Challenge.self)
+        })
     }
     
 

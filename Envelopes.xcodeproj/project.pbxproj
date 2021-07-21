@@ -15,6 +15,10 @@
 		BB1E15A726A56CD0002CF495 /* HexColor Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E15A626A56CD0002CF495 /* HexColor Ext.swift */; };
 		BB1E15A926A56D0E002CF495 /* AppColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E15A826A56D0E002CF495 /* AppColorView.swift */; };
 		BB1E15AB26A57D64002CF495 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E15AA26A57D64002CF495 /* CoreDataManager.swift */; };
+		BB1E15AD26A5824F002CF495 /* CreateChallengeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E15AC26A5824F002CF495 /* CreateChallengeViewModel.swift */; };
+		BB1E15B026A58A87002CF495 /* RoundedFloat Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E15AF26A58A87002CF495 /* RoundedFloat Ext.swift */; };
+		BB1E15B226A58A9D002CF495 /* EnvelopeAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E15B126A58A9D002CF495 /* EnvelopeAlertView.swift */; };
+		BB1E15B426A58AD6002CF495 /* ChallengeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E15B326A58AD6002CF495 /* ChallengeViewModel.swift */; };
 		D25A2B6726710195003BBFFA /* EnvelopesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25A2B6626710195003BBFFA /* EnvelopesApp.swift */; };
 		D25A2B6926710196003BBFFA /* ChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25A2B6826710196003BBFFA /* ChallengeView.swift */; };
 		D25A2B6B2671019B003BBFFA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D25A2B6A2671019B003BBFFA /* Assets.xcassets */; };
@@ -36,6 +40,10 @@
 		BB1E15A626A56CD0002CF495 /* HexColor Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HexColor Ext.swift"; sourceTree = "<group>"; };
 		BB1E15A826A56D0E002CF495 /* AppColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColorView.swift; sourceTree = "<group>"; };
 		BB1E15AA26A57D64002CF495 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		BB1E15AC26A5824F002CF495 /* CreateChallengeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChallengeViewModel.swift; sourceTree = "<group>"; };
+		BB1E15AF26A58A87002CF495 /* RoundedFloat Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RoundedFloat Ext.swift"; sourceTree = "<group>"; };
+		BB1E15B126A58A9D002CF495 /* EnvelopeAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvelopeAlertView.swift; sourceTree = "<group>"; };
+		BB1E15B326A58AD6002CF495 /* ChallengeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeViewModel.swift; sourceTree = "<group>"; };
 		D25A2B6326710195003BBFFA /* Envelopes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Envelopes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D25A2B6626710195003BBFFA /* EnvelopesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvelopesApp.swift; sourceTree = "<group>"; };
 		D25A2B6826710196003BBFFA /* ChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeView.swift; sourceTree = "<group>"; };
@@ -73,6 +81,26 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		BB1E15AE26A58282002CF495 /* CreateChallengeView */ = {
+			isa = PBXGroup;
+			children = (
+				D2A3BE4826761D030058339B /* CreateChallengeView.swift */,
+				BB1E15AC26A5824F002CF495 /* CreateChallengeViewModel.swift */,
+			);
+			path = CreateChallengeView;
+			sourceTree = "<group>";
+		};
+		BB1E15B526A58AFD002CF495 /* ChallengeView */ = {
+			isa = PBXGroup;
+			children = (
+				BB1E15B126A58A9D002CF495 /* EnvelopeAlertView.swift */,
+				D25A2B7A2674FF98003BBFFA /* ProgressStackView.swift */,
+				D25A2B6826710196003BBFFA /* ChallengeView.swift */,
+				BB1E15B326A58AD6002CF495 /* ChallengeViewModel.swift */,
+			);
+			path = ChallengeView;
+			sourceTree = "<group>";
+		};
 		D25A2B5A26710195003BBFFA = {
 			isa = PBXGroup;
 			children = (
@@ -97,11 +125,11 @@
 				D2FEF00626976AC70075E397 /* SettingsView.swift */,
 				BB1E15A826A56D0E002CF495 /* AppColorView.swift */,
 				BB1E15A426A07897002CF495 /* AboutDevView.swift */,
-				D25A2B6826710196003BBFFA /* ChallengeView.swift */,
-				D25A2B7A2674FF98003BBFFA /* ProgressStackView.swift */,
-				D2A3BE4826761D030058339B /* CreateChallengeView.swift */,
+				BB1E15B526A58AFD002CF495 /* ChallengeView */,
+				BB1E15AE26A58282002CF495 /* CreateChallengeView */,
 				D2A3BE4A267629520058339B /* HideKeyboard Ext.swift */,
 				BB1E15A626A56CD0002CF495 /* HexColor Ext.swift */,
+				BB1E15AF26A58A87002CF495 /* RoundedFloat Ext.swift */,
 				D25A2B6A2671019B003BBFFA /* Assets.xcassets */,
 				D25A2B6F2671019B003BBFFA /* Persistence.swift */,
 				BB1E15AA26A57D64002CF495 /* CoreDataManager.swift */,
@@ -193,8 +221,12 @@
 				BB1E15A3269EE4A5002CF495 /* Challenge+CoreDataProperties.swift in Sources */,
 				BB1E15A2269EE4A5002CF495 /* Challenge+CoreDataClass.swift in Sources */,
 				D25A2B6926710196003BBFFA /* ChallengeView.swift in Sources */,
+				BB1E15B226A58A9D002CF495 /* EnvelopeAlertView.swift in Sources */,
+				BB1E15B426A58AD6002CF495 /* ChallengeViewModel.swift in Sources */,
+				BB1E15B026A58A87002CF495 /* RoundedFloat Ext.swift in Sources */,
 				D2FEF00726976AC70075E397 /* SettingsView.swift in Sources */,
 				BB1E15A1269EE4A5002CF495 /* Envelope+CoreDataProperties.swift in Sources */,
+				BB1E15AD26A5824F002CF495 /* CreateChallengeViewModel.swift in Sources */,
 				BB1E15A526A07897002CF495 /* AboutDevView.swift in Sources */,
 				D25A2B6726710195003BBFFA /* EnvelopesApp.swift in Sources */,
 				D2A3BE4926761D030058339B /* CreateChallengeView.swift in Sources */,
