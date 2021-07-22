@@ -6,72 +6,11 @@
 //
 
 import SwiftUI
-import CoreData
 import UIKit
 import MessageUI
 
-
-class SettingsViewModel: ObservableObject {
-    private let coreData: CoreDataManager = .shared
-    
-    @Published var challenges: [Challenge] = []
-    var activeChallenge: Challenge? {
-        challenges.first { $0.isActive }
-    }
-    
-    @Published var currentAppColor: String
-    @Published var activeIndex: Int?
-    
-    
-    init() {
-        let challenges = coreData.loadDataFromContainer(ofType: Challenge.self)
-        let challenge = challenges.first { $0.isActive }
-        self.challenges = challenges
-        currentAppColor = challenge?.accentColor.rawValue ?? AppColor.blue.rawValue
-        
-        for index in challenges.indices {
-            if challenges[index].isActive {
-                activeIndex =  index
-            }
-        }
-    }
-    
-    
-    func saveCurrentColor(accentColor: AppColor) {
-        guard let challenge = activeChallenge else { return }
-        challenge.colorString = accentColor.rawValue
-        currentAppColor = accentColor.rawValue
-        updateChallengeInContainer()
-    }
-    
-    func updateChallengeInContainer() {
-        coreData.saveContext()
-    }
-    
-    func deleteChallengesAt(indexSet: IndexSet) {
-        for index in indexSet {
-            let challenge = challenges.remove(at: index)
-            coreData.delete(challenge)
-        }
-        
-    }
-}
-
-
 struct SettingsView: View {
     @StateObject var viewModel = SettingsViewModel()
-    
-    @State var notificationTime: Date
-    @State var notificationsEnabled: Bool
-    @State var navigateToCreateView = false
-    
-    
-    static var defaultTime: Date {
-        var components = DateComponents()
-        components.hour = 12
-        components.minute = 0
-        return Calendar.current.date(from: components) ?? Date()
-    }
     
     var body: some View {
         NavigationView {
@@ -80,22 +19,22 @@ struct SettingsView: View {
                     Section(header: Text("Active challenge")) {
                         Text(challenge.goal!)
                         Group {
-                            Toggle(isOn: $notificationsEnabled.animation()) {
+                            Toggle(isOn: $viewModel.notificationsEnabled.animation()) {
                                 Text("Allow daily notifications")
                             }
                             .toggleStyle(SwitchToggleStyle(tint: Color(hex: challenge.accentColor.rawValue)))
-                            .onChange(of: notificationsEnabled, perform: { value in
-                                viewModel.activeChallenge?.isReminderSet = notificationsEnabled
+                            .onChange(of: viewModel.notificationsEnabled, perform: { value in
+                                viewModel.activeChallenge?.isReminderSet = viewModel.notificationsEnabled
                                 viewModel.updateChallengeInContainer()
                             })
-                            if notificationsEnabled {
+                            if viewModel.notificationsEnabled {
                                 HStack {
                                     Text("Notification time")
-                                    DatePicker("Notification time", selection: $notificationTime, displayedComponents: .hourAndMinute)
+                                    DatePicker("Notification time", selection: $viewModel.notificationTime, displayedComponents: .hourAndMinute)
                                         .datePickerStyle(GraphicalDatePickerStyle())
-                                        .onChange(of: notificationTime, perform: { value in
+                                        .onChange(of: viewModel.notificationTime, perform: { value in
                                             print("notificationTime WAS SET!!!")
-                                            viewModel.activeChallenge?.reminderTime = notificationTime
+                                            viewModel.activeChallenge?.reminderTime = viewModel.notificationTime
                                             viewModel.updateChallengeInContainer()
                                         })
                                 }
@@ -125,7 +64,7 @@ struct SettingsView: View {
                                         .font(.system(size: 15, weight: .medium))
                                         .foregroundColor(Color.white)
                                         .frame(width: 300, height: 45, alignment: .center)
-                                        .background(Color(hex: viewModel.currentAppColor))
+                                        .background(Color(hex: viewModel.activeChallenge?.accentColor.rawValue ?? AppColor.blue.rawValue))
                                         .cornerRadius(15)
                                         .padding()
                                     Spacer()
@@ -137,7 +76,7 @@ struct SettingsView: View {
                         HStack {
                             Text(viewModel.challenges[index].goal!)
                             Spacer()
-                            if viewModel.activeIndex == index {
+                            if viewModel.challenges[index].isActive {
                                 Text("ACTIVE")
                                     .foregroundColor(.secondary)
                                     .font(.system(size: 9, weight: .medium))
@@ -145,13 +84,7 @@ struct SettingsView: View {
                         }
                         .contentShape(Rectangle())
                         .onTapGesture {
-                            viewModel.challenges.forEach { $0.isActive = false }
-                            viewModel.challenges[index].isActive = true
-                            viewModel.activeIndex = index
-                            
-                            notificationTime = viewModel.challenges[index].reminderTime ?? SettingsView.defaultTime
-                            notificationsEnabled = viewModel.challenges[index].isReminderSet
-                            viewModel.updateChallengeInContainer()
+                            viewModel.setActiveChallenge(atIndex: index)
                         }
                     }
                     .onDelete(perform: { indexSet in
@@ -164,12 +97,12 @@ struct SettingsView: View {
                             .resizable()
                             .frame(width: 25, height: 25, alignment: .center)
                             .font(.system(size: 20, weight: .thin))
-                        NavigationLink("About the Developer", destination: AboutDevView(), isActive: $navigateToCreateView)
+                        NavigationLink("About the Developer", destination: AboutDevView(), isActive: $viewModel.navigateToCreateView)
                         EmptyView()
                     }
                     .contentShape(Rectangle())
                     .onTapGesture {
-                        navigateToCreateView = true
+                        viewModel.navigateToCreateView = true
                     }
                     
                     HStack {
@@ -194,9 +127,6 @@ struct SettingsView: View {
                 hideKeyboard()
             }
         }
-        .onAppear(perform: {
-            viewModel.challenges = CoreDataManager.shared.loadDataFromContainer(ofType: Challenge.self)
-        })
     }
     
 

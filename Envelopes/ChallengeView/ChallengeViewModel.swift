@@ -9,12 +9,16 @@ import SwiftUI
 
 class ChallengeViewModel: ObservableObject {
     private let coreData: CoreDataManager = .shared
-    var challenge: Challenge?
+    @Published var challenge: Challenge?
     var currentIndex: Int = 0
     
     init() {
-        let challenges = coreData.loadDataFromContainer(ofType: Challenge.self)
-        challenge = challenges.first { $0.isActive == true }
+        challenge = coreData.activeChallenge
+        NotificationCenter.default.addObserver(self, selector: #selector(updateModel), name: NSNotification.Name("ModelWasUpdated"), object: nil)
+    }
+    
+    @objc func updateModel() {
+        challenge = coreData.activeChallenge
     }
     
     func openEnvelope() {

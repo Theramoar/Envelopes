@@ -19,6 +19,7 @@
 		BB1E15B026A58A87002CF495 /* RoundedFloat Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E15AF26A58A87002CF495 /* RoundedFloat Ext.swift */; };
 		BB1E15B226A58A9D002CF495 /* EnvelopeAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E15B126A58A9D002CF495 /* EnvelopeAlertView.swift */; };
 		BB1E15B426A58AD6002CF495 /* ChallengeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E15B326A58AD6002CF495 /* ChallengeViewModel.swift */; };
+		BB1E15BD26A856A1002CF495 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E15BC26A856A0002CF495 /* SettingsViewModel.swift */; };
 		D25A2B6726710195003BBFFA /* EnvelopesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25A2B6626710195003BBFFA /* EnvelopesApp.swift */; };
 		D25A2B6926710196003BBFFA /* ChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25A2B6826710196003BBFFA /* ChallengeView.swift */; };
 		D25A2B6B2671019B003BBFFA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D25A2B6A2671019B003BBFFA /* Assets.xcassets */; };
@@ -44,6 +45,7 @@
 		BB1E15AF26A58A87002CF495 /* RoundedFloat Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RoundedFloat Ext.swift"; sourceTree = "<group>"; };
 		BB1E15B126A58A9D002CF495 /* EnvelopeAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvelopeAlertView.swift; sourceTree = "<group>"; };
 		BB1E15B326A58AD6002CF495 /* ChallengeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeViewModel.swift; sourceTree = "<group>"; };
+		BB1E15BC26A856A0002CF495 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		D25A2B6326710195003BBFFA /* Envelopes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Envelopes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D25A2B6626710195003BBFFA /* EnvelopesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvelopesApp.swift; sourceTree = "<group>"; };
 		D25A2B6826710196003BBFFA /* ChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeView.swift; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 		BB1E159B269ED88A002CF495 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				BB1E15AA26A57D64002CF495 /* CoreDataManager.swift */,
 				BB1E159C269EE4A5002CF495 /* Envelope+CoreDataClass.swift */,
 				BB1E159D269EE4A5002CF495 /* Envelope+CoreDataProperties.swift */,
 				BB1E159E269EE4A5002CF495 /* Challenge+CoreDataClass.swift */,
@@ -101,6 +104,17 @@
 			path = ChallengeView;
 			sourceTree = "<group>";
 		};
+		BB1E15BE26A8574D002CF495 /* SettingsView */ = {
+			isa = PBXGroup;
+			children = (
+				D2FEF00626976AC70075E397 /* SettingsView.swift */,
+				BB1E15BC26A856A0002CF495 /* SettingsViewModel.swift */,
+				BB1E15A826A56D0E002CF495 /* AppColorView.swift */,
+				BB1E15A426A07897002CF495 /* AboutDevView.swift */,
+			);
+			path = SettingsView;
+			sourceTree = "<group>";
+		};
 		D25A2B5A26710195003BBFFA = {
 			isa = PBXGroup;
 			children = (
@@ -122,9 +136,7 @@
 			children = (
 				D25A2B6626710195003BBFFA /* EnvelopesApp.swift */,
 				BB1E159B269ED88A002CF495 /* Model */,
-				D2FEF00626976AC70075E397 /* SettingsView.swift */,
-				BB1E15A826A56D0E002CF495 /* AppColorView.swift */,
-				BB1E15A426A07897002CF495 /* AboutDevView.swift */,
+				BB1E15BE26A8574D002CF495 /* SettingsView */,
 				BB1E15B526A58AFD002CF495 /* ChallengeView */,
 				BB1E15AE26A58282002CF495 /* CreateChallengeView */,
 				D2A3BE4A267629520058339B /* HideKeyboard Ext.swift */,
@@ -132,7 +144,6 @@
 				BB1E15AF26A58A87002CF495 /* RoundedFloat Ext.swift */,
 				D25A2B6A2671019B003BBFFA /* Assets.xcassets */,
 				D25A2B6F2671019B003BBFFA /* Persistence.swift */,
-				BB1E15AA26A57D64002CF495 /* CoreDataManager.swift */,
 				D25A2B742671019C003BBFFA /* Info.plist */,
 				D25A2B6C2671019B003BBFFA /* Preview Content */,
 			);
@@ -236,6 +247,7 @@
 				BB1E15A926A56D0E002CF495 /* AppColorView.swift in Sources */,
 				BB1E15AB26A57D64002CF495 /* CoreDataManager.swift in Sources */,
 				D25A2B732671019B003BBFFA /* Envelopes.xcdatamodeld in Sources */,
+				BB1E15BD26A856A1002CF495 /* SettingsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

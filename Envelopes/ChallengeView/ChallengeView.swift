@@ -168,7 +168,7 @@ struct ChallengeView: View {
             }
         }
         .sheet(isPresented: $presentMenuView) {
-            SettingsView(notificationTime: viewModel.challenge?.reminderTime ?? SettingsView.defaultTime, notificationsEnabled: viewModel.challenge?.isReminderSet ?? true)
+            SettingsView()
         }
         .sheet(isPresented: $presentCreateChallengeView) {
             CreateChallengeView(viewModel: CreateChallengeViewModel())
