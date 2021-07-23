@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct AboutDevView: View {
-    
-    
     var body: some View {
         VStack {
             Form {
@@ -41,11 +39,5 @@ struct AboutDevView: View {
             }
             .navigationTitle("About the Developer")
         }
-    }
-}
-
-struct AboutDevView_Previews: PreviewProvider {
-    static var previews: some View {
-        AboutDevView()
     }
 }

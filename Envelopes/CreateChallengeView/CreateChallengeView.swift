@@ -23,6 +23,18 @@ struct CreateChallengeView: View {
                             Text("Allow daily notifications")
                         }
                         .toggleStyle(SwitchToggleStyle(tint: Color(hex: viewModel.currentColor.rawValue)))
+                        .onChange(of: viewModel.notificationsEnabled, perform: { enabled in
+                            if enabled {
+                                if !UserSettings.shared.remindersEnabled {
+                                    NotificationManager.requestNotificationAuthorization { success in
+                                        //Wait for 0.5 seconds to finish the animation
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                            viewModel.notificationsEnabled = success
+                                        }
+                                    }
+                                }
+                            }
+                        })
                         if viewModel.notificationsEnabled {
                             HStack {
                                 Text("Notification time")

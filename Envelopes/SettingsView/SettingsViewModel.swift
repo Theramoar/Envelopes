@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MessageUI
 
 class SettingsViewModel: ObservableObject {
     private let coreData: CoreDataManager = .shared
@@ -14,6 +15,11 @@ class SettingsViewModel: ObservableObject {
     @Published var notificationTime: Date
     @Published var notificationsEnabled: Bool
     @Published var navigateToCreateView = false
+    @Published var navigateToMailView = false
+    @Published var navigateToTipJarView = false
+    @Published var alertPresented = false
+    @Published var currentAlertType: AlertType!
+    @Published var mailResult: Result<MFMailComposeResult, Error>? = nil
     
     
     var activeChallenge: Challenge? {

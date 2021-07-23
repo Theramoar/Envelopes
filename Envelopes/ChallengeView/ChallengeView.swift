@@ -15,6 +15,8 @@ enum AlertType: Equatable {
     case envelopeResult(Float)
 }
 
+//https://www.hackingwithswift.com/books/ios-swiftui/scheduling-local-notifications
+
 struct ChallengeView: View {
     @StateObject var viewModel = ChallengeViewModel()
     
@@ -45,7 +47,7 @@ struct ChallengeView: View {
                         HStack {
                             Text(challenge.goal!)
                                 .padding()
-                                .font(.system(size: 35, weight: .heavy, design: .rounded))
+                                .font(.system(size: 35, weight: .bold))
                             Spacer()
                             Button(action: { presentMenuView = true}, label: {
                                 Image(systemName: "gear")
