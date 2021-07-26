@@ -29,6 +29,8 @@ extension Challenge {
     @NSManaged public var colorString: String?
     @NSManaged public var reminderTime: Date?
     
+    @NSManaged public var lastOpenedDate: Date?
+    
     public var envelopesArray: [Envelope] {
         envelopes?.array as? [Envelope] ?? []
     }

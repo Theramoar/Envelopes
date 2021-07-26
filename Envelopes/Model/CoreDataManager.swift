@@ -7,10 +7,15 @@
 
 import CoreData
 
-struct CoreDataManager {
+class CoreDataManager {
     static let shared = CoreDataManager()
-
     let container: NSPersistentContainer
+    
+    var challenges: [Challenge] = []
+    
+    var activeChallenge: Challenge? {
+        challenges.first { $0.isActive }
+    }
 
     init(inMemory: Bool = false) {
         container = NSPersistentContainer(name: "Envelopes")
@@ -22,6 +27,7 @@ struct CoreDataManager {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
+        challenges = loadDataFromContainer(ofType: Challenge.self)
     }
     
     var context: NSManagedObjectContext {
@@ -54,7 +60,11 @@ struct CoreDataManager {
         newChallenge.correction = correction
         newChallenge.colorString = currentColor.rawValue
         newChallenge.reminderTime = notificationTime
-
+        
+        challenges.forEach {$0.isActive = false}
+        
+        newChallenge.isActive = true
+        
         var envelopes = [Envelope]()
         var envelopeSum: Float = 1
         
@@ -69,13 +79,41 @@ struct CoreDataManager {
         envelopes[0].sum += correction
 
         newChallenge.envelopes = NSOrderedSet(array: envelopes)
-
+        challenges.append(newChallenge)
+        saveContext()
+        NotificationCenter.default.post(name: NSNotification.Name("ModelWasUpdated"), object: nil)
+    }
+    
+    func openEnvelope(for challenge: Challenge, at index: Int) {
+        challenge.savedSum += challenge.envelopesArray[index].sum.roundedUpTwoDecimals()
+        challenge.envelopesArray[index].isOpened = true
+        challenge.lastOpenedDate = Date()
         saveContext()
     }
     
-
     
-    private func saveContext() {
+    func setActiveChallenge(atIndex index: Int) {
+        challenges.forEach { $0.isActive = false }
+        challenges[index].isActive = true
+        saveContext()
+        NotificationCenter.default.post(name: NSNotification.Name("ModelWasUpdated"), object: nil)
+    }
+    
+    func saveCurrentColor(accentColor: AppColor) {
+        guard let challenge = activeChallenge else { return }
+        challenge.colorString = accentColor.rawValue
+        saveContext()
+        NotificationCenter.default.post(name: NSNotification.Name("ModelWasUpdated"), object: nil)
+    }
+    
+    func delete(_ object: NSManagedObject) {
+        context.delete(object)
+        challenges.removeAll { $0 == object }
+        saveContext()
+        NotificationCenter.default.post(name: NSNotification.Name("ModelWasUpdated"), object: nil)
+    }
+    
+    func saveContext() {
         if context.hasChanges {
             do {
                 try context.save()
