@@ -87,6 +87,7 @@ class CoreDataManager {
     func openEnvelope(for challenge: Challenge, at index: Int) {
         challenge.savedSum += challenge.envelopesArray[index].sum.roundedUpTwoDecimals()
         challenge.envelopesArray[index].isOpened = true
+        challenge.lastOpenedDate = Date()
         saveContext()
     }
     

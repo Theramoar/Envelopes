@@ -9,6 +9,7 @@ import SwiftUI
 
 class ChallengeViewModel: ObservableObject {
     private let coreData: CoreDataManager = .shared
+    private let calendar: Calendar = .current
     @Published var challenge: Challenge?
     var currentIndex: Int = 0
     
@@ -23,6 +24,11 @@ class ChallengeViewModel: ObservableObject {
     
     func openEnvelope() {
         guard let challenge = challenge else { return }
+        if let EnvOpenedDate = challenge.lastOpenedDate,
+           calendar.isDateInToday(EnvOpenedDate) {
+            print("Today Envelope is Already Opened")
+            return
+        }
         coreData.openEnvelope(for: challenge, at: currentIndex)
     }
     
