@@ -29,28 +29,24 @@ class NotificationManager {
         
         let calendar = Calendar.current
         
-        // show this notification five seconds from now
         var triggerDate = DateComponents()
         
         triggerDate.hour = calendar.component(.hour, from: time)
         triggerDate.minute = calendar.component(.minute, from: time)
         let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: true)
 
-        // choose a random identifier
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
         
-        // add our notification request
         clearNotificationCenter()
         
         notificationCenter.add(request)
-        notificationCenter.getPendingNotificationRequests { requests in
-            print("MISHA Notification - \(requests)")
-        }
+        print("Request Added to Notification Center")
     }
     
     
-    private static func clearNotificationCenter() {
+    static func clearNotificationCenter() {
         notificationCenter.removeAllPendingNotificationRequests()
         notificationCenter.removeAllDeliveredNotifications()
+        print("Notification Center cleared")
     }
 }

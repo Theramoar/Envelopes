@@ -65,8 +65,9 @@ class CreateChallengeViewModel: ObservableObject {
         let totalActualSum = Float(days) + (Float(totalIncrease) * step)
         let correction = totalSum - totalActualSum
         
-        coreData.saveChallenge(goal: goalString, days: days, totalSum: totalSum, step: step, correction: correction, currentColor: currentColor, notificationTime: notificationTime)
-            NotificationManager.setDailyNotificationTime(for: notificationTime)
+        coreData.saveChallenge(goal: goalString, days: days, totalSum: totalSum, step: step, correction: correction, currentColor: currentColor, isReminderSet: notificationsEnabled, notificationTime: notificationTime)
+        
+        NotificationManager.setDailyNotificationTime(for: notificationTime)
         print(totalSum)
         print(totalActualSum)
         print(correction)
@@ -88,43 +89,4 @@ class CreateChallengeViewModel: ObservableObject {
             currentColor = accentColor
         }
     }
-    
-//    func requestNotificationAuthorization(completion: @escaping (Bool) -> Void ) {
-//        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
-//            UserSettings.shared.remindersEnabled = success
-//            completion(success)
-//            if let error = error {
-//                print("MISHA - \(error.localizedDescription)")
-//            }
-//        }
-//    }
-//
-//    func setDailyNotificationTime(for time: Date) {
-//
-//        let content = UNMutableNotificationContent()
-//        content.title = "TEST NOTIFICATION"
-//        content.subtitle = "Let's test repeating notification"
-//        content.sound = UNNotificationSound.default
-//
-//        print(time)
-//        let calendar = Calendar.current
-//
-//        // show this notification five seconds from now
-//        var triggerDate = DateComponents()
-//
-//        triggerDate.hour = calendar.component(.hour, from: time)
-//        triggerDate.minute = calendar.component(.minute, from: time)
-//        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: true)
-//
-//        // choose a random identifier
-//        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-//
-//        // add our notification request
-//        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-//        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
-//        UNUserNotificationCenter.current().add(request)
-//        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
-//            print("MISHA Notification - \(requests)")
-//        }
-//    }
 }

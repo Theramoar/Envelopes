@@ -7,24 +7,23 @@
 
 import SwiftUI
 
-struct EnvelopeAlertView: View {
+enum AlertType {
+    case actionAlert(message: String, cancelAction: () -> Void, successAction: () -> Void)
+    case infoAlert(String)
+}
+
+struct AlertView: View {
     @State var alertType: AlertType
     let appColor: Color
+    
     var alertMessage: String {
         switch alertType {
-        case .envelopeAlreadyOpened (let envSum):
-            return "This one has been opened\n\nThere was $\(envSum)"
-        case .envelopeUnavailable:
-            return "Be patient!\n\nThe time will come for this one"
-        case .shouldOpenEnvelope (let envSum):
-            return "Let's save\n$\(envSum)" + "!\n\nAre you ready?"
-        case .envelopeResult (let envSum):
-            return "Great!\n\nYou've saved $\(envSum)"
+        case .actionAlert(let message, _ , _):
+            return message
+        case .infoAlert(let message):
+            return message
         }
     }
-     
-    var cancelAction: () -> Void?
-    var successAction: () -> Void?
     
     var body: some View {
         ZStack {
@@ -37,7 +36,8 @@ struct EnvelopeAlertView: View {
                     .multilineTextAlignment(.center)
                     .padding()
                 switch alertType {
-                case .shouldOpenEnvelope(let envSum):
+                case .actionAlert(_, let cancelAction, let successAction):
+                    EmptyView()
                     HStack {
                         Button {
                             cancelAction()
@@ -53,7 +53,7 @@ struct EnvelopeAlertView: View {
                         }
                         Button {
                             successAction()
-                            alertType = .envelopeResult(envSum)
+//                            alertType = .infoAlert("Well done!\n\nYou are one step closer!")
                             
                         } label: {
                             Text("Let's do it!")
@@ -66,7 +66,8 @@ struct EnvelopeAlertView: View {
                                 .padding()
                         }
                     }
-                default: EmptyView()
+                case .infoAlert(_):
+                    EmptyView()
                 }
             }
         }
