@@ -24,6 +24,7 @@
 		BB1E15C226A963CF002CF495 /* TipJarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E15C126A963CF002CF495 /* TipJarView.swift */; };
 		BB1E15C426A97730002CF495 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E15C326A9772F002CF495 /* UserSettings.swift */; };
 		BB1E15C626AAE941002CF495 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E15C526AAE940002CF495 /* NotificationManager.swift */; };
+		BBAC1E5E26B00B67002691CC /* TimePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBAC1E5D26B00B67002691CC /* TimePickerView.swift */; };
 		D25A2B6726710195003BBFFA /* EnvelopesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25A2B6626710195003BBFFA /* EnvelopesApp.swift */; };
 		D25A2B6926710196003BBFFA /* ChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25A2B6826710196003BBFFA /* ChallengeView.swift */; };
 		D25A2B6B2671019B003BBFFA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D25A2B6A2671019B003BBFFA /* Assets.xcassets */; };
@@ -54,6 +55,7 @@
 		BB1E15C126A963CF002CF495 /* TipJarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipJarView.swift; sourceTree = "<group>"; };
 		BB1E15C326A9772F002CF495 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		BB1E15C526AAE940002CF495 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		BBAC1E5D26B00B67002691CC /* TimePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerView.swift; sourceTree = "<group>"; };
 		D25A2B6326710195003BBFFA /* Envelopes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Envelopes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D25A2B6626710195003BBFFA /* EnvelopesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvelopesApp.swift; sourceTree = "<group>"; };
 		D25A2B6826710196003BBFFA /* ChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeView.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				D2FEF00626976AC70075E397 /* SettingsView.swift */,
+				BBAC1E5D26B00B67002691CC /* TimePickerView.swift */,
 				BB1E15BC26A856A0002CF495 /* SettingsViewModel.swift */,
 				BB1E15A826A56D0E002CF495 /* AppColorView.swift */,
 				BB1E15A426A07897002CF495 /* AboutDevView.swift */,
@@ -260,6 +263,7 @@
 				D2A3BE4B267629520058339B /* HideKeyboard Ext.swift in Sources */,
 				D25A2B7B2674FF99003BBFFA /* ProgressStackView.swift in Sources */,
 				BB1E15A926A56D0E002CF495 /* AppColorView.swift in Sources */,
+				BBAC1E5E26B00B67002691CC /* TimePickerView.swift in Sources */,
 				BB1E15AB26A57D64002CF495 /* CoreDataManager.swift in Sources */,
 				BB1E15C626AAE941002CF495 /* NotificationManager.swift in Sources */,
 				D25A2B732671019B003BBFFA /* Envelopes.xcdatamodeld in Sources */,

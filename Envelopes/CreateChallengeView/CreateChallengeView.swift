@@ -43,18 +43,7 @@ struct CreateChallengeView: View {
                             }
                         }
                     }
-                    VStack(alignment: .leading) {
-                        Text("Accent Color:")
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: 20) {
-                                ForEach(AppColorWrapper.appColors, id: \.self) { color in
-                                    AppColorView(accentColor: color,
-                                                 currentColor: viewModel.currentColor == color,
-                                                 tapAction: viewModel.saveCurrentColor)
-                                }
-                            }
-                        }
-                    }
+                    ColorPickerView(currentColor: viewModel.currentColor, tapAction: viewModel.saveCurrentColor)
                 }
                 Section(footer:
                             Button {

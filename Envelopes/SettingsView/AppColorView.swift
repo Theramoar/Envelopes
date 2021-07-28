@@ -25,7 +25,6 @@ enum AppColor: String, CaseIterable {
 struct AppColorView: View {
     let accentColor: AppColor
     let currentColor: Bool
-    
     var tapAction: (AppColor) -> Void
     
     var body: some View {
@@ -42,3 +41,28 @@ struct AppColorView: View {
         }
     }
 }
+
+
+struct ColorPickerView: View {
+    var currentColor: AppColor
+    var tapAction: (AppColor) -> Void
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text("Accent Color:")
+                .fontWeight(.medium)
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 20) {
+                    ForEach(AppColorWrapper.appColors, id: \.self) { color in
+                        AppColorView(accentColor: color,
+                                     currentColor: currentColor == color,
+                                     tapAction: tapAction)
+                    }
+                }
+            }
+        }
+        .padding(.vertical)
+    }
+}
+
+

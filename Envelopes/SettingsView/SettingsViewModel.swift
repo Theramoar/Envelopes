@@ -12,7 +12,6 @@ class SettingsViewModel: ObservableObject {
     private let coreData: CoreDataManager = .shared
     
     @Published var challenges: [Challenge] = []
-    @Published var notificationTime: Date
     @Published var notificationsEnabled: Bool
     @Published var navigateToCreateView = false
     @Published var navigateToMailView = false
@@ -20,6 +19,7 @@ class SettingsViewModel: ObservableObject {
     @Published var alertPresented = false
     @Published var currentAlertType: AlertType!
     @Published var mailResult: Result<MFMailComposeResult, Error>? = nil
+    
     
     
     var activeChallenge: Challenge? {
@@ -35,16 +35,18 @@ class SettingsViewModel: ObservableObject {
     
     init() {
         self.challenges = coreData.challenges
-        notificationTime = coreData.activeChallenge?.reminderTime ?? SettingsViewModel.defaultTime
         notificationsEnabled = coreData.activeChallenge?.isReminderSet ?? false
-        
         NotificationCenter.default.addObserver(self, selector: #selector(updateModel), name: NSNotification.Name("ModelWasUpdated"), object: nil)
     }
     
     @objc func updateModel() {
         challenges = coreData.challenges
-        notificationTime = activeChallenge?.reminderTime ?? SettingsViewModel.defaultTime
         notificationsEnabled = activeChallenge?.isReminderSet ?? false
+        if notificationsEnabled {
+            NotificationManager.setDailyNotificationTime(for: activeChallenge?.reminderTime ?? SettingsViewModel.defaultTime)
+        } else {
+            NotificationManager.clearNotificationCenter()
+        }
     }
     
     func setActiveChallenge(atIndex index: Int) {
@@ -65,5 +67,19 @@ class SettingsViewModel: ObservableObject {
             coreData.delete(challenge)
         }
         
+    }
+    
+    func deleteActiveChallenge() {
+        if let challenge = activeChallenge {
+            coreData.delete(challenge)
+            if !challenges.isEmpty {
+                setActiveChallenge(atIndex: 0)
+            }
+        }
+    }
+    
+    
+    func viewModelForTimePicker() -> TimePickerViewModel {
+        TimePickerViewModel(activeChallenge: activeChallenge)
     }
 }

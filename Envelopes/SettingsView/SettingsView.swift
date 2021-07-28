@@ -7,66 +7,58 @@
 
 import SwiftUI
 
+import Combine
 
 struct SettingsView: View {
     @StateObject var viewModel = SettingsViewModel()
-
+    @State var keyboardAppeared = false
+    
     var body: some View {
         ZStack {
             NavigationView {
                 Form {
                     if let challenge = viewModel.activeChallenge {
-                        Section(header: Text("Active challenge")) {
-                            Text(challenge.goal!)
-                            Group {
-                                Toggle(isOn: $viewModel.notificationsEnabled.animation()) {
-                                    Text("Allow daily notifications")
-                                }
-                                .toggleStyle(SwitchToggleStyle(tint: Color(hex: challenge.accentColor.rawValue)))
-                                .onChange(of: viewModel.notificationsEnabled, perform: { enabled in
-                                    if enabled {
-                                        if UserSettings.shared.remindersEnabled {
-                                            viewModel.activeChallenge?.isReminderSet = viewModel.notificationsEnabled
-                                            viewModel.updateChallengeInContainer()
-                                        } else {
-                                            NotificationManager.requestNotificationAuthorization { success in
-                                                //Wait for 0.5 seconds to finish the animation
-                                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                                    viewModel.notificationsEnabled = success
-                                                }
-                                            }
-                                        }
-                                    }
-                                })
-                                if viewModel.notificationsEnabled {
+                        Section(
+                            header:
+                                VStack(alignment: .leading) {
+                                    Text("Active challenge")
                                     HStack {
-                                        Text("Notification time")
-                                        DatePicker("Notification time", selection: $viewModel.notificationTime, displayedComponents: .hourAndMinute)
-                                            .datePickerStyle(GraphicalDatePickerStyle())
-                                            .onChange(of: viewModel.notificationTime, perform: { value in
-                                                print("notificationTime WAS SET!!!")
-                                                viewModel.activeChallenge?.reminderTime = viewModel.notificationTime
-                                                viewModel.updateChallengeInContainer()
-                                                NotificationManager.setDailyNotificationTime(for: viewModel.notificationTime)
-                                            })
-                                    }
-                                }
-                            }
-                            
-                            VStack(alignment: .leading) {
-                                Text("Accent Color:")
-                                ScrollView(.horizontal, showsIndicators: false) {
-                                    HStack(spacing: 20) {
-                                        ForEach(AppColorWrapper.appColors, id: \.self) { color in
-                                            AppColorView(accentColor: color,
-                                                         currentColor: challenge.accentColor == color,
-                                                         tapAction: viewModel.saveCurrentColor)
+                                        Text(challenge.goal!.uppercased())
+                                            .font(.system(size: 15, weight: .bold))
+                                        Spacer()
+                                        VStack(alignment: .trailing) {
+                                            let totalSum = "$" + String(challenge.totalSum.roundedUpTwoDecimals())
+                                            Text(totalSum)
+                                                .font(.system(size: 15, weight: .medium))
+                                            Text(" for \(challenge.days) days")
+                                                .font(.system(size: 10, weight: .medium))
                                         }
                                     }
+                                    .padding(.horizontal)
+                                    .padding(.vertical, 10)
+                                },
+                            
+                            footer:
+                                HStack {
+                                    Spacer()
+                                    Button("Delete challenge", action: {
+                                        presentAlert(type: .actionAlert(message: "Do you want to delete this challenge?", cancelAction: cancelAlert,
+                                                                        successAction: {
+                                                                            viewModel.deleteActiveChallenge()
+                                                                            cancelAlert()
+                                                                        }))
+                                    })
+                                    .font(.system(size: 15, weight: .medium))
+                                    .foregroundColor(.red)
+                                    .padding()
+                                    Spacer()
                                 }
-                            }
+                        ) {
+                            TimePickerView(viewModel: viewModel.viewModelForTimePicker())
+                            ColorPickerView(currentColor: challenge.accentColor, tapAction: viewModel.saveCurrentColor)
                         }
                     }
+                    
                     Section(header: Text("Your challenges"), footer:
                                 NavigationLink(
                                     destination: CreateChallengeView(viewModel: CreateChallengeViewModel())) {
@@ -74,10 +66,7 @@ struct SettingsView: View {
                                         Spacer()
                                         Text("Create new challenge")
                                             .font(.system(size: 15, weight: .medium))
-                                            .foregroundColor(Color.white)
-                                            .frame(width: 300, height: 45, alignment: .center)
-                                            .background(Color(hex: viewModel.activeChallenge?.accentColor.rawValue ?? AppColor.blue.rawValue))
-                                            .cornerRadius(15)
+                                            .foregroundColor(Color.blue)
                                             .padding()
                                         Spacer()
                                     }
@@ -96,14 +85,14 @@ struct SettingsView: View {
                             }
                             .contentShape(Rectangle())
                             .onTapGesture {
-                                #warning("Create Generic for Alert reuse")
-//                                presentAlert(type: .envelopeUnavailable)
-                                viewModel.setActiveChallenge(atIndex: index)
+                                presentAlert(type: .actionAlert(message: "Set this challenge as active?",
+                                                                cancelAction: cancelAlert,
+                                                                successAction: {
+                                                                    viewModel.setActiveChallenge(atIndex: index)
+                                                                    cancelAlert()
+                                                                }))
                             }
                         }
-                        .onDelete(perform: { indexSet in
-                            viewModel.deleteChallengesAt(indexSet: indexSet)
-                        })
                     }
                     Section(header: Text("About the developer")) {
                         HStack {
@@ -157,12 +146,11 @@ struct SettingsView: View {
             .accentColor(Color(hex: viewModel.activeChallenge?.accentColor.rawValue ?? AppColor.blue.rawValue))
             if viewModel.alertPresented {
                 let color = Color(hex: viewModel.activeChallenge?.accentColor.rawValue ?? AppColor.blue.rawValue)
-                EnvelopeAlertView(alertType: viewModel.currentAlertType, appColor: color, cancelAction: cancelAlert, successAction: {})
+                AlertView(alertType: viewModel.currentAlertType, appColor: color)
                     .onTapGesture(perform: cancelAlert)
             }
         }
     }
-    
     func cancelAlert() {
         withAnimation{
             viewModel.alertPresented = false

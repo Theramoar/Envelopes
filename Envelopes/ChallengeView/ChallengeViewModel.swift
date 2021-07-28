@@ -24,8 +24,8 @@ class ChallengeViewModel: ObservableObject {
     
     func openEnvelope() {
         guard let challenge = challenge else { return }
-        if let EnvOpenedDate = challenge.lastOpenedDate,
-           calendar.isDateInToday(EnvOpenedDate) {
+        if let envOpenedDate = challenge.lastOpenedDate,
+           calendar.isDateInToday(envOpenedDate) {
             print("Today Envelope is Already Opened")
             return
         }

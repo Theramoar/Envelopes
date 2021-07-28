@@ -48,7 +48,7 @@ class CoreDataManager {
         return data
     }
     
-    func saveChallenge(goal: String, days: Int, totalSum: Float, step: Float,correction: Float, currentColor: AppColor, notificationTime: Date) {
+    func saveChallenge(goal: String, days: Int, totalSum: Float, step: Float,correction: Float, currentColor: AppColor, isReminderSet: Bool, notificationTime: Date) {
         guard let entity = NSEntityDescription.entity(forEntityName: "Challenge", in: context) else { return }
         let newChallenge = NSManagedObject(entity: entity, insertInto: context) as! Challenge
 
@@ -59,6 +59,7 @@ class CoreDataManager {
         newChallenge.step = step
         newChallenge.correction = correction
         newChallenge.colorString = currentColor.rawValue
+        newChallenge.isReminderSet = isReminderSet
         newChallenge.reminderTime = notificationTime
         
         challenges.forEach {$0.isActive = false}
@@ -95,6 +96,18 @@ class CoreDataManager {
     func setActiveChallenge(atIndex index: Int) {
         challenges.forEach { $0.isActive = false }
         challenges[index].isActive = true
+        saveContext()
+        NotificationCenter.default.post(name: NSNotification.Name("ModelWasUpdated"), object: nil)
+    }
+    
+    func setNewTime(_ newTime: Date) {
+        activeChallenge?.reminderTime = newTime
+        saveContext()
+        NotificationCenter.default.post(name: NSNotification.Name("ModelWasUpdated"), object: nil)
+    }
+    
+    func setNotificationEnable(_ notificationEnabled: Bool) {
+        activeChallenge?.isReminderSet = notificationEnabled
         saveContext()
         NotificationCenter.default.post(name: NSNotification.Name("ModelWasUpdated"), object: nil)
     }

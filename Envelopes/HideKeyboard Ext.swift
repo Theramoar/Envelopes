@@ -15,3 +15,20 @@ extension View {
     }
 }
 #endif
+
+
+import Combine
+
+//extension Publishers {
+//    // 1.
+//    static var keyboardAppeared: AnyPublisher<Bool, Never> {
+//        // 2.
+//        let willShow = NotificationCenter.default.publisher(for: UIApplication.keyboardWillShowNotification)
+//        return willShow
+////        let willHide = NotificationCenter.default.publisher(for: UIApplication.keyboardWillHideNotification)
+//        
+////        // 3.
+////        return MergeMany(willShow, willHide)
+////            .eraseToAnyPublisher()
+//    }
+//}
