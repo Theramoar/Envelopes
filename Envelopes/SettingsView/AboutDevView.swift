@@ -26,6 +26,7 @@ struct AboutDevView: View {
                         .frame(width: 25, height: 25, alignment: .center)
                     Link("Find me on Twitter", destination: URL(string:"https://twitter.com/theramoar")!)
                         .foregroundColor(.primary)
+                        .font(.system(size: 14, weight: .medium))
                 }
                 HStack {
                     Image("instagram")
@@ -34,6 +35,7 @@ struct AboutDevView: View {
                         .font(.system(size: 20, weight: .thin))
                     Link("Find me on Instagram", destination: URL(string:"https://www.instagram.com/misha.kuzz")!)
                         .foregroundColor(.primary)
+                        .font(.system(size: 14, weight: .medium))
                 }
                 }
             }

@@ -153,7 +153,9 @@ struct ChallengeView: View {
         viewModel.simpleSuccess(.success)
         let message = "Let's save\n$\(rounded)" + "!\n\nAre you ready?"
         presentAlert(type: .actionAlert(message: message,
+                                        cancelTitle: "Later",
                                         cancelAction: cancelAlert,
+                                        successTitle: "Let's do it!",
                                         successAction: {
                                             viewModel.openEnvelope()
                                             cancelAlert()

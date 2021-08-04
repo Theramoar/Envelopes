@@ -42,7 +42,10 @@ struct SettingsView: View {
                                 HStack {
                                     Spacer()
                                     Button("Delete challenge", action: {
-                                        presentAlert(type: .actionAlert(message: "Do you want to delete this challenge?", cancelAction: cancelAlert,
+                                        presentAlert(type: .actionAlert(message: "Do you want to delete this challenge?",
+                                                                        cancelTitle: "Cancel",
+                                                                        cancelAction: cancelAlert,
+                                                                        successTitle: "Delete",
                                                                         successAction: {
                                                                             viewModel.deleteActiveChallenge()
                                                                             cancelAlert()
@@ -76,6 +79,7 @@ struct SettingsView: View {
                         ForEach(viewModel.challenges.indices, id: \.self) { index in
                             HStack {
                                 Text(viewModel.challenges[index].goal!)
+                                    .fontWeight(.medium)
                                 Spacer()
                                 if viewModel.challenges[index].isActive {
                                     Text("ACTIVE")
@@ -85,8 +89,11 @@ struct SettingsView: View {
                             }
                             .contentShape(Rectangle())
                             .onTapGesture {
+                                guard viewModel.activeChallenge != viewModel.challenges[index] else { return }
                                 presentAlert(type: .actionAlert(message: "Set this challenge as active?",
+                                                                cancelTitle: "Cancel",
                                                                 cancelAction: cancelAlert,
+                                                                successTitle: "Set active",
                                                                 successAction: {
                                                                     viewModel.setActiveChallenge(atIndex: index)
                                                                     cancelAlert()
@@ -101,6 +108,7 @@ struct SettingsView: View {
                                 .frame(width: 25, height: 25, alignment: .center)
                                 .font(.system(size: 20, weight: .thin))
                             Text("Leave your feedback")
+                                .fontWeight(.medium)
                             
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -108,30 +116,45 @@ struct SettingsView: View {
                         .onTapGesture {
                             viewModel.navigateToMailView = true
                         }
+                        
                         HStack {
                             Image(systemName: "person")
                                 .resizable()
                                 .frame(width: 25, height: 25, alignment: .center)
                                 .font(.system(size: 20, weight: .thin))
-                            NavigationLink("About the Developer", destination: AboutDevView(), isActive: $viewModel.navigateToCreateView)
+                            NavigationLink(
+                                destination: AboutDevView(),
+                                isActive: $viewModel.navigateToCreateView,
+                                label: {
+                                    Text("About the Developer")
+                                        .fontWeight(.medium)
+                                })
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .contentShape(Rectangle())
                         .onTapGesture {
                             viewModel.navigateToCreateView = true
                         }
+                        
                         HStack {
                             Image(systemName: "dollarsign.circle")
                                 .resizable()
                                 .frame(width: 25, height: 25, alignment: .center)
                                 .font(.system(size: 20, weight: .thin))
-                            NavigationLink("Tip Jar", destination: TipJarView(), isActive: $viewModel.navigateToTipJarView)
+                            NavigationLink(
+                                destination: TipJarView(),
+                                isActive: $viewModel.navigateToTipJarView,
+                                label: {
+                                    Text("Tip Jar")
+                                        .fontWeight(.medium)
+                                })
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .contentShape(Rectangle())
                         .onTapGesture {
                             viewModel.navigateToTipJarView = true
                         }
+                        
                     }
                 }
                 .navigationTitle("Settings")

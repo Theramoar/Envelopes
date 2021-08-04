@@ -24,7 +24,7 @@ class NotificationManager {
         
         let content = UNMutableNotificationContent()
         content.title = "It's time to open the Envelope!"
-        content.subtitle = "Let's open the Envelope and save some money."
+//        content.subtitle = "Let's open the Envelope and save some money."
         content.sound = UNNotificationSound.default
         
         let calendar = Calendar.current

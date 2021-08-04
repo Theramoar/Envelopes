@@ -7,29 +7,68 @@
 
 import SwiftUI
 
+
 struct TipJarView: View {
-    let gratitudeString = "The app is completely free! But if you like, you can leave a tip. I greatly appreciate your support and try to make this app better!"
-    
+    @StateObject var viewModel = TipJarViewModel()
+
     var body: some View {
-        Form {
-            Section(footer: Text(gratitudeString).padding()) {
-                HStack {
-                    Text("Small Tip")
-                    Spacer()
-                    Text("$1,09")
-                }
-                HStack {
-                    Text("Medium Tip")
-                    Spacer()
-                    Text("$4,09")
-                }
-                HStack {
-                    Text("Small Tip")
-                    Spacer()
-                    Text("$7,09")
+            Form {
+                Section(footer: Text(viewModel.gratitudeString).padding()) {
+                    Button(action: {IAPManager.shared.purchase(productWith: IAPProducts.smallTip.rawValue)}, label: {
+                        HStack {
+                            Text("🤑 Great Tip")
+                                .fontWeight(.medium)
+                            Spacer()
+                            Text(viewModel.smallTipPrice)
+                                .fontWeight(.medium)
+                        }
+                        .foregroundColor(.black)
+                    })
+                    Button(action: {IAPManager.shared.purchase(productWith: IAPProducts.mediumTip.rawValue)}, label: {
+                        HStack {
+                            Text("😱 Amazing Tip")
+                                .fontWeight(.medium)
+                            Spacer()
+                            Text(viewModel.mediumTipPrice)
+                                .fontWeight(.medium)
+                        }
+                        .foregroundColor(.black)
+                    })
+                    Button(action: {
+                        IAPManager.shared.purchase(productWith: IAPProducts.largeTip.rawValue)
+                    }, label: {
+                        HStack {
+                            Text("🤯 Generous Tip")
+                                .fontWeight(.medium)
+                            Spacer()
+                            Text(viewModel.largeTipPrice)
+                                .fontWeight(.medium)
+                        }
+                        .foregroundColor(.black)
+                    })
                 }
             }
-        }
-        .navigationTitle("Tip Jar")
+            .navigationTitle("Tip Jar")
+    }
+}
+
+class TipJarViewModel: ObservableObject {
+    
+    let gratitudeString = "The app is completely free! But if you like, you can leave a tip. I greatly appreciate your support and try to make this app better!"
+    @Published var smallTipPrice = IAPManager.shared.priceStringForProduct(withIdentifier: IAPProducts.smallTip.rawValue)
+    @Published var mediumTipPrice = IAPManager.shared.priceStringForProduct(withIdentifier: IAPProducts.mediumTip.rawValue)
+    @Published var largeTipPrice = IAPManager.shared.priceStringForProduct(withIdentifier: IAPProducts.largeTip.rawValue)
+    
+    @Published var gratitudePresented = false
+    
+    init() {
+        NotificationCenter.default.addObserver(self, selector: #selector(completeTransaction), name: NSNotification.Name(IAPProducts.smallTip.rawValue), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(completeTransaction), name: NSNotification.Name(IAPProducts.mediumTip.rawValue), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(completeTransaction), name: NSNotification.Name(IAPProducts.largeTip.rawValue), object: nil)
+    }
+    
+    @objc func completeTransaction() {
+        print("Transaction completed")
+        NotificationCenter.default.post(name: NSNotification.Name("AlertShouldBePresented"), object: nil)
     }
 }

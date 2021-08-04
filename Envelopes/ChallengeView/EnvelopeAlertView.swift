@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum AlertType {
-    case actionAlert(message: String, cancelAction: () -> Void, successAction: () -> Void)
+    case actionAlert(message: String, cancelTitle: String, cancelAction: () -> Void, successTitle: String, successAction: () -> Void)
     case infoAlert(String)
 }
 
@@ -18,7 +18,7 @@ struct AlertView: View {
     
     var alertMessage: String {
         switch alertType {
-        case .actionAlert(let message, _ , _):
+        case .actionAlert(let message, _ , _ , _ , _):
             return message
         case .infoAlert(let message):
             return message
@@ -32,36 +32,34 @@ struct AlertView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             VStack {
                 Text(alertMessage)
-                    .font(.system(size: 60, weight: .heavy, design: .rounded))
+                    .font(.system(size: 45, weight: .heavy, design: .default))
                     .multilineTextAlignment(.center)
                     .padding()
                 switch alertType {
-                case .actionAlert(_, let cancelAction, let successAction):
+                case .actionAlert(_, let cancelTitle, let cancelAction, let successTitle, let successAction):
                     EmptyView()
                     HStack {
                         Button {
                             cancelAction()
                         } label: {
-                            Text("Later")
+                            Text(cancelTitle)
                                 .foregroundColor(Color.white)
                                 .frame(width: 100, height: 50, alignment: .center)
                                 .background(appColor)
                                 .cornerRadius(30)
-                                .font(.system(size: 15, weight: .bold, design: .rounded))
+                                .font(.system(size: 15, weight: .bold, design: .default))
                                 .shadow(radius: 5, x: 2, y: 2)
                                 .padding()
                         }
                         Button {
                             successAction()
-//                            alertType = .infoAlert("Well done!\n\nYou are one step closer!")
-                            
                         } label: {
-                            Text("Let's do it!")
+                            Text(successTitle)
                                 .foregroundColor(Color.white)
                                 .frame(width: 100, height: 50, alignment: .center)
                                 .background(appColor)
                                 .cornerRadius(30)
-                                .font(.system(size: 15, weight: .bold, design: .rounded))
+                                .font(.system(size: 15, weight: .bold, design: .default))
                                 .shadow(radius: 5, x: 2, y: 2)
                                 .padding()
                         }

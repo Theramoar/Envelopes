@@ -14,13 +14,12 @@ struct AppColorWrapper: Identifiable {
 
 enum AppColor: String, CaseIterable {
     case blue = "4191F4"
-    case red = "FF3B30"
-    case yellow = "FFCC00"
-    case green = "34C759"
+    case red = "9d0208"
+    case yellow = "e4b507"
+    case green = "52b788"
     case indigo = "453CCC"
-//    case purple = "7248EF"
     case orange = "FF9500"
-    case pink = "E17983"
+    case pink = "f497ca"
 }
 
 struct AppColorView: View {

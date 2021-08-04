@@ -25,7 +25,6 @@ struct EnvelopesApp: App {
     var body: some Scene {
         WindowGroup {
             ChallengeView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
     
@@ -35,9 +34,20 @@ struct EnvelopesApp: App {
         if isFirstLaunch {
             setInitialSettings()
         }
+        
+        configPayments()
     }
     
     private func setInitialSettings() {
         NotificationManager.requestNotificationAuthorization()
+    }
+    
+    private func configPayments() {
+        IAPManager.shared.setupPurchases { successful in
+            if successful {
+                print("Can make payments")
+                IAPManager.shared.getProducts()
+            }
+        }
     }
 }

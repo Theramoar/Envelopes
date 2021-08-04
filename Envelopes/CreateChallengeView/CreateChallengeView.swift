@@ -21,6 +21,7 @@ struct CreateChallengeView: View {
                     Group {
                         Toggle(isOn: $viewModel.notificationsEnabled.animation()) {
                             Text("Allow daily notifications")
+                                .fontWeight(.medium)
                         }
                         .toggleStyle(SwitchToggleStyle(tint: Color(hex: viewModel.currentColor.rawValue)))
                         .onChange(of: viewModel.notificationsEnabled, perform: { enabled in
@@ -38,6 +39,7 @@ struct CreateChallengeView: View {
                         if viewModel.notificationsEnabled {
                             HStack {
                                 Text("Notification time")
+                                    .fontWeight(.medium)
                                 DatePicker("Notification time", selection: $viewModel.notificationTime, displayedComponents: .hourAndMinute)
                                     .datePickerStyle(GraphicalDatePickerStyle())
                             }
@@ -68,6 +70,7 @@ struct CreateChallengeView: View {
                         .keyboardType(.numberPad)
                     Toggle(isOn: $viewModel.deadlineEnabled.animation()) {
                         Text("Set challenge deadline")
+                            .fontWeight(.medium)
                     }
                     .toggleStyle(SwitchToggleStyle(tint: Color(hex: viewModel.currentColor.rawValue)))
                     

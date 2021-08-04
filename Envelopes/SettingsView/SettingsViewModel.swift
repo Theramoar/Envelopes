@@ -7,6 +7,7 @@
 
 import Foundation
 import MessageUI
+import SwiftUI
 
 class SettingsViewModel: ObservableObject {
     private let coreData: CoreDataManager = .shared
@@ -37,6 +38,7 @@ class SettingsViewModel: ObservableObject {
         self.challenges = coreData.challenges
         notificationsEnabled = coreData.activeChallenge?.isReminderSet ?? false
         NotificationCenter.default.addObserver(self, selector: #selector(updateModel), name: NSNotification.Name("ModelWasUpdated"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(presentAlert), name: NSNotification.Name("AlertShouldBePresented"), object: nil)
     }
     
     @objc func updateModel() {
@@ -46,6 +48,13 @@ class SettingsViewModel: ObservableObject {
             NotificationManager.setDailyNotificationTime(for: activeChallenge?.reminderTime ?? SettingsViewModel.defaultTime)
         } else {
             NotificationManager.clearNotificationCenter()
+        }
+    }
+    
+    @objc func presentAlert() {
+        currentAlertType = .infoAlert("Thank you!\n\nYour support is very important!")
+        withAnimation {
+            alertPresented = true
         }
     }
     

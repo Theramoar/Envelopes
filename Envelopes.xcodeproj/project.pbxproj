@@ -25,6 +25,8 @@
 		BB1E15C426A97730002CF495 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E15C326A9772F002CF495 /* UserSettings.swift */; };
 		BB1E15C626AAE941002CF495 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E15C526AAE940002CF495 /* NotificationManager.swift */; };
 		BBAC1E5E26B00B67002691CC /* TimePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBAC1E5D26B00B67002691CC /* TimePickerView.swift */; };
+		BBAC1E6326B9654E002691CC /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBAC1E6226B9654D002691CC /* StoreKit.framework */; };
+		BBAC1E6526B96B0D002691CC /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBAC1E6426B96B0D002691CC /* IAPManager.swift */; };
 		D25A2B6726710195003BBFFA /* EnvelopesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25A2B6626710195003BBFFA /* EnvelopesApp.swift */; };
 		D25A2B6926710196003BBFFA /* ChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25A2B6826710196003BBFFA /* ChallengeView.swift */; };
 		D25A2B6B2671019B003BBFFA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D25A2B6A2671019B003BBFFA /* Assets.xcassets */; };
@@ -56,6 +58,8 @@
 		BB1E15C326A9772F002CF495 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		BB1E15C526AAE940002CF495 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		BBAC1E5D26B00B67002691CC /* TimePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerView.swift; sourceTree = "<group>"; };
+		BBAC1E6226B9654D002691CC /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		BBAC1E6426B96B0D002691CC /* IAPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
 		D25A2B6326710195003BBFFA /* Envelopes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Envelopes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D25A2B6626710195003BBFFA /* EnvelopesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvelopesApp.swift; sourceTree = "<group>"; };
 		D25A2B6826710196003BBFFA /* ChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeView.swift; sourceTree = "<group>"; };
@@ -75,6 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBAC1E6326B9654E002691CC /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -129,11 +134,20 @@
 			path = SettingsView;
 			sourceTree = "<group>";
 		};
+		BBAC1E6126B9654D002691CC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BBAC1E6226B9654D002691CC /* StoreKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D25A2B5A26710195003BBFFA = {
 			isa = PBXGroup;
 			children = (
 				D25A2B6526710195003BBFFA /* Envelopes */,
 				D25A2B6426710195003BBFFA /* Products */,
+				BBAC1E6126B9654D002691CC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -156,6 +170,7 @@
 				BB1E15AE26A58282002CF495 /* CreateChallengeView */,
 				D2A3BE4A267629520058339B /* HideKeyboard Ext.swift */,
 				BB1E15A626A56CD0002CF495 /* HexColor Ext.swift */,
+				BBAC1E6426B96B0D002691CC /* IAPManager.swift */,
 				BB1E15AF26A58A87002CF495 /* RoundedFloat Ext.swift */,
 				D25A2B6A2671019B003BBFFA /* Assets.xcassets */,
 				D25A2B6F2671019B003BBFFA /* Persistence.swift */,
@@ -260,6 +275,7 @@
 				D2A3BE4926761D030058339B /* CreateChallengeView.swift in Sources */,
 				BB1E15A726A56CD0002CF495 /* HexColor Ext.swift in Sources */,
 				BB1E15C026A960F1002CF495 /* MailView.swift in Sources */,
+				BBAC1E6526B96B0D002691CC /* IAPManager.swift in Sources */,
 				D2A3BE4B267629520058339B /* HideKeyboard Ext.swift in Sources */,
 				D25A2B7B2674FF99003BBFFA /* ProgressStackView.swift in Sources */,
 				BB1E15A926A56D0E002CF495 /* AppColorView.swift in Sources */,
@@ -405,7 +421,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = mishak.Envelopes;
+				PRODUCT_BUNDLE_IDENTIFIER = mishak.envelopesapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -427,7 +443,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = mishak.Envelopes;
+				PRODUCT_BUNDLE_IDENTIFIER = mishak.envelopesapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
