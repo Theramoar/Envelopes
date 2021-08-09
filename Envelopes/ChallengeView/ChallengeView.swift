@@ -11,14 +11,13 @@ import CoreData
 //https://www.hackingwithswift.com/books/ios-swiftui/scheduling-local-notifications
 
 struct ChallengeView: View {
-    @StateObject var viewModel = ChallengeViewModel()
+    @StateObject var viewModel: ChallengeViewModel
     
     @State private var alertPresented = false
     @State private var alertMessage = ""
     @State var currentAlertType: AlertType!
     
     @State private var presentMenuView = false
-    
     @State private var presentCreateChallengeView = false
     
     let gridEdgePadding: CGFloat = 10
@@ -36,7 +35,6 @@ struct ChallengeView: View {
                 .edgesIgnoringSafeArea(.all)
             if let challenge = viewModel.challenge {
                 ScrollView(.vertical, showsIndicators: false) {
-                    
                     
                     HStack {
                         Text(challenge.goal!)
@@ -105,6 +103,9 @@ struct ChallengeView: View {
         }
         .sheet(isPresented: $presentCreateChallengeView) {
             CreateChallengeView(viewModel: CreateChallengeViewModel())
+        }
+        .sheet(isPresented: $viewModel.shouldPresentOnboarding) {
+            ParentOnboardingView()
         }
     }
     
@@ -223,5 +224,4 @@ struct SettingsButton: View {
                 .font(.system(size: 20))
         })
     }
-
 }

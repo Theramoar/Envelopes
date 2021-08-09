@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct EnvelopesApp: App {
     let persistenceController = PersistenceController.shared
+    let coreData: CoreDataManager = .shared
     
     private let userDefaults: UserDefaults
     
@@ -21,10 +22,12 @@ struct EnvelopesApp: App {
         }
         return !wasLaunchedBefore
     }
+    
+    var shouldPresentOnboarding: Bool = false
 
     var body: some Scene {
         WindowGroup {
-            ChallengeView()
+            ChallengeView(viewModel: ChallengeViewModel(isFirstLaunch: shouldPresentOnboarding))
         }
     }
     
@@ -32,14 +35,14 @@ struct EnvelopesApp: App {
         userDefaults = .standard
         
         if isFirstLaunch {
-            setInitialSettings()
+            createDefaultChallenge()
+            shouldPresentOnboarding = true
         }
-        
         configPayments()
     }
     
-    private func setInitialSettings() {
-        NotificationManager.requestNotificationAuthorization()
+    private func createDefaultChallenge() {
+        coreData.saveChallenge(goal: "100 Envelopes", days: 100, totalSum: 5050, step: 1, correction: 0, currentColor: AppColor.blue, isReminderSet: false, notificationTime: CreateChallengeViewModel.defaultTime)
     }
     
     private func configPayments() {
