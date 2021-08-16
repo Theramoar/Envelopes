@@ -22,7 +22,7 @@ struct TipJarView: View {
                             Text(viewModel.smallTipPrice)
                                 .fontWeight(.medium)
                         }
-                        .foregroundColor(.black)
+                        .foregroundColor(.primary)
                     })
                     Button(action: {IAPManager.shared.purchase(productWith: IAPProducts.mediumTip.rawValue)}, label: {
                         HStack {
@@ -32,7 +32,7 @@ struct TipJarView: View {
                             Text(viewModel.mediumTipPrice)
                                 .fontWeight(.medium)
                         }
-                        .foregroundColor(.black)
+                        .foregroundColor(.primary)
                     })
                     Button(action: {
                         IAPManager.shared.purchase(productWith: IAPProducts.largeTip.rawValue)
@@ -44,7 +44,7 @@ struct TipJarView: View {
                             Text(viewModel.largeTipPrice)
                                 .fontWeight(.medium)
                         }
-                        .foregroundColor(.black)
+                        .foregroundColor(.primary)
                     })
                 }
             }

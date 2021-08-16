@@ -16,8 +16,9 @@ struct AboutDevView: View {
                     Image("Developer")
                         .resizable()
                         .frame(width: 70, height: 70, alignment: .center)
-                    Text("Hello! My name is Misha.\nI am the iOS developer from Riga.")
+                    Text("Hello! My name is Misha.\nI am iOS developer from Riga. I'm always open to new ideas!\nYou can reach me on social media:")
                 }
+                .padding(.vertical)
                 }
                 Section {
                 HStack {

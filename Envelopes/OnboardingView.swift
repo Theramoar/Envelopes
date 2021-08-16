@@ -92,7 +92,7 @@ struct OnboardingViewOne: View {
                 .frame(width: 300, height: 300, alignment: .center)
                 .padding(.top)
             VStack(alignment: .leading) {
-                Text("Hello!")
+                Text("Hey there!")
                     .padding()
                     .font(.system(size: 30, weight: .bold))
                 Text("Would you like to save extra $5,050?")

@@ -87,7 +87,7 @@ struct ChallengeView: View {
                 VStack {
                     HStack {
                         Spacer()
-                        SettingsButton(tapAction: { presentMenuView = true }, backgroundColor: Color.blue)
+                        SettingsButton(tapAction: { presentMenuView = true }, backgroundColor: Color(hex: AppColor.blue.rawValue))
                     }
                     Spacer()
                 }
@@ -201,9 +201,11 @@ struct NoChallengesView: View {
             Text("You don't have any active challenges")
                 .font(.system(size: 20, weight: .medium))
                 .padding()
-            Button("Create new challenge") {
-                tapAction()
-            }
+            Button(action: tapAction, label: {
+                Text("Create new challenge")
+                    .foregroundColor(Color(hex: AppColor.blue.rawValue))
+                
+            })
             .font(.system(size: 20, weight: .medium))
         }
     }
