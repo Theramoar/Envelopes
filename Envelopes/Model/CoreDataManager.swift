@@ -48,7 +48,7 @@ class CoreDataManager {
         return data
     }
     
-    func saveChallenge(goal: String, days: Int, totalSum: Float, step: Float,correction: Float, currentColor: AppColor, isReminderSet: Bool, notificationTime: Date) {
+    func saveChallenge(goal: String, days: Int, totalSum: Float, step: Float,correction: Float, currentColor: AppColor, isReminderSet: Bool, notificationTime: Date, notificationStartDate: Date?, notificationFrequency: Int) {
         guard let entity = NSEntityDescription.entity(forEntityName: "Challenge", in: context) else { return }
         let newChallenge = NSManagedObject(entity: entity, insertInto: context) as! Challenge
 
@@ -60,7 +60,13 @@ class CoreDataManager {
         newChallenge.correction = correction
         newChallenge.colorString = currentColor.rawValue
         newChallenge.isReminderSet = isReminderSet
-        newChallenge.reminderTime = notificationTime
+        
+        if isReminderSet {
+            newChallenge.reminderStartDate = notificationStartDate
+            newChallenge.reminderTime = notificationTime
+            newChallenge.reminderFrequency = Int32(notificationFrequency)
+        }
+        
         
         challenges.forEach {$0.isActive = false}
         
@@ -102,6 +108,18 @@ class CoreDataManager {
     
     func setNewTime(_ newTime: Date) {
         activeChallenge?.reminderTime = newTime
+        saveContext()
+        NotificationCenter.default.post(name: NSNotification.Name("ModelWasUpdated"), object: nil)
+    }
+    
+    func setNewStartDate(_ startDate: Date) {
+        activeChallenge?.reminderStartDate = startDate
+        saveContext()
+        NotificationCenter.default.post(name: NSNotification.Name("ModelWasUpdated"), object: nil)
+    }
+    
+    func setFrequency(_ frequency: Int) {
+        activeChallenge?.reminderFrequency = Int32(frequency)
         saveContext()
         NotificationCenter.default.post(name: NSNotification.Name("ModelWasUpdated"), object: nil)
     }

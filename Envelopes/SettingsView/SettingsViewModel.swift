@@ -45,10 +45,22 @@ class SettingsViewModel: ObservableObject {
         challenges = coreData.challenges
         notificationsEnabled = activeChallenge?.isReminderSet ?? false
         if notificationsEnabled {
-            NotificationManager.setDailyNotificationTime(for: activeChallenge?.reminderTime ?? SettingsViewModel.defaultTime)
+            guard let activeChallenge = activeChallenge else { return }
+
+            let activeDaysLeft = activeChallenge.envelopesArray.filter({ !$0.isOpened }).count
+            let reminderTime = activeChallenge.reminderTime ?? SettingsViewModel.defaultTime
+            
+            #warning("Add tomorrow to separate unit")
+            let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date())!
+            let startDate = activeChallenge.reminderStartDate ?? tomorrow
+            let frequency = activeChallenge.frequency
+
+            NotificationManager.setDailyNotificationTime(for: reminderTime, startDate: startDate, frequency: frequency, numberOfNotificcations: activeDaysLeft)
         } else {
             NotificationManager.clearNotificationCenter()
         }
+        
+        
     }
     
     @objc func presentAlert() {

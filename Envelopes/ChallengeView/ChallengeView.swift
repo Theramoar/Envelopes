@@ -8,8 +8,6 @@
 import SwiftUI
 import CoreData
 
-//https://www.hackingwithswift.com/books/ios-swiftui/scheduling-local-notifications
-
 struct ChallengeView: View {
     @StateObject var viewModel: ChallengeViewModel
     

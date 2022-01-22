@@ -10,14 +10,24 @@ import SwiftUI
 class CreateChallengeViewModel: ObservableObject {
     private let coreData: CoreDataManager = .shared
     
-    @Published var notificationTime: Date = CreateChallengeViewModel.defaultTime
     @Published var totalSumString: String = ""
     @Published var goalString: String = ""
     @Published var daysString: String = ""
     @Published var currentColor: AppColor = .blue
     @Published var date = Date()
     @Published var deadlineEnabled = false
-    @Published var notificationsEnabled = UserSettings.shared.remindersEnabled
+    
+    var notificationsEnabled = false
+    var notificationTime: Date = CreateChallengeViewModel.defaultTime
+    var notificationStartDate: Date?
+    var selectedFrequency: Int = 0
+    
+    func notiValuesHandler(_ notiEnabled: Bool, _ notiTime: Date, _ notiStartDate: Date, _ selectedFrequency: Int) {
+        self.notificationsEnabled = notiEnabled
+        self.notificationTime = notiTime
+        self.notificationStartDate = notiStartDate
+        self.selectedFrequency = selectedFrequency
+    }
     
     let dateRange: ClosedRange<Date> = {
         let calendar = Calendar.current
@@ -65,28 +75,21 @@ class CreateChallengeViewModel: ObservableObject {
         let totalActualSum = Float(days) + (Float(totalIncrease) * step)
         let correction = totalSum - totalActualSum
         
-        coreData.saveChallenge(goal: goalString, days: days, totalSum: totalSum, step: step, correction: correction, currentColor: currentColor, isReminderSet: notificationsEnabled, notificationTime: notificationTime)
+        coreData.saveChallenge(goal: goalString, days: days, totalSum: totalSum, step: step, correction: correction, currentColor: currentColor, isReminderSet: notificationsEnabled, notificationTime: notificationTime, notificationStartDate: notificationStartDate, notificationFrequency: selectedFrequency)
         
-        NotificationManager.setDailyNotificationTime(for: notificationTime)
         print(totalSum)
         print(totalActualSum)
         print(correction)
         print(totalActualSum + correction)
-        
-        #warning("Should implement this one")
-//        challenges.forEach {$0.isActive = false }
-//        newChallenge.isActive = true
-//
-//        try? self.moc.save()
-        
-//        var testSum: Float = 0
-//        envelopes.forEach { testSum += $0.sum }
-//        print(testSum)
     }
     
     func saveCurrentColor(accentColor: AppColor) {
         withAnimation {
             currentColor = accentColor
         }
+    }
+    
+    func viewModelForTimePicker() -> TimePickerViewModel {
+        TimePickerViewModel(isReminderSet: notificationsEnabled, reminderTime: notificationTime, accentColor: currentColor, reminderFrequency: selectedFrequency, reminderStartDate: notificationStartDate, valuesHandler: notiValuesHandler)
     }
 }

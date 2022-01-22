@@ -28,11 +28,18 @@ extension Challenge {
     
     @NSManaged public var colorString: String?
     @NSManaged public var reminderTime: Date?
+    @NSManaged public var reminderStartDate: Date?
+    @NSManaged public var reminderFrequency: Int32
     
     @NSManaged public var lastOpenedDate: Date?
     
     public var envelopesArray: [Envelope] {
         envelopes?.array as? [Envelope] ?? []
+    }
+    
+    var frequency: Frequency {
+        let position = Int(reminderFrequency)
+        return Frequency.allCases[position]
     }
     
     var accentColor: AppColor {

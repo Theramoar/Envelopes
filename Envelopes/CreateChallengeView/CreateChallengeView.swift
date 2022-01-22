@@ -17,34 +17,7 @@ struct CreateChallengeView: View {
                     TextField("Enter challenge name", text: $viewModel.goalString)
                     TextField("Enter total sum", text: $viewModel.totalSumString)
                         .keyboardType(.decimalPad)
-                    
-                    Group {
-                        Toggle(isOn: $viewModel.notificationsEnabled.animation()) {
-                            Text("Allow daily notifications")
-                                .fontWeight(.medium)
-                        }
-                        .toggleStyle(SwitchToggleStyle(tint: Color(hex: viewModel.currentColor.rawValue)))
-                        .onChange(of: viewModel.notificationsEnabled, perform: { enabled in
-                            if enabled {
-                                if !UserSettings.shared.remindersEnabled {
-                                    NotificationManager.requestNotificationAuthorization { success in
-                                        //Wait for 0.5 seconds to finish the animation
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                            viewModel.notificationsEnabled = success
-                                        }
-                                    }
-                                }
-                            }
-                        })
-                        if viewModel.notificationsEnabled {
-                            HStack {
-                                Text("Notification time")
-                                    .fontWeight(.medium)
-                                DatePicker("Notification time", selection: $viewModel.notificationTime, displayedComponents: .hourAndMinute)
-                                    .datePickerStyle(GraphicalDatePickerStyle())
-                            }
-                        }
-                    }
+                    TimePickerView(viewModel: viewModel.viewModelForTimePicker())
                     ColorPickerView(currentColor: viewModel.currentColor, tapAction: viewModel.saveCurrentColor)
                 }
                 Section(footer:
@@ -88,6 +61,7 @@ struct CreateChallengeView: View {
                     }
                 }
             }
+            .accentColor(Color(hex: viewModel.currentColor.rawValue))
             .onTapGesture {
                 hideKeyboard()
             }

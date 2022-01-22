@@ -48,6 +48,7 @@ class ChallengeViewModel: ObservableObject {
             return
         }
         coreData.openEnvelope(for: challenge, at: currentIndex)
+        NotificationManager.updateNotifications(for: challenge)
     }
     
     func simpleSuccess(_ notificationType: UINotificationFeedbackGenerator.FeedbackType) {

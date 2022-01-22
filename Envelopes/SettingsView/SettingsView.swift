@@ -34,7 +34,7 @@ struct SettingsView: View {
                                                 .font(.system(size: 10, weight: .medium))
                                         }
                                     }
-                                    .padding(.horizontal)
+//                                    .padding(.horizontal)
                                     .padding(.vertical, 10)
                                 },
                             
@@ -158,9 +158,9 @@ struct SettingsView: View {
                     }
                 }
                 .navigationTitle("Settings")
-                .onTapGesture {
-                    hideKeyboard()
-                }
+//                .onTapGesture {
+//                    hideKeyboard()
+//                }
                 .sheet(isPresented: $viewModel.navigateToMailView, content: {
                     MailView(isShowing: $viewModel.navigateToMailView, result: $viewModel.mailResult, appColor: viewModel.activeChallenge?.accentColor ?? AppColor.blue)
                 })

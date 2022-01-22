@@ -39,10 +39,14 @@ struct EnvelopesApp: App {
             shouldPresentOnboarding = true
         }
         configPayments()
+        
+        
+        guard let activeChallenge = CoreDataManager.shared.activeChallenge else { return }
+        NotificationManager.updateNotifications(for: activeChallenge)
     }
     
     private func createDefaultChallenge() {
-        coreData.saveChallenge(goal: "100 Envelopes", days: 100, totalSum: 5050, step: 1, correction: 0, currentColor: AppColor.blue, isReminderSet: false, notificationTime: CreateChallengeViewModel.defaultTime)
+        coreData.saveChallenge(goal: "100 Envelopes", days: 100, totalSum: 5050, step: 1, correction: 0, currentColor: AppColor.blue, isReminderSet: false, notificationTime: CreateChallengeViewModel.defaultTime, notificationStartDate: nil, notificationFrequency: 0)
     }
     
     private func configPayments() {
