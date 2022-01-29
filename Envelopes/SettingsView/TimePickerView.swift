@@ -55,7 +55,7 @@ struct TimePickerView: View {
             }
         }
             
-            DatePicker("Start date", selection: $viewModel.notificationStartDate, in: viewModel.dateRange, displayedComponents: .date)
+            DatePicker("Start date", selection: $viewModel.notificationStartDate, displayedComponents: .date)
                 .font(.system(size: 12, weight: .regular))
                 .onChange(of: viewModel.notificationStartDate, perform: { newDate in
                     viewModel.setupNotificationStartDate(newDate)
