@@ -74,6 +74,9 @@ class TimePickerViewModel: ObservableObject {
     private var challengeExists: Bool
     @Published var notificationTime: Date
     @Published var notificationStartDate: Date
+    
+    var notificationFullDate: Date!
+    
     @Published var notificationsEnabled: Bool
     @Published var appColor: Color
     @Published var selectedFrequency: Int
@@ -82,22 +85,6 @@ class TimePickerViewModel: ObservableObject {
         }
     
     var returnNewValues: ((Bool, Date, Date, Int) -> Void)?
-    
-    let dateRange: ClosedRange<Date> = {
-        let calendar = Calendar.current
-        let tomorrow = calendar.date(byAdding: .day, value: 1, to: Date())!
-        let startComponents = calendar.dateComponents([.day, .month, .year], from: tomorrow)
-        
-        var termComponents = DateComponents()
-        termComponents.setValue(100, for: .year)
-        let expirationDate = Calendar.current.date(byAdding: termComponents, to: tomorrow)
-        
-        let endComponents = calendar.dateComponents([.day, .month, .year], from: expirationDate!)
-        
-        return calendar.date(from:startComponents)!
-            ...
-            calendar.date(from:endComponents)!
-    }()
     
     init(activeChallenge: Challenge?, valuesHandler: ((Bool, Date, Date, Int) -> Void)? = nil) {
         self.challengeExists = activeChallenge != nil
@@ -122,6 +109,17 @@ class TimePickerViewModel: ObservableObject {
     }
     
     func setupNewNotificationTime(_ newTime: Date) {
+        
+//        let calendar = Calendar.current
+//        var components = calendar.dateComponents([.day, .month, .year], from: notificationFullDate)
+//        components = calendar.dateComponents([.minute, .hour], from: newTime)
+//        notificationFullDate = calendar.date(from: components)
+//
+//        let result = calendar.compare(notificationFullDate, to: Date(), toGranularity: .minute)
+//        guard result != .orderedAscending else {
+//            return
+//        }
+        
         guard challengeExists else {
             returnNewValues?(notificationsEnabled, notificationTime, notificationStartDate, selectedFrequency)
             return
@@ -130,6 +128,13 @@ class TimePickerViewModel: ObservableObject {
     }
     
     func setupNotificationStartDate(_ startDate: Date) {
+        
+//        let calendar = Calendar.current
+//        var components = calendar.dateComponents([.minute, .hour], from: notificationFullDate)
+//        components = calendar.dateComponents([.day, .month, .year], from: startDate)
+//        notificationFullDate = calendar.date(from: components)
+        
+        
         guard challengeExists else {
             returnNewValues?(notificationsEnabled, notificationTime, notificationStartDate, selectedFrequency)
             return

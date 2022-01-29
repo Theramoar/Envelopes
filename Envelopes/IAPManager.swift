@@ -1,10 +1,3 @@
-//
-//  IAPManager.swift
-//  Envelopes
-//
-//  Created by MihailsKuznecovs on 03/08/2021.
-//
-
 import Foundation
 import StoreKit
 

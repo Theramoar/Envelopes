@@ -32,7 +32,6 @@
 		D25A2B6926710196003BBFFA /* ChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25A2B6826710196003BBFFA /* ChallengeView.swift */; };
 		D25A2B6B2671019B003BBFFA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D25A2B6A2671019B003BBFFA /* Assets.xcassets */; };
 		D25A2B6E2671019B003BBFFA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D25A2B6D2671019B003BBFFA /* Preview Assets.xcassets */; };
-		D25A2B702671019B003BBFFA /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25A2B6F2671019B003BBFFA /* Persistence.swift */; };
 		D25A2B732671019B003BBFFA /* Envelopes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D25A2B712671019B003BBFFA /* Envelopes.xcdatamodeld */; };
 		D25A2B7B2674FF99003BBFFA /* ProgressStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25A2B7A2674FF98003BBFFA /* ProgressStackView.swift */; };
 		D2A3BE4926761D030058339B /* CreateChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A3BE4826761D030058339B /* CreateChallengeView.swift */; };
@@ -67,7 +66,6 @@
 		D25A2B6826710196003BBFFA /* ChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeView.swift; sourceTree = "<group>"; };
 		D25A2B6A2671019B003BBFFA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D25A2B6D2671019B003BBFFA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		D25A2B6F2671019B003BBFFA /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		D25A2B722671019B003BBFFA /* Envelopes.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Envelopes.xcdatamodel; sourceTree = "<group>"; };
 		D25A2B742671019C003BBFFA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D25A2B7A2674FF98003BBFFA /* ProgressStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressStackView.swift; sourceTree = "<group>"; };
@@ -176,7 +174,6 @@
 				BBAC1E6426B96B0D002691CC /* IAPManager.swift */,
 				BB1E15AF26A58A87002CF495 /* RoundedFloat Ext.swift */,
 				D25A2B6A2671019B003BBFFA /* Assets.xcassets */,
-				D25A2B6F2671019B003BBFFA /* Persistence.swift */,
 				D25A2B742671019C003BBFFA /* Info.plist */,
 				D25A2B6C2671019B003BBFFA /* Preview Content */,
 			);
@@ -260,7 +257,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D25A2B702671019B003BBFFA /* Persistence.swift in Sources */,
 				BB1E15A0269EE4A5002CF495 /* Envelope+CoreDataClass.swift in Sources */,
 				BB1E15A3269EE4A5002CF495 /* Challenge+CoreDataProperties.swift in Sources */,
 				BB1E15A2269EE4A5002CF495 /* Challenge+CoreDataClass.swift in Sources */,
@@ -426,6 +422,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.01;
 				PRODUCT_BUNDLE_IDENTIFIER = mishak.envelopesapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -449,6 +446,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.01;
 				PRODUCT_BUNDLE_IDENTIFIER = mishak.envelopesapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

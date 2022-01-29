@@ -1,10 +1,3 @@
-//
-//  HexColor Ext.swift
-//  Envelopes
-//
-//  Created by MihailsKuznecovs on 19/07/2021.
-//
-
 import SwiftUI
 
 extension Color {

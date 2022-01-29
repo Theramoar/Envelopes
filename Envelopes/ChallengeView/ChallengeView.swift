@@ -102,7 +102,7 @@ struct ChallengeView: View {
         .sheet(isPresented: $presentCreateChallengeView) {
             CreateChallengeView(viewModel: CreateChallengeViewModel())
         }
-        .sheet(isPresented: $viewModel.shouldPresentOnboarding) {
+        .sheet(isPresented: $viewModel._shouldPresentOnboarding) {
             ParentOnboardingView()
         }
     }

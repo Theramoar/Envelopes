@@ -50,17 +50,21 @@ class NotificationManager {
             triggerDate.minute = calendar.component(.minute, from: time)
             triggerDate.day = calendar.component(.day, from: date)
             triggerDate.month = calendar.component(.month, from: date)
+            triggerDate.year = calendar.component(.year, from: date)
             
             
             let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
             let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
             notificationCenter.add(request)
-            
-            let formatter = DateFormatter()
-            formatter.dateStyle = .short
-            let str = formatter.string(from: date)
-            
-            print("Request Added to Notification Center - \(str)")
+        }
+        
+        //JUST FOR LOGGING
+        notificationCenter.getPendingNotificationRequests { notifications in
+            for noti in notifications {
+                guard let nextNoti = noti.trigger as? UNCalendarNotificationTrigger,
+                      let nextDate = Calendar.current.date(from: nextNoti.dateComponents) else { return }
+                    print("Request Added to Notification Center - \(nextDate)")
+                }
         }
     }
     

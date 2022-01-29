@@ -12,24 +12,23 @@ class ChallengeViewModel: ObservableObject {
     private let calendar: Calendar = .current
     @Published var challenge: Challenge?
     var currentIndex: Int = 0
-    @Published var shouldPresentOnboarding: Bool = false
     
-    
-    var isFirstLaunch: Bool {
+    @Published var _shouldPresentOnboarding: Bool = false
+    private var shouldPresentOnboarding: Bool {
         set {
             guard newValue else { return }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.shouldPresentOnboarding = true
+                self._shouldPresentOnboarding = true
             }
         }
         get {
-            self.isFirstLaunch
+            _shouldPresentOnboarding
         }
     }
     
-    init(isFirstLaunch: Bool) {
+    init(shouldPresentOnboarding: Bool) {
         challenge = coreData.activeChallenge
-        self.isFirstLaunch = isFirstLaunch
+        self.shouldPresentOnboarding = shouldPresentOnboarding
         NotificationCenter.default.addObserver(self, selector: #selector(updateModel), name: NSNotification.Name("ModelWasUpdated"), object: nil)
         
     }

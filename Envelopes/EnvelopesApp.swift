@@ -9,7 +9,6 @@ import SwiftUI
 
 @main
 struct EnvelopesApp: App {
-    let persistenceController = PersistenceController.shared
     let coreData: CoreDataManager = .shared
     
     private let userDefaults: UserDefaults
@@ -27,7 +26,7 @@ struct EnvelopesApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ChallengeView(viewModel: ChallengeViewModel(isFirstLaunch: shouldPresentOnboarding))
+            ChallengeView(viewModel: ChallengeViewModel(shouldPresentOnboarding: shouldPresentOnboarding))
         }
     }
     
