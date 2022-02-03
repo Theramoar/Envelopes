@@ -13,13 +13,13 @@ class ProgressStackViewModel: ObservableObject {
     
     @Published var savedSum: Float
     @Published var totalSum: Float
-    @Published var appColor: String
+    @Published var appColor: Color
     
     init(challenge: Challenge) {
         self.challenge = challenge
         self.savedSum = challenge.savedSum
         self.totalSum = challenge.totalSum
-        self.appColor = challenge.accentColor.rawValue
+        self.appColor = challenge.accentColor.color
     }
 }
 
@@ -38,9 +38,8 @@ struct ProgressStackView: View {
                 Text(savedSum + " / " + totalSum)
                     .font(.system(size: 16))
             }
-            let color = Color(hex: viewModel.appColor)
             ProgressView(value: viewModel.savedSum, total: viewModel.totalSum)
-                .progressViewStyle(LinearProgressViewStyle(tint: color))
+                .progressViewStyle(LinearProgressViewStyle(tint: viewModel.appColor))
         }
         .padding()
         .cornerRadius(10)

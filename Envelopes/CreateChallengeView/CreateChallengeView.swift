@@ -31,7 +31,7 @@ struct CreateChallengeView: View {
                                         .font(.system(size: 15, weight: .medium))
                                         .foregroundColor(Color.white)
                                         .frame(width: 300, height: 45, alignment: .center)
-                                        .background(Color(hex: viewModel.currentColor.rawValue))
+                                        .background(viewModel.currentColor.color)
                                         .cornerRadius(15)
                                         .padding()
                                     Spacer()
@@ -45,7 +45,7 @@ struct CreateChallengeView: View {
                         Text("Set challenge deadline")
                             .fontWeight(.medium)
                     }
-                    .toggleStyle(SwitchToggleStyle(tint: Color(hex: viewModel.currentColor.rawValue)))
+                    .toggleStyle(SwitchToggleStyle(tint: viewModel.currentColor.color))
                     
                     if viewModel.deadlineEnabled {
                         DatePicker("Deadline", selection: $viewModel.date, in: viewModel.dateRange, displayedComponents: [.date])
@@ -61,7 +61,7 @@ struct CreateChallengeView: View {
                     }
                 }
             }
-            .accentColor(Color(hex: viewModel.currentColor.rawValue))
+            .accentColor(viewModel.currentColor.color)
             .onTapGesture {
                 hideKeyboard()
             }

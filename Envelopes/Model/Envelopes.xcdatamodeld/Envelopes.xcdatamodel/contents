@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="21D49" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Challenge" representedClassName="Challenge" syncable="YES">
         <attribute name="colorString" optional="YES" attributeType="String"/>
         <attribute name="correction" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -18,11 +18,12 @@
     </entity>
     <entity name="Envelope" representedClassName="Envelope" syncable="YES">
         <attribute name="isOpened" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="openedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="sum" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Challenge" inverseName="envelopes" inverseEntity="Challenge"/>
     </entity>
     <elements>
         <element name="Challenge" positionX="-661.411865234375" positionY="-328.5838165283203" width="128" height="239"/>
-        <element name="Envelope" positionX="-63" positionY="36" width="128" height="88"/>
+        <element name="Envelope" positionX="-63" positionY="36" width="128" height="89"/>
     </elements>
 </model>

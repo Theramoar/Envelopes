@@ -39,7 +39,7 @@ struct ChallengeView: View {
                             .padding()
                             .font(.system(size: 34, weight: .bold))
                         Spacer()
-                        SettingsButton(tapAction: { presentMenuView = true }, backgroundColor: Color(hex: challenge.accentColor.rawValue))
+                        SettingsButton(tapAction: { presentMenuView = true }, backgroundColor: challenge.accentColor.color)
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     
@@ -85,13 +85,13 @@ struct ChallengeView: View {
                 VStack {
                     HStack {
                         Spacer()
-                        SettingsButton(tapAction: { presentMenuView = true }, backgroundColor: Color(hex: AppColor.blue.rawValue))
+                        SettingsButton(tapAction: { presentMenuView = true }, backgroundColor: AppColor.blue.color)
                     }
                     Spacer()
                 }
             }
             if alertPresented {
-                let color = Color(hex: viewModel.challenge?.accentColor.rawValue ?? AppColor.blue.rawValue)
+                let color = viewModel.challenge?.accentColor.color ?? AppColor.blue.color
                 AlertView(alertType: currentAlertType, appColor: color)
                     .onTapGesture(perform: cancelAlert)
             }
@@ -140,7 +140,8 @@ struct ChallengeView: View {
             return
         }
         
-        if let envOpenedDate = challenge.lastOpenedDate,
+        if viewModel.oneEnvelopePerDay,
+           let envOpenedDate = challenge.lastOpenedDate,
            Calendar.current.isDateInToday(envOpenedDate) {
             viewModel.simpleSuccess(.warning)
             let message = "Only one envelope per day!\n\nPlease, return tomorrow"
@@ -201,7 +202,7 @@ struct NoChallengesView: View {
                 .padding()
             Button(action: tapAction, label: {
                 Text("Create new challenge")
-                    .foregroundColor(Color(hex: AppColor.blue.rawValue))
+                    .foregroundColor(AppColor.blue.color)
                 
             })
             .font(.system(size: 20, weight: .medium))

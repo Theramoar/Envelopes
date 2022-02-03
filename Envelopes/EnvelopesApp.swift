@@ -12,6 +12,7 @@ struct EnvelopesApp: App {
     let coreData: CoreDataManager = .shared
     
     private let userDefaults: UserDefaults
+    private let userSettings: UserSettings
     
     private var isFirstLaunch: Bool {
         let key = UserSettings.Keys.wasLaunchedBefore.rawValue
@@ -32,10 +33,12 @@ struct EnvelopesApp: App {
     
     init() {
         userDefaults = .standard
+        userSettings = .shared
         
         if isFirstLaunch {
             createDefaultChallenge()
             shouldPresentOnboarding = true
+            userSettings.oneEnvelopePerDay = true
         }
         configPayments()
         

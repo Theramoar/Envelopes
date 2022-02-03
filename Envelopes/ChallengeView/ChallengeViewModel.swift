@@ -10,8 +10,12 @@ import SwiftUI
 class ChallengeViewModel: ObservableObject {
     private let coreData: CoreDataManager = .shared
     private let calendar: Calendar = .current
+    private let userSettings: UserSettings = .shared
     @Published var challenge: Challenge?
     var currentIndex: Int = 0
+    var oneEnvelopePerDay: Bool {
+        userSettings.oneEnvelopePerDay
+    }
     
     @Published var _shouldPresentOnboarding: Bool = false
     private var shouldPresentOnboarding: Bool {
@@ -41,11 +45,6 @@ class ChallengeViewModel: ObservableObject {
     
     func openEnvelope() {
         guard let challenge = challenge else { return }
-        if let envOpenedDate = challenge.lastOpenedDate,
-           calendar.isDateInToday(envOpenedDate) {
-            print("Today Envelope is Already Opened")
-            return
-        }
         coreData.openEnvelope(for: challenge, at: currentIndex)
         NotificationManager.updateNotifications(for: challenge)
     }
@@ -57,7 +56,7 @@ class ChallengeViewModel: ObservableObject {
     
     func getColorForEnvelope(at index: Int) -> Color {
         guard let envelopes = challenge?.envelopesArray else { return .primary }
-        let appColor = Color(hex: challenge?.accentColor.rawValue ?? AppColor.blue.rawValue)
+        let appColor = challenge?.accentColor.color ?? AppColor.blue.color
         
         guard !envelopes[index].isOpened else { return .secondary }
         guard index != 0 else { return appColor }

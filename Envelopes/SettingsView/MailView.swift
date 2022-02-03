@@ -55,7 +55,7 @@ struct MailView: UIViewControllerRepresentable {
         vc.mailComposeDelegate = context.coordinator
         vc.setToRecipients(["mkuzdev@gmail.com"])
         vc.setSubject("App feedback")
-        vc.view.tintColor = UIColor(Color(hex: appColor.rawValue))
+        vc.view.tintColor = UIColor(appColor.color)
         return vc
     }
 

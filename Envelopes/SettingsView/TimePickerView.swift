@@ -10,8 +10,18 @@ import SwiftUI
 enum Frequency: String, CaseIterable {
     case daily = "Daily"
     case weekly = "Every Week"
-    case twoWeeks = "Every two weeks"
+    case twoWeeks = "Every Two Weeks"
     case monthly = "Every Month"
+}
+
+struct TimePickerNavigationView: View {
+    let viewModel: TimePickerViewModel
+    var body: some View {
+        Form {
+            TimePickerView(viewModel: viewModel)
+        }
+        .navigationTitle("Reminders")
+    }
 }
 
 struct TimePickerView: View {
@@ -20,7 +30,7 @@ struct TimePickerView: View {
     
     var body: some View {
         Toggle(isOn: $viewModel.notificationsEnabled.animation()) {
-            Text("Allow notifications")
+            Text("Allow reminders")
                 .fontWeight(.medium)
         }
         .toggleStyle(SwitchToggleStyle(tint: viewModel.appColor))
@@ -40,20 +50,20 @@ struct TimePickerView: View {
         })
         if viewModel.notificationsEnabled {
             HStack {
-            Text("Frequency")
-            .font(.system(size: 12, weight: .regular))
+                Text("Frequency")
+                    .font(.system(size: 12, weight: .regular))
                 Spacer()
-            Picker("Frequency", selection: $viewModel.selectedFrequency) {
-                ForEach(0 ..< Frequency.allCases.count) {
-                    Text("\(Frequency.allCases[$0].rawValue)")
+                Picker("Frequency", selection: $viewModel.selectedFrequency) {
+                    ForEach(0 ..< Frequency.allCases.count) {
+                        Text("\(Frequency.allCases[$0].rawValue)")
+                    }
+                }
+                .pickerStyle(MenuPickerStyle())
+                .font(.system(size: 12, weight: .regular))
+                .onChange(of: viewModel.selectedFrequency) { newValue in
+                    viewModel.setupNotificationFrequency(newValue)
                 }
             }
-            .pickerStyle(MenuPickerStyle())
-            .font(.system(size: 12, weight: .regular))
-            .onChange(of: viewModel.selectedFrequency) { newValue in
-                viewModel.setupNotificationFrequency(newValue)
-            }
-        }
             
             DatePicker("Start date", selection: $viewModel.notificationStartDate, displayedComponents: .date)
                 .font(.system(size: 12, weight: .regular))
@@ -61,7 +71,7 @@ struct TimePickerView: View {
                     viewModel.setupNotificationStartDate(newDate)
                 })
             
-            DatePicker("Notification time", selection: $viewModel.notificationTime, displayedComponents: .hourAndMinute)
+            DatePicker("Reminder time", selection: $viewModel.notificationTime, displayedComponents: .hourAndMinute)
                 .onChange(of: viewModel.notificationTime, perform: { newTime in
                     viewModel.setupNewNotificationTime(newTime)
                 })
@@ -90,7 +100,7 @@ class TimePickerViewModel: ObservableObject {
         self.challengeExists = activeChallenge != nil
         self.notificationsEnabled = activeChallenge?.isReminderSet ?? false
         self.notificationTime = activeChallenge?.reminderTime ?? SettingsViewModel.defaultTime
-        self.appColor = Color(hex: activeChallenge?.accentColor.rawValue ?? AppColor.blue.rawValue)
+        self.appColor = activeChallenge?.accentColor.color ?? AppColor.blue.color
         self.selectedFrequency = Int(activeChallenge?.reminderFrequency ?? 0)
         let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date())!
         self.notificationStartDate = activeChallenge?.reminderStartDate ?? tomorrow
@@ -100,7 +110,7 @@ class TimePickerViewModel: ObservableObject {
         self.challengeExists = false
         self.notificationsEnabled = isReminderSet
         self.notificationTime = reminderTime
-        self.appColor = Color(hex: accentColor.rawValue)
+        self.appColor = accentColor.color
         self.selectedFrequency = Int(reminderFrequency)
         
         let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date())!
@@ -110,16 +120,6 @@ class TimePickerViewModel: ObservableObject {
     
     func setupNewNotificationTime(_ newTime: Date) {
         
-//        let calendar = Calendar.current
-//        var components = calendar.dateComponents([.day, .month, .year], from: notificationFullDate)
-//        components = calendar.dateComponents([.minute, .hour], from: newTime)
-//        notificationFullDate = calendar.date(from: components)
-//
-//        let result = calendar.compare(notificationFullDate, to: Date(), toGranularity: .minute)
-//        guard result != .orderedAscending else {
-//            return
-//        }
-        
         guard challengeExists else {
             returnNewValues?(notificationsEnabled, notificationTime, notificationStartDate, selectedFrequency)
             return
@@ -128,13 +128,6 @@ class TimePickerViewModel: ObservableObject {
     }
     
     func setupNotificationStartDate(_ startDate: Date) {
-        
-//        let calendar = Calendar.current
-//        var components = calendar.dateComponents([.minute, .hour], from: notificationFullDate)
-//        components = calendar.dateComponents([.day, .month, .year], from: startDate)
-//        notificationFullDate = calendar.date(from: components)
-        
-        
         guard challengeExists else {
             returnNewValues?(notificationsEnabled, notificationTime, notificationStartDate, selectedFrequency)
             return

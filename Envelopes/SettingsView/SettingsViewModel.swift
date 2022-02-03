@@ -11,9 +11,15 @@ import SwiftUI
 
 class SettingsViewModel: ObservableObject {
     private let coreData: CoreDataManager = .shared
+    private let userSettings: UserSettings = .shared
     
     @Published var challenges: [Challenge] = []
     @Published var notificationsEnabled: Bool
+    @Published var oneEnvelopePerDay: Bool {
+        didSet {
+            userSettings.oneEnvelopePerDay = oneEnvelopePerDay
+        }
+    }
     @Published var navigateToCreateView = false
     @Published var navigateToMailView = false
     @Published var navigateToTipJarView = false
@@ -37,6 +43,7 @@ class SettingsViewModel: ObservableObject {
     init() {
         self.challenges = coreData.challenges
         notificationsEnabled = coreData.activeChallenge?.isReminderSet ?? false
+        oneEnvelopePerDay = userSettings.oneEnvelopePerDay
         NotificationCenter.default.addObserver(self, selector: #selector(updateModel), name: NSNotification.Name("ModelWasUpdated"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(presentAlert), name: NSNotification.Name("AlertShouldBePresented"), object: nil)
     }

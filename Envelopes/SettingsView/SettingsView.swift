@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-import Combine
-
 struct SettingsView: View {
     @StateObject var viewModel = SettingsViewModel()
     @State var keyboardAppeared = false
@@ -34,7 +32,6 @@ struct SettingsView: View {
                                                 .font(.system(size: 10, weight: .medium))
                                         }
                                     }
-//                                    .padding(.horizontal)
                                     .padding(.vertical, 10)
                                 },
                             
@@ -57,7 +54,15 @@ struct SettingsView: View {
                                     Spacer()
                                 }
                         ) {
-                            TimePickerView(viewModel: viewModel.viewModelForTimePicker())
+                            Toggle(isOn: $viewModel.oneEnvelopePerDay.animation()) {
+                                Text("One envelope per day")
+                                    .fontWeight(.medium)
+                            }
+                            .toggleStyle(SwitchToggleStyle(tint: challenge.accentColor.color))
+                            NavigationLink(destination: TimePickerNavigationView(viewModel: viewModel.viewModelForTimePicker())) {
+                                Text("Reminders")
+                                    .font(.system(size: 15, weight: .medium))
+                            }
                             ColorPickerView(currentColor: challenge.accentColor, tapAction: viewModel.saveCurrentColor)
                         }
                     }
@@ -158,17 +163,14 @@ struct SettingsView: View {
                     }
                 }
                 .navigationTitle("Settings")
-//                .onTapGesture {
-//                    hideKeyboard()
-//                }
                 .sheet(isPresented: $viewModel.navigateToMailView, content: {
                     MailView(isShowing: $viewModel.navigateToMailView, result: $viewModel.mailResult, appColor: viewModel.activeChallenge?.accentColor ?? AppColor.blue)
                 })
             }
             .blur(radius: viewModel.alertPresented ? 10 : 0)
-            .accentColor(Color(hex: viewModel.activeChallenge?.accentColor.rawValue ?? AppColor.blue.rawValue))
+            .accentColor(viewModel.activeChallenge?.accentColor.color ?? AppColor.blue.color)
             if viewModel.alertPresented {
-                let color = Color(hex: viewModel.activeChallenge?.accentColor.rawValue ?? AppColor.blue.rawValue)
+                let color = viewModel.activeChallenge?.accentColor.color ?? AppColor.blue.color
                 AlertView(alertType: viewModel.currentAlertType, appColor: color)
                     .onTapGesture(perform: cancelAlert)
             }

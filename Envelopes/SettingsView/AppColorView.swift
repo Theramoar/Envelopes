@@ -20,6 +20,10 @@ enum AppColor: String, CaseIterable {
     case indigo = "453CCC"
     case orange = "FF9500"
     case pink = "f497ca"
+    
+    var color: Color {
+        Color(hex: self.rawValue)
+    }
 }
 
 struct AppColorView: View {
@@ -29,7 +33,7 @@ struct AppColorView: View {
     
     var body: some View {
         ZStack {
-            Color(hex: accentColor.rawValue)
+            accentColor.color
                 .cornerRadius(30)
                 .frame(width: 40, height: 40, alignment: .center)
             if currentColor {
