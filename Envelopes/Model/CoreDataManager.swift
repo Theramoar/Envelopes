@@ -109,20 +109,12 @@ class CoreDataManager {
         NotificationCenter.default.post(name: NSNotification.Name("ModelWasUpdated"), object: nil)
     }
     
-    func setNewTime(_ newTime: Date) {
+    
+    func setNotificationData(_ newTime: Date, _ startDate: Date, _ frequency: Int, _ notificationEnabled: Bool) {
         activeChallenge?.reminderTime = newTime
-        saveContext()
-        NotificationCenter.default.post(name: NSNotification.Name("ModelWasUpdated"), object: nil)
-    }
-    
-    func setNewStartDate(_ startDate: Date) {
         activeChallenge?.reminderStartDate = startDate
-        saveContext()
-        NotificationCenter.default.post(name: NSNotification.Name("ModelWasUpdated"), object: nil)
-    }
-    
-    func setFrequency(_ frequency: Int) {
         activeChallenge?.reminderFrequency = Int32(frequency)
+        activeChallenge?.isReminderSet = notificationEnabled
         saveContext()
         NotificationCenter.default.post(name: NSNotification.Name("ModelWasUpdated"), object: nil)
     }

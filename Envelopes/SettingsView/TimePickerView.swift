@@ -34,20 +34,6 @@ struct TimePickerView: View {
                 .fontWeight(.medium)
         }
         .toggleStyle(SwitchToggleStyle(tint: viewModel.appColor))
-        .onChange(of: viewModel.notificationsEnabled, perform: { isEnabled in
-            if isEnabled, !UserSettings.shared.remindersEnabled {
-                NotificationManager.requestNotificationAuthorization { success in
-                    //Wait for 0.5 seconds to finish the animation
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        viewModel.setupNotificationEnabled(success)
-                    }
-                }
-            } else {
-                if UserSettings.shared.remindersEnabled {
-                    viewModel.setupNotificationEnabled(isEnabled)
-                }
-            }
-        })
         if viewModel.notificationsEnabled {
             HStack {
                 Text("Frequency")
@@ -60,21 +46,12 @@ struct TimePickerView: View {
                 }
                 .pickerStyle(MenuPickerStyle())
                 .font(.system(size: 12, weight: .regular))
-                .onChange(of: viewModel.selectedFrequency) { newValue in
-                    viewModel.setupNotificationFrequency(newValue)
-                }
             }
             
             DatePicker("Start date", selection: $viewModel.notificationStartDate, displayedComponents: .date)
                 .font(.system(size: 12, weight: .regular))
-                .onChange(of: viewModel.notificationStartDate, perform: { newDate in
-                    viewModel.setupNotificationStartDate(newDate)
-                })
             
             DatePicker("Reminder time", selection: $viewModel.notificationTime, displayedComponents: .hourAndMinute)
-                .onChange(of: viewModel.notificationTime, perform: { newTime in
-                    viewModel.setupNewNotificationTime(newTime)
-                })
                 .font(.system(size: 12, weight: .regular))
         }
     }
@@ -82,21 +59,58 @@ struct TimePickerView: View {
 
 class TimePickerViewModel: ObservableObject {
     private var challengeExists: Bool
-    @Published var notificationTime: Date
-    @Published var notificationStartDate: Date
+    private var userSettings: UserSettings = .shared
+    @Published var notificationTime: Date {
+        didSet {
+            updateValues(notificationsEnabled,
+                            notificationTime,
+                            notificationStartDate,
+                            selectedFrequency)
+        }
+    }
+    @Published var notificationStartDate: Date {
+        didSet {
+            updateValues(notificationsEnabled,
+                            notificationTime,
+                            notificationStartDate,
+                            selectedFrequency)
+        }
+    }
+    @Published var notificationsEnabled: Bool {
+        didSet {
+            if notificationsEnabled, !userSettings.remindersEnabled {
+                NotificationManager.requestNotificationAuthorization { success in
+                    //Wait for 0.5 seconds to finish the animation
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                        guard let self = self else { return }
+                        self.updateValues(self.notificationsEnabled,
+                                             self.notificationTime,
+                                             self.notificationStartDate,
+                                             self.selectedFrequency)
+                    }
+                }
+            } else {
+                if userSettings.remindersEnabled {
+                    updateValues(notificationsEnabled, notificationTime, notificationStartDate, selectedFrequency)
+                }
+            }
+        }
+    }
     
-    var notificationFullDate: Date!
+    @Published var selectedFrequency: Int {
+        didSet {
+            updateValues(notificationsEnabled, notificationTime, notificationStartDate, selectedFrequency)
+        }
+    }
     
-    @Published var notificationsEnabled: Bool
     @Published var appColor: Color
-    @Published var selectedFrequency: Int
     var frequency: Frequency {
             return Frequency.allCases[selectedFrequency]
         }
     
-    var returnNewValues: ((Bool, Date, Date, Int) -> Void)?
+    var updateValues: ((Bool, Date, Date, Int) -> Void)
     
-    init(activeChallenge: Challenge?, valuesHandler: ((Bool, Date, Date, Int) -> Void)? = nil) {
+    init(activeChallenge: Challenge?, valuesHandler: @escaping ((Bool, Date, Date, Int) -> Void)) {
         self.challengeExists = activeChallenge != nil
         self.notificationsEnabled = activeChallenge?.isReminderSet ?? false
         self.notificationTime = activeChallenge?.reminderTime ?? SettingsViewModel.defaultTime
@@ -104,9 +118,10 @@ class TimePickerViewModel: ObservableObject {
         self.selectedFrequency = Int(activeChallenge?.reminderFrequency ?? 0)
         let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date())!
         self.notificationStartDate = activeChallenge?.reminderStartDate ?? tomorrow
+        self.updateValues = valuesHandler
     }
     
-    init(isReminderSet: Bool, reminderTime: Date, accentColor: AppColor, reminderFrequency: Int, reminderStartDate: Date?, valuesHandler: ((Bool, Date, Date, Int) -> Void)? = nil) {
+    init(isReminderSet: Bool, reminderTime: Date, accentColor: AppColor, reminderFrequency: Int, reminderStartDate: Date?, valuesHandler: @escaping ((Bool, Date, Date, Int) -> Void)) {
         self.challengeExists = false
         self.notificationsEnabled = isReminderSet
         self.notificationTime = reminderTime
@@ -115,39 +130,6 @@ class TimePickerViewModel: ObservableObject {
         
         let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date())!
         self.notificationStartDate = reminderStartDate ?? tomorrow
-        self.returnNewValues = valuesHandler
-    }
-    
-    func setupNewNotificationTime(_ newTime: Date) {
-        
-        guard challengeExists else {
-            returnNewValues?(notificationsEnabled, notificationTime, notificationStartDate, selectedFrequency)
-            return
-        }
-        CoreDataManager.shared.setNewTime(newTime)
-    }
-    
-    func setupNotificationStartDate(_ startDate: Date) {
-        guard challengeExists else {
-            returnNewValues?(notificationsEnabled, notificationTime, notificationStartDate, selectedFrequency)
-            return
-        }
-        CoreDataManager.shared.setNewStartDate(startDate)
-    }
-    
-    func setupNotificationFrequency(_ frequency: Int) {
-        guard challengeExists else {
-            returnNewValues?(notificationsEnabled, notificationTime, notificationStartDate, selectedFrequency)
-            return
-        }
-        CoreDataManager.shared.setFrequency(frequency)
-    }
-    
-    func setupNotificationEnabled(_ notiEnabled: Bool) {
-        guard challengeExists else {
-            returnNewValues?(notificationsEnabled, notificationTime, notificationStartDate, selectedFrequency)
-            return
-        }
-        CoreDataManager.shared.setNotificationEnable(notiEnabled)
+        self.updateValues = valuesHandler
     }
 }

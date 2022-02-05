@@ -108,6 +108,13 @@ class SettingsViewModel: ObservableObject {
     
     
     func viewModelForTimePicker() -> TimePickerViewModel {
-        TimePickerViewModel(activeChallenge: activeChallenge)
+        TimePickerViewModel(activeChallenge: activeChallenge, valuesHandler: updateValues)
+    }
+    
+    func updateValues(_ notiEnabled: Bool, _ notiTime: Date, _ notiStartDate: Date, _ selectedFrequency: Int) {
+        coreData.setNotificationData(notiTime,
+                                     notiStartDate,
+                                     selectedFrequency,
+                                     notiEnabled)
     }
 }

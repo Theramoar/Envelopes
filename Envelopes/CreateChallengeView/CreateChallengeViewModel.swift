@@ -22,7 +22,7 @@ class CreateChallengeViewModel: ObservableObject {
     var notificationStartDate: Date?
     var selectedFrequency: Int = 0
     
-    func notiValuesHandler(_ notiEnabled: Bool, _ notiTime: Date, _ notiStartDate: Date, _ selectedFrequency: Int) {
+    func updateValues(_ notiEnabled: Bool, _ notiTime: Date, _ notiStartDate: Date, _ selectedFrequency: Int) {
         self.notificationsEnabled = notiEnabled
         self.notificationTime = notiTime
         self.notificationStartDate = notiStartDate
@@ -90,6 +90,6 @@ class CreateChallengeViewModel: ObservableObject {
     }
     
     func viewModelForTimePicker() -> TimePickerViewModel {
-        TimePickerViewModel(isReminderSet: notificationsEnabled, reminderTime: notificationTime, accentColor: currentColor, reminderFrequency: selectedFrequency, reminderStartDate: notificationStartDate, valuesHandler: notiValuesHandler)
+        TimePickerViewModel(isReminderSet: notificationsEnabled, reminderTime: notificationTime, accentColor: currentColor, reminderFrequency: selectedFrequency, reminderStartDate: notificationStartDate, valuesHandler: updateValues)
     }
 }
