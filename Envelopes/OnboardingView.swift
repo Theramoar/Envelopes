@@ -11,6 +11,7 @@ import SwiftUI
 struct ParentOnboardingView: View {
     @Environment(\.presentationMode) var presentationMode
     @State var screenNumber = 0
+    private let localNotiManager = LocalNotificationManager()
 
     var body: some View {
         switch screenNumber {
@@ -30,7 +31,7 @@ struct ParentOnboardingView: View {
     }
     
     func dismissOnboarding() {
-        NotificationManager.requestNotificationAuthorization { success in
+        localNotiManager.requestNotificationAuthorization { success in
             CoreDataManager.shared.setNotificationEnable(success)
         }
         self.presentationMode.wrappedValue.dismiss()

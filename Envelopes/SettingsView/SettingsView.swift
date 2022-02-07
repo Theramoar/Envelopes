@@ -11,6 +11,8 @@ struct SettingsView: View {
     @StateObject var viewModel = SettingsViewModel()
     @State var keyboardAppeared = false
     
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         ZStack {
             NavigationView {
@@ -63,7 +65,11 @@ struct SettingsView: View {
                                 Text("Reminders")
                                     .font(.system(size: 15, weight: .medium))
                             }
-                            ColorPickerView(currentColor: challenge.accentColor, tapAction: viewModel.saveCurrentColor)
+                            NavigationLink(destination: AppearanceView()) {
+                                Text("Appearance")
+                                    .font(.system(size: 15, weight: .medium))
+                            }
+//                            ColorPickerView(currentColor: challenge.accentColor, tapAction: viewModel.saveCurrentColor)
                         }
                     }
                     

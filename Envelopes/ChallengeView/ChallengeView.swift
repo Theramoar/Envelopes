@@ -9,6 +9,7 @@ import SwiftUI
 import CoreData
 
 struct ChallengeView: View {
+    @Environment(\.colorScheme) var colorScheme
     @StateObject var viewModel: ChallengeViewModel
     
     @State private var alertPresented = false
@@ -29,7 +30,9 @@ struct ChallengeView: View {
     
     var body: some View {
         ZStack {
-            Color("Background")
+//            Color("Background")
+            viewModel.appTheme.theme(for: colorScheme).backgroundColorHex.color
+//            viewModel.theme(for: colorScheme).backgroundColorHex.color
                 .edgesIgnoringSafeArea(.all)
             if let challenge = viewModel.challenge {
                 ScrollView(.vertical, showsIndicators: false) {
@@ -45,7 +48,7 @@ struct ChallengeView: View {
                     
                     
                     ProgressStackView(viewModel: ProgressStackViewModel(challenge: challenge))
-                        .background(Color("Foreground"))
+                        .background(viewModel.appTheme.theme(for: colorScheme).foregroundColorHex.color)
                         .cornerRadius(15)
                         .padding(gridEdgePadding)
                     
@@ -69,7 +72,7 @@ struct ChallengeView: View {
                         }
                         .padding(10)
                     }
-                    .background(Color("Foreground"))
+                    .background(viewModel.appTheme.theme(for: colorScheme).foregroundColorHex.color)
                     .cornerRadius(15)
                     .padding(gridEdgePadding)
                     

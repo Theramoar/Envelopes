@@ -9,10 +9,12 @@ import SwiftUI
 
 @main
 struct EnvelopesApp: App {
+    @Environment(\.colorScheme) var colorScheme
     let coreData: CoreDataManager = .shared
     
     private let userDefaults: UserDefaults
     private let userSettings: UserSettings
+    private let localNotiManager: LocalNotificationManager
     
     private var isFirstLaunch: Bool {
         let key = UserSettings.Keys.wasLaunchedBefore.rawValue
@@ -27,13 +29,14 @@ struct EnvelopesApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ChallengeView(viewModel: ChallengeViewModel(shouldPresentOnboarding: shouldPresentOnboarding))
+            ChallengeView(viewModel: ChallengeViewModel(shouldPresentOnboarding: shouldPresentOnboarding, colorScheme: colorScheme))
         }
     }
     
     init() {
         userDefaults = .standard
         userSettings = .shared
+        localNotiManager = LocalNotificationManager()
         
         if isFirstLaunch {
             createDefaultChallenge()
@@ -44,7 +47,8 @@ struct EnvelopesApp: App {
         
         
         guard let activeChallenge = CoreDataManager.shared.activeChallenge else { return }
-        NotificationManager.updateNotifications(for: activeChallenge)
+        
+        localNotiManager.updateNotifications(for: activeChallenge)
     }
     
     private func createDefaultChallenge() {

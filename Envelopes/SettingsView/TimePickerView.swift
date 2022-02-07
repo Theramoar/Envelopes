@@ -60,6 +60,8 @@ struct TimePickerView: View {
 class TimePickerViewModel: ObservableObject {
     private var challengeExists: Bool
     private var userSettings: UserSettings = .shared
+    #warning("delete NotificationManager from here")
+    private let localNotiManager = LocalNotificationManager()
     @Published var notificationTime: Date {
         didSet {
             updateValues(notificationsEnabled,
@@ -79,7 +81,7 @@ class TimePickerViewModel: ObservableObject {
     @Published var notificationsEnabled: Bool {
         didSet {
             if notificationsEnabled, !userSettings.remindersEnabled {
-                NotificationManager.requestNotificationAuthorization { success in
+                localNotiManager.requestNotificationAuthorization { success in
                     //Wait for 0.5 seconds to finish the animation
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
                         guard let self = self else { return }

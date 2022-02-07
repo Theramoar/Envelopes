@@ -1,16 +1,9 @@
-//
-//  NotificationManager.swift
-//  Envelopes
-//
-//  Created by MihailsKuznecovs on 23/07/2021.
-//
-
 import SwiftUI
 
-class NotificationManager {
-    private static let notificationCenter: UNUserNotificationCenter = .current()
+class LocalNotificationManager {
+    private let notificationCenter: UNUserNotificationCenter = .current()
     
-    static func requestNotificationAuthorization(completion: ((Bool) -> Void)? = nil) {
+    func requestNotificationAuthorization(completion: ((Bool) -> Void)? = nil) {
         notificationCenter.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
             UserSettings.shared.remindersEnabled = success
             completion?(success)
@@ -20,7 +13,7 @@ class NotificationManager {
         }
     }
     
-    static func setDailyNotificationTime(for time: Date, startDate: Date, frequency: Frequency, numberOfNotificcations: Int) {
+    func setDailyNotificationTime(for time: Date, startDate: Date, frequency: Frequency, numberOfNotificcations: Int) {
         clearNotificationCenter()
         
         let content = UNMutableNotificationContent()
@@ -68,17 +61,17 @@ class NotificationManager {
         }
     }
     
-    static func updateNotifications(for challenge: Challenge) {
-        notificationCenter.getPendingNotificationRequests { notifications in
+    func updateNotifications(for challenge: Challenge) {
+        notificationCenter.getPendingNotificationRequests { [weak self] notifications in
             guard let nextNoti = notifications.first?.trigger as? UNCalendarNotificationTrigger,
                   let nextDate = Calendar.current.date(from: nextNoti.dateComponents)
             else { return }
-            setDailyNotificationTime(for: nextDate, startDate: nextDate, frequency: challenge.frequency, numberOfNotificcations: challenge.envelopesArray.filter({!$0.isOpened}).count)
+            self?.setDailyNotificationTime(for: nextDate, startDate: nextDate, frequency: challenge.frequency, numberOfNotificcations: challenge.envelopesArray.filter({!$0.isOpened}).count)
         }
     }
     
     
-    static func clearNotificationCenter() {
+    func clearNotificationCenter() {
         notificationCenter.removeAllPendingNotificationRequests()
         notificationCenter.removeAllDeliveredNotifications()
         print("Notification Center cleared")

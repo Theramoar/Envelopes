@@ -11,7 +11,12 @@ class ChallengeViewModel: ObservableObject {
     private let coreData: CoreDataManager = .shared
     private let calendar: Calendar = .current
     private let userSettings: UserSettings = .shared
+    private let localNotiManager: LocalNotificationManager
     @Published var challenge: Challenge?
+    var appTheme: AppTheme {
+        challenge?.appTheme ?? defaultTheme
+    }
+
     var currentIndex: Int = 0
     var oneEnvelopePerDay: Bool {
         userSettings.oneEnvelopePerDay
@@ -30,8 +35,9 @@ class ChallengeViewModel: ObservableObject {
         }
     }
     
-    init(shouldPresentOnboarding: Bool) {
+    init(shouldPresentOnboarding: Bool = false, colorScheme: ColorScheme, localNotiManager: LocalNotificationManager = LocalNotificationManager()) {
         challenge = coreData.activeChallenge
+        self.localNotiManager = localNotiManager
         self.shouldPresentOnboarding = shouldPresentOnboarding
         NotificationCenter.default.addObserver(self, selector: #selector(updateModel), name: NSNotification.Name("ModelWasUpdated"), object: nil)
         
@@ -46,7 +52,7 @@ class ChallengeViewModel: ObservableObject {
     func openEnvelope() {
         guard let challenge = challenge else { return }
         coreData.openEnvelope(for: challenge, at: currentIndex)
-        NotificationManager.updateNotifications(for: challenge)
+        localNotiManager.updateNotifications(for: challenge)
     }
     
     func simpleSuccess(_ notificationType: UINotificationFeedbackGenerator.FeedbackType) {

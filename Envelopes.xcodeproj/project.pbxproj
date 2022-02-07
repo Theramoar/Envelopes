@@ -23,7 +23,7 @@
 		BB1E15C026A960F1002CF495 /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E15BF26A960F1002CF495 /* MailView.swift */; };
 		BB1E15C226A963CF002CF495 /* TipJarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E15C126A963CF002CF495 /* TipJarView.swift */; };
 		BB1E15C426A97730002CF495 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E15C326A9772F002CF495 /* UserSettings.swift */; };
-		BB1E15C626AAE941002CF495 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E15C526AAE940002CF495 /* NotificationManager.swift */; };
+		BB1E15C626AAE941002CF495 /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E15C526AAE940002CF495 /* LocalNotificationManager.swift */; };
 		BBAC1E5E26B00B67002691CC /* TimePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBAC1E5D26B00B67002691CC /* TimePickerView.swift */; };
 		BBAC1E6326B9654E002691CC /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBAC1E6226B9654D002691CC /* StoreKit.framework */; };
 		BBAC1E6526B96B0D002691CC /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBAC1E6426B96B0D002691CC /* IAPManager.swift */; };
@@ -34,6 +34,9 @@
 		D25A2B6E2671019B003BBFFA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D25A2B6D2671019B003BBFFA /* Preview Assets.xcassets */; };
 		D25A2B732671019B003BBFFA /* Envelopes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D25A2B712671019B003BBFFA /* Envelopes.xcdatamodeld */; };
 		D25A2B7B2674FF99003BBFFA /* ProgressStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25A2B7A2674FF98003BBFFA /* ProgressStackView.swift */; };
+		D260E20E27AEF0F600ADEBE7 /* AppColorTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D260E20D27AEF0F600ADEBE7 /* AppColorTheme.swift */; };
+		D260E21027AEF16E00ADEBE7 /* CreateThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D260E20F27AEF16E00ADEBE7 /* CreateThemeView.swift */; };
+		D260E21227AFCCF500ADEBE7 /* AppearanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D260E21127AFCCF500ADEBE7 /* AppearanceView.swift */; };
 		D2A3BE4926761D030058339B /* CreateChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A3BE4826761D030058339B /* CreateChallengeView.swift */; };
 		D2A3BE4B267629520058339B /* HideKeyboard Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A3BE4A267629520058339B /* HideKeyboard Ext.swift */; };
 		D2FEF00726976AC70075E397 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FEF00626976AC70075E397 /* SettingsView.swift */; };
@@ -56,7 +59,7 @@
 		BB1E15BF26A960F1002CF495 /* MailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailView.swift; sourceTree = "<group>"; };
 		BB1E15C126A963CF002CF495 /* TipJarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipJarView.swift; sourceTree = "<group>"; };
 		BB1E15C326A9772F002CF495 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
-		BB1E15C526AAE940002CF495 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		BB1E15C526AAE940002CF495 /* LocalNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationManager.swift; sourceTree = "<group>"; };
 		BBAC1E5D26B00B67002691CC /* TimePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerView.swift; sourceTree = "<group>"; };
 		BBAC1E6226B9654D002691CC /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		BBAC1E6426B96B0D002691CC /* IAPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
@@ -69,6 +72,9 @@
 		D25A2B722671019B003BBFFA /* Envelopes.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Envelopes.xcdatamodel; sourceTree = "<group>"; };
 		D25A2B742671019C003BBFFA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D25A2B7A2674FF98003BBFFA /* ProgressStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressStackView.swift; sourceTree = "<group>"; };
+		D260E20D27AEF0F600ADEBE7 /* AppColorTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColorTheme.swift; sourceTree = "<group>"; };
+		D260E20F27AEF16E00ADEBE7 /* CreateThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateThemeView.swift; sourceTree = "<group>"; };
+		D260E21127AFCCF500ADEBE7 /* AppearanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceView.swift; sourceTree = "<group>"; };
 		D2A3BE4826761D030058339B /* CreateChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChallengeView.swift; sourceTree = "<group>"; };
 		D2A3BE4A267629520058339B /* HideKeyboard Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HideKeyboard Ext.swift"; sourceTree = "<group>"; };
 		D2FEF00626976AC70075E397 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -89,8 +95,8 @@
 		BB1E159B269ED88A002CF495 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				BB1E15AA26A57D64002CF495 /* CoreDataManager.swift */,
 				BB1E15C326A9772F002CF495 /* UserSettings.swift */,
+				BB1E15AA26A57D64002CF495 /* CoreDataManager.swift */,
 				BB1E159C269EE4A5002CF495 /* Envelope+CoreDataClass.swift */,
 				BB1E159D269EE4A5002CF495 /* Envelope+CoreDataProperties.swift */,
 				BB1E159E269EE4A5002CF495 /* Challenge+CoreDataClass.swift */,
@@ -127,6 +133,9 @@
 				BBAC1E5D26B00B67002691CC /* TimePickerView.swift */,
 				BB1E15BC26A856A0002CF495 /* SettingsViewModel.swift */,
 				BB1E15A826A56D0E002CF495 /* AppColorView.swift */,
+				D260E20D27AEF0F600ADEBE7 /* AppColorTheme.swift */,
+				D260E20F27AEF16E00ADEBE7 /* CreateThemeView.swift */,
+				D260E21127AFCCF500ADEBE7 /* AppearanceView.swift */,
 				BB1E15A426A07897002CF495 /* AboutDevView.swift */,
 				BB1E15C126A963CF002CF495 /* TipJarView.swift */,
 				BB1E15BF26A960F1002CF495 /* MailView.swift */,
@@ -163,7 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				D25A2B6626710195003BBFFA /* EnvelopesApp.swift */,
-				BB1E15C526AAE940002CF495 /* NotificationManager.swift */,
+				BB1E15C526AAE940002CF495 /* LocalNotificationManager.swift */,
 				BBAC1E6626BE94B0002691CC /* OnboardingView.swift */,
 				BB1E159B269ED88A002CF495 /* Model */,
 				BB1E15BE26A8574D002CF495 /* SettingsView */,
@@ -261,6 +270,7 @@
 				BB1E15A3269EE4A5002CF495 /* Challenge+CoreDataProperties.swift in Sources */,
 				BB1E15A2269EE4A5002CF495 /* Challenge+CoreDataClass.swift in Sources */,
 				D25A2B6926710196003BBFFA /* ChallengeView.swift in Sources */,
+				D260E21227AFCCF500ADEBE7 /* AppearanceView.swift in Sources */,
 				BB1E15B226A58A9D002CF495 /* EnvelopeAlertView.swift in Sources */,
 				BB1E15B426A58AD6002CF495 /* ChallengeViewModel.swift in Sources */,
 				BB1E15B026A58A87002CF495 /* RoundedFloat Ext.swift in Sources */,
@@ -274,14 +284,16 @@
 				D25A2B6726710195003BBFFA /* EnvelopesApp.swift in Sources */,
 				D2A3BE4926761D030058339B /* CreateChallengeView.swift in Sources */,
 				BB1E15A726A56CD0002CF495 /* HexColor Ext.swift in Sources */,
+				D260E20E27AEF0F600ADEBE7 /* AppColorTheme.swift in Sources */,
 				BB1E15C026A960F1002CF495 /* MailView.swift in Sources */,
+				D260E21027AEF16E00ADEBE7 /* CreateThemeView.swift in Sources */,
 				BBAC1E6526B96B0D002691CC /* IAPManager.swift in Sources */,
 				D2A3BE4B267629520058339B /* HideKeyboard Ext.swift in Sources */,
 				D25A2B7B2674FF99003BBFFA /* ProgressStackView.swift in Sources */,
 				BB1E15A926A56D0E002CF495 /* AppColorView.swift in Sources */,
 				BBAC1E5E26B00B67002691CC /* TimePickerView.swift in Sources */,
 				BB1E15AB26A57D64002CF495 /* CoreDataManager.swift in Sources */,
-				BB1E15C626AAE941002CF495 /* NotificationManager.swift in Sources */,
+				BB1E15C626AAE941002CF495 /* LocalNotificationManager.swift in Sources */,
 				D25A2B732671019B003BBFFA /* Envelopes.xcdatamodeld in Sources */,
 				BB1E15BD26A856A1002CF495 /* SettingsViewModel.swift in Sources */,
 			);

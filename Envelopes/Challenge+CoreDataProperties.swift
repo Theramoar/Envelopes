@@ -50,6 +50,8 @@ extension Challenge {
         }
         return .blue
     }
+    
+    var appTheme: AppTheme { defaultTheme }
 
 }
 

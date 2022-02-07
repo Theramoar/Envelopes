@@ -12,6 +12,7 @@ import SwiftUI
 class SettingsViewModel: ObservableObject {
     private let coreData: CoreDataManager = .shared
     private let userSettings: UserSettings = .shared
+    private let localNotiManager: LocalNotificationManager
     
     @Published var challenges: [Challenge] = []
     @Published var notificationsEnabled: Bool
@@ -40,10 +41,11 @@ class SettingsViewModel: ObservableObject {
         return Calendar.current.date(from: components) ?? Date()
     }
     
-    init() {
+    init(localNotiManager: LocalNotificationManager = LocalNotificationManager()) {
         self.challenges = coreData.challenges
         notificationsEnabled = coreData.activeChallenge?.isReminderSet ?? false
         oneEnvelopePerDay = userSettings.oneEnvelopePerDay
+        self.localNotiManager = localNotiManager
         NotificationCenter.default.addObserver(self, selector: #selector(updateModel), name: NSNotification.Name("ModelWasUpdated"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(presentAlert), name: NSNotification.Name("AlertShouldBePresented"), object: nil)
     }
@@ -62,9 +64,9 @@ class SettingsViewModel: ObservableObject {
             let startDate = activeChallenge.reminderStartDate ?? tomorrow
             let frequency = activeChallenge.frequency
 
-            NotificationManager.setDailyNotificationTime(for: reminderTime, startDate: startDate, frequency: frequency, numberOfNotificcations: activeDaysLeft)
+            localNotiManager.setDailyNotificationTime(for: reminderTime, startDate: startDate, frequency: frequency, numberOfNotificcations: activeDaysLeft)
         } else {
-            NotificationManager.clearNotificationCenter()
+            localNotiManager.clearNotificationCenter()
         }
         
         
