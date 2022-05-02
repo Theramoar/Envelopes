@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct EnvelopesApp: App {
-    @Environment(\.colorScheme) var colorScheme
+    @StateObject var themeViewModel: ColorThemeViewModel = ColorThemeViewModel()
     let coreData: CoreDataManager = .shared
     
     private let userDefaults: UserDefaults
@@ -29,7 +29,8 @@ struct EnvelopesApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ChallengeView(viewModel: ChallengeViewModel(shouldPresentOnboarding: shouldPresentOnboarding, colorScheme: colorScheme))
+            ChallengeView(viewModel: ChallengeViewModel(shouldPresentOnboarding: shouldPresentOnboarding))
+                .environmentObject(themeViewModel)
         }
     }
     
@@ -52,7 +53,7 @@ struct EnvelopesApp: App {
     }
     
     private func createDefaultChallenge() {
-        coreData.saveChallenge(goal: "100 Envelopes", days: 100, totalSum: 5050, step: 1, correction: 0, currentColor: AppColor.blue, isReminderSet: false, notificationTime: CreateChallengeViewModel.defaultTime, notificationStartDate: nil, notificationFrequency: 0)
+        coreData.saveChallenge(goal: "100 Envelopes", days: 100, totalSum: 5050, step: 1, correction: 0, isReminderSet: false, notificationTime: CreateChallengeViewModel.defaultTime, notificationStartDate: nil, notificationFrequency: 0)
     }
     
     private func configPayments() {

@@ -13,14 +13,15 @@ class CreateChallengeViewModel: ObservableObject {
     @Published var totalSumString: String = ""
     @Published var goalString: String = ""
     @Published var daysString: String = ""
-    @Published var currentColor: AppColor = .blue
     @Published var date = Date()
     @Published var deadlineEnabled = false
+    
     
     var notificationsEnabled = false
     var notificationTime: Date = CreateChallengeViewModel.defaultTime
     var notificationStartDate: Date?
     var selectedFrequency: Int = 0
+    var currentThemeSet: ThemeSet?
     
     func updateValues(_ notiEnabled: Bool, _ notiTime: Date, _ notiStartDate: Date, _ selectedFrequency: Int) {
         self.notificationsEnabled = notiEnabled
@@ -75,7 +76,7 @@ class CreateChallengeViewModel: ObservableObject {
         let totalActualSum = Float(days) + (Float(totalIncrease) * step)
         let correction = totalSum - totalActualSum
         
-        coreData.saveChallenge(goal: goalString, days: days, totalSum: totalSum, step: step, correction: correction, currentColor: currentColor, isReminderSet: notificationsEnabled, notificationTime: notificationTime, notificationStartDate: notificationStartDate, notificationFrequency: selectedFrequency)
+        coreData.saveChallenge(goal: goalString, days: days, totalSum: totalSum, step: step, correction: correction, isReminderSet: notificationsEnabled, notificationTime: notificationTime, notificationStartDate: notificationStartDate, notificationFrequency: selectedFrequency, colorThemeSet: currentThemeSet)
         
         print(totalSum)
         print(totalActualSum)
@@ -83,13 +84,17 @@ class CreateChallengeViewModel: ObservableObject {
         print(totalActualSum + correction)
     }
     
-    func saveCurrentColor(accentColor: AppColor) {
-        withAnimation {
-            currentColor = accentColor
-        }
+    func viewModelForTimePicker() -> TimePickerViewModel {
+        TimePickerViewModel(isReminderSet: notificationsEnabled, reminderTime: notificationTime, reminderFrequency: selectedFrequency, reminderStartDate: notificationStartDate, valuesHandler: updateValues)
     }
     
-    func viewModelForTimePicker() -> TimePickerViewModel {
-        TimePickerViewModel(isReminderSet: notificationsEnabled, reminderTime: notificationTime, accentColor: currentColor, reminderFrequency: selectedFrequency, reminderStartDate: notificationStartDate, valuesHandler: updateValues)
+    func viewModelForAppearanceView() -> AppearanceViewModel {
+        AppearanceViewModel(newThemeHandler: setup)
+    }
+    
+    func setup(themeSet: ThemeSet) {
+        currentThemeSet = themeSet
+        let themeSetDict = ["themeSet": themeSet]
+        NotificationCenter.default.post(name: NSNotification.Name("NewChallengeThemeWasUpdated"), object: nil, userInfo: themeSetDict)
     }
 }

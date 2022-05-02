@@ -9,9 +9,11 @@ import SwiftUI
 import CoreData
 
 struct ChallengeView: View {
-    @Environment(\.colorScheme) var colorScheme
     @StateObject var viewModel: ChallengeViewModel
+    @EnvironmentObject var themeViewModel: ColorThemeViewModel
     
+    @Environment(\.colorScheme) var colorScheme
+   
     @State private var alertPresented = false
     @State private var alertMessage = ""
     @State var currentAlertType: AlertType!
@@ -30,10 +32,8 @@ struct ChallengeView: View {
     
     var body: some View {
         ZStack {
-//            Color("Background")
-            viewModel.appTheme.theme(for: colorScheme).backgroundColorHex.color
-//            viewModel.theme(for: colorScheme).backgroundColorHex.color
-                .edgesIgnoringSafeArea(.all)
+            themeViewModel.backgroundColor(for: colorScheme)
+                .ignoresSafeArea(.all)
             if let challenge = viewModel.challenge {
                 ScrollView(.vertical, showsIndicators: false) {
                     
@@ -42,13 +42,13 @@ struct ChallengeView: View {
                             .padding()
                             .font(.system(size: 34, weight: .bold))
                         Spacer()
-                        SettingsButton(tapAction: { presentMenuView = true }, backgroundColor: challenge.accentColor.color)
+                        SettingsButton(tapAction: { presentMenuView = true }, backgroundColor: themeViewModel.accentColor(for: colorScheme))
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     
                     
-                    ProgressStackView(viewModel: ProgressStackViewModel(challenge: challenge))
-                        .background(viewModel.appTheme.theme(for: colorScheme).foregroundColorHex.color)
+                    ProgressStackView(viewModel: viewModel.viewModelForProgressView())
+                        .background(themeViewModel.foregroundColor(for: colorScheme))
                         .cornerRadius(15)
                         .padding(gridEdgePadding)
                     
@@ -60,27 +60,26 @@ struct ChallengeView: View {
                             if  index != 0, index % 16 == 0 {
                                 Section(header: Divider()) {}
                                 EnvelopeView(envelope: envelope,
-                                             envelopeColor: viewModel.getColorForEnvelope(at: index),
+                                             envelopeStatus: viewModel.getEnvelopeStatus(at: index),
                                              dayText: "Day \(index + 1)",
                                              processEnvelope: processEnvelope)
                             } else {
                                 EnvelopeView(envelope: envelope,
-                                             envelopeColor: viewModel.getColorForEnvelope(at: index),
+                                             envelopeStatus: viewModel.getEnvelopeStatus(at: index),
                                              dayText: "Day \(index + 1)",
                                              processEnvelope: processEnvelope)
                             }
                         }
                         .padding(10)
                     }
-                    .background(viewModel.appTheme.theme(for: colorScheme).foregroundColorHex.color)
+                    .background(themeViewModel.foregroundColor(for: colorScheme))
                     .cornerRadius(15)
                     .padding(gridEdgePadding)
-                    
-                    
                 }
                 .padding(gridEdgePadding)
                 .edgesIgnoringSafeArea(.bottom)
                 .blur(radius: alertPresented ? 10 : 0)
+                
                 
             } else {
                 NoChallengesView(tapAction: { presentCreateChallengeView = true } )
@@ -88,17 +87,18 @@ struct ChallengeView: View {
                 VStack {
                     HStack {
                         Spacer()
-                        SettingsButton(tapAction: { presentMenuView = true }, backgroundColor: AppColor.blue.color)
+                        SettingsButton(tapAction: { presentMenuView = true }, backgroundColor: themeViewModel.accentColor(for: colorScheme))
                     }
                     Spacer()
                 }
             }
             if alertPresented {
-                let color = viewModel.challenge?.accentColor.color ?? AppColor.blue.color
-                AlertView(alertType: currentAlertType, appColor: color)
+                AlertView(alertType: currentAlertType, appColor: themeViewModel.accentColor(for: colorScheme))
                     .onTapGesture(perform: cancelAlert)
             }
+            
         }
+//        .themedBackground()
         .sheet(isPresented: $presentMenuView) {
             SettingsView()
         }
@@ -166,66 +166,5 @@ struct ChallengeView: View {
                                                 presentAlert(type: .infoAlert("Well done!\n\nYou are one step closer!"))
                                             }
         }))
-    }
-}
-
-struct EnvelopeView: View {
-    var envelope: Envelope
-    var envelopeColor: Color
-    var dayText: String
-    
-    var processEnvelope: (Envelope) -> Void
-    
-    var body: some View {
-        VStack {
-            let imageName = envelope.isOpened ? "envelope.open" : "envelope"
-            Image(systemName: imageName)
-                .font(.system(size: 50, weight: .ultraLight))
-                .foregroundColor(envelopeColor)
-            Text(dayText)
-                .fontWeight(.bold)
-                .foregroundColor(.secondary)
-        }
-        .onTapGesture {
-            processEnvelope(envelope)
-        }
-    }
-}
-
-
-struct NoChallengesView: View {
-    var tapAction: () -> Void
-    var body: some View {
-        VStack {
-            Image("sad_envelope")
-                .resizable()
-                .frame(width: 150, height: 150)
-            Text("You don't have any active challenges")
-                .font(.system(size: 20, weight: .medium))
-                .padding()
-            Button(action: tapAction, label: {
-                Text("Create new challenge")
-                    .foregroundColor(AppColor.blue.color)
-                
-            })
-            .font(.system(size: 20, weight: .medium))
-        }
-    }
-}
-
-struct SettingsButton: View {
-    @State private var presentMenuView = false
-    var tapAction: () -> Void
-    var backgroundColor: Color
-    var body: some View {
-        Button(action: tapAction, label: {
-            Image(systemName: "gear")
-                .frame(width: 40, height: 40)
-                .background(backgroundColor)
-                .cornerRadius(30)
-                .padding()
-                .foregroundColor(Color.white)
-                .font(.system(size: 20))
-        })
     }
 }

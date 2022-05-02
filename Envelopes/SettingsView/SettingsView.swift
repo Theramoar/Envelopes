@@ -9,9 +9,14 @@ import SwiftUI
 
 struct SettingsView: View {
     @StateObject var viewModel = SettingsViewModel()
+    @EnvironmentObject var colorThemeViewModel: ColorThemeViewModel
+    @Environment(\.colorScheme) var colorScheme
     @State var keyboardAppeared = false
     
-    @Environment(\.colorScheme) var colorScheme
+    init(){
+        UITableView.appearance().backgroundColor = .clear
+        UITableView.appearance().showsVerticalScrollIndicator = false
+    }
     
     var body: some View {
         ZStack {
@@ -60,22 +65,22 @@ struct SettingsView: View {
                                 Text("One envelope per day")
                                     .fontWeight(.medium)
                             }
-                            .toggleStyle(SwitchToggleStyle(tint: challenge.accentColor.color))
+                            .toggleStyle(SwitchToggleStyle(tint: colorThemeViewModel.accentColor(for: colorScheme)))
                             NavigationLink(destination: TimePickerNavigationView(viewModel: viewModel.viewModelForTimePicker())) {
                                 Text("Reminders")
                                     .font(.system(size: 15, weight: .medium))
                             }
-                            NavigationLink(destination: AppearanceView()) {
+                            NavigationLink(destination: AppearanceView(viewModel: viewModel.viewModelForAppearanceView())) {
                                 Text("Appearance")
                                     .font(.system(size: 15, weight: .medium))
                             }
-//                            ColorPickerView(currentColor: challenge.accentColor, tapAction: viewModel.saveCurrentColor)
                         }
+                        .themedList()
                     }
                     
                     Section(header: Text("Your challenges"), footer:
                                 NavigationLink(
-                                    destination: CreateChallengeView(viewModel: CreateChallengeViewModel())) {
+                                    destination: CreateChallengeView(viewModel: CreateChallengeViewModel()).environmentObject(ColorThemeViewModel(type: .newChallenge))) {
                                     HStack {
                                         Spacer()
                                         Text("Create new challenge")
@@ -112,6 +117,7 @@ struct SettingsView: View {
                             }
                         }
                     }
+                    .themedList()
                     Section(header: Text("About the developer")) {
                         HStack {
                             Image(systemName: "paperplane")
@@ -167,17 +173,23 @@ struct SettingsView: View {
                         }
                         
                     }
+                    .themedList()
                 }
+                .themedBackground()
                 .navigationTitle("Settings")
                 .sheet(isPresented: $viewModel.navigateToMailView, content: {
-                    MailView(isShowing: $viewModel.navigateToMailView, result: $viewModel.mailResult, appColor: viewModel.activeChallenge?.accentColor ?? AppColor.blue)
+                    MailView(isShowing: $viewModel.navigateToMailView, result: $viewModel.mailResult)
                 })
             }
+            .onAppear {
+                let appearance = UINavigationBarAppearance()
+                appearance.backgroundColor = UIColor(colorThemeViewModel.backgroundColor(for: colorScheme))
+                UINavigationBar.appearance().standardAppearance = appearance
+            }
             .blur(radius: viewModel.alertPresented ? 10 : 0)
-            .accentColor(viewModel.activeChallenge?.accentColor.color ?? AppColor.blue.color)
+            .accentColor(colorThemeViewModel.accentColor(for: colorScheme))
             if viewModel.alertPresented {
-                let color = viewModel.activeChallenge?.accentColor.color ?? AppColor.blue.color
-                AlertView(alertType: viewModel.currentAlertType, appColor: color)
+                AlertView(alertType: viewModel.currentAlertType, appColor: colorThemeViewModel.accentColor(for: colorScheme))
                     .onTapGesture(perform: cancelAlert)
             }
         }

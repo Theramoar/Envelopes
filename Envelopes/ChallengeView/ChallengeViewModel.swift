@@ -12,10 +12,10 @@ class ChallengeViewModel: ObservableObject {
     private let calendar: Calendar = .current
     private let userSettings: UserSettings = .shared
     private let localNotiManager: LocalNotificationManager
+    
+    #warning("try to make it private")
     @Published var challenge: Challenge?
-    var appTheme: AppTheme {
-        challenge?.appTheme ?? defaultTheme
-    }
+    
 
     var currentIndex: Int = 0
     var oneEnvelopePerDay: Bool {
@@ -35,7 +35,7 @@ class ChallengeViewModel: ObservableObject {
         }
     }
     
-    init(shouldPresentOnboarding: Bool = false, colorScheme: ColorScheme, localNotiManager: LocalNotificationManager = LocalNotificationManager()) {
+    init(shouldPresentOnboarding: Bool = false, localNotiManager: LocalNotificationManager = LocalNotificationManager()) {
         challenge = coreData.activeChallenge
         self.localNotiManager = localNotiManager
         self.shouldPresentOnboarding = shouldPresentOnboarding
@@ -60,16 +60,18 @@ class ChallengeViewModel: ObservableObject {
         generator.notificationOccurred(notificationType)
     }
     
-    func getColorForEnvelope(at index: Int) -> Color {
-        guard let envelopes = challenge?.envelopesArray else { return .primary }
-        let appColor = challenge?.accentColor.color ?? AppColor.blue.color
-        
-        guard !envelopes[index].isOpened else { return .secondary }
-        guard index != 0 else { return appColor }
+    func getEnvelopeStatus(at index: Int) -> EnvelopeStatus {
+        guard let envelopes = challenge?.envelopesArray else { return .closed }
+        guard !envelopes[index].isOpened else { return .opened }
+        guard index != 0 else { return .active }
         guard !envelopes[index - 1].isOpened else {
-            if index == envelopes.count - 1 || !envelopes[index + 1].isOpened { return appColor }
-            else { return .primary }
+            if index == envelopes.count - 1 || !envelopes[index + 1].isOpened { return.active }
+            else { return .closed }
         }
-        return .primary
+        return .closed
+    }
+    
+    func viewModelForProgressView() -> ProgressStackViewModel {
+        ProgressStackViewModel(challenge: challenge!)
     }
 }

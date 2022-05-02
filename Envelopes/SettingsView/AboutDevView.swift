@@ -7,9 +7,8 @@
 
 import SwiftUI
 
-struct AboutDevView: View {
+struct AboutDevView: View {    
     var body: some View {
-        VStack {
             Form {
                 Section {
                 HStack {
@@ -20,6 +19,7 @@ struct AboutDevView: View {
                 }
                 .padding(.vertical)
                 }
+                .themedList()
                 Section {
                 HStack {
                     Image("twitter")
@@ -39,8 +39,13 @@ struct AboutDevView: View {
                         .font(.system(size: 14, weight: .medium))
                 }
                 }
+                .themedList()
             }
+            .edgesIgnoringSafeArea(.bottom)
             .navigationTitle("About the Developer")
-        }
+            .themedBackground()
     }
 }
+
+
+

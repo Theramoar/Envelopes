@@ -18,14 +18,20 @@ struct TimePickerNavigationView: View {
     let viewModel: TimePickerViewModel
     var body: some View {
         Form {
-            TimePickerView(viewModel: viewModel)
+            Section {
+                TimePickerView(viewModel: viewModel)
+            }
+            .themedList()
         }
+        .themedBackground()
         .navigationTitle("Reminders")
     }
 }
 
 struct TimePickerView: View {
     @ObservedObject var viewModel: TimePickerViewModel
+    @EnvironmentObject var colorThemeViewModel: ColorThemeViewModel
+    @Environment(\.colorScheme) var colorScheme
 
     
     var body: some View {
@@ -33,7 +39,7 @@ struct TimePickerView: View {
             Text("Allow reminders")
                 .fontWeight(.medium)
         }
-        .toggleStyle(SwitchToggleStyle(tint: viewModel.appColor))
+        .toggleStyle(SwitchToggleStyle(tint: colorThemeViewModel.accentColor(for: colorScheme)))
         if viewModel.notificationsEnabled {
             HStack {
                 Text("Frequency")
@@ -46,6 +52,7 @@ struct TimePickerView: View {
                 }
                 .pickerStyle(MenuPickerStyle())
                 .font(.system(size: 12, weight: .regular))
+                .accentColor(colorThemeViewModel.accentColor(for: colorScheme))
             }
             
             DatePicker("Start date", selection: $viewModel.notificationStartDate, displayedComponents: .date)
@@ -105,7 +112,7 @@ class TimePickerViewModel: ObservableObject {
         }
     }
     
-    @Published var appColor: Color
+//    @Published var appColor: Color
     var frequency: Frequency {
             return Frequency.allCases[selectedFrequency]
         }
@@ -116,18 +123,18 @@ class TimePickerViewModel: ObservableObject {
         self.challengeExists = activeChallenge != nil
         self.notificationsEnabled = activeChallenge?.isReminderSet ?? false
         self.notificationTime = activeChallenge?.reminderTime ?? SettingsViewModel.defaultTime
-        self.appColor = activeChallenge?.accentColor.color ?? AppColor.blue.color
+//        self.appColor = activeChallenge?.appTheme?.theme(for: colorScheme).accentColor ?? AppColor.blue.color
         self.selectedFrequency = Int(activeChallenge?.reminderFrequency ?? 0)
         let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date())!
         self.notificationStartDate = activeChallenge?.reminderStartDate ?? tomorrow
         self.updateValues = valuesHandler
     }
     
-    init(isReminderSet: Bool, reminderTime: Date, accentColor: AppColor, reminderFrequency: Int, reminderStartDate: Date?, valuesHandler: @escaping ((Bool, Date, Date, Int) -> Void)) {
+    init(isReminderSet: Bool, reminderTime: Date, reminderFrequency: Int, reminderStartDate: Date?, valuesHandler: @escaping ((Bool, Date, Date, Int) -> Void)) {
         self.challengeExists = false
         self.notificationsEnabled = isReminderSet
         self.notificationTime = reminderTime
-        self.appColor = accentColor.color
+//        self.appColor = accentColor.color
         self.selectedFrequency = Int(reminderFrequency)
         
         let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date())!

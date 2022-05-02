@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct CreateThemeView: View {
+    @EnvironmentObject var colorThemeViewModel: ColorThemeViewModel
     @Environment(\.colorScheme) var colorScheme
     @State var accentColor: Color
     @State var backgroundColor: Color
@@ -12,8 +13,9 @@ struct CreateThemeView: View {
     
     
     var body: some View {
-        VStack {
+        ScrollView(showsIndicators: false) {
             ThemePreviewView(viewModel: ThemePreviewViewModel(colorScheme: colorScheme))
+                .padding()
             
             VStack {
                 ColorPicker("Accent Color", selection: $accentColor, supportsOpacity: false)
@@ -38,16 +40,17 @@ struct CreateThemeView: View {
                             .font(.system(size: 15, weight: .medium))
                             .foregroundColor(Color.white)
                             .frame(width: 300, height: 45, alignment: .center)
-                            .background(Color.blue)
+                            .background(colorThemeViewModel.accentColor(for: colorScheme))
                             .cornerRadius(15)
                             .padding()
                         Spacer()
                     }
                 }
             }
+            .padding(.horizontal)
         }
-        .padding()
         .navigationTitle("Create theme")
+        .themedBackground()
     }
 }
 

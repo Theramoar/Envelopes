@@ -10,21 +10,20 @@ import SwiftUI
 
 class ProgressStackViewModel: ObservableObject {
     private var challenge: Challenge
-    
     @Published var savedSum: Float
     @Published var totalSum: Float
-    @Published var appColor: Color
     
     init(challenge: Challenge) {
         self.challenge = challenge
         self.savedSum = challenge.savedSum
         self.totalSum = challenge.totalSum
-        self.appColor = challenge.accentColor.color
     }
 }
 
 struct ProgressStackView: View {
     @ObservedObject var viewModel: ProgressStackViewModel
+    @EnvironmentObject var colorThemeViewModel: ColorThemeViewModel
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         VStack {
@@ -39,7 +38,7 @@ struct ProgressStackView: View {
                     .font(.system(size: 16))
             }
             ProgressView(value: viewModel.savedSum, total: viewModel.totalSum)
-                .progressViewStyle(LinearProgressViewStyle(tint: viewModel.appColor))
+                .progressViewStyle(LinearProgressViewStyle(tint: colorThemeViewModel.accentColor(for: colorScheme)))
         }
         .padding()
         .cornerRadius(10)

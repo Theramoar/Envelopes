@@ -68,8 +68,6 @@ class SettingsViewModel: ObservableObject {
         } else {
             localNotiManager.clearNotificationCenter()
         }
-        
-        
     }
     
     @objc func presentAlert() {
@@ -81,10 +79,6 @@ class SettingsViewModel: ObservableObject {
     
     func setActiveChallenge(atIndex index: Int) {
         coreData.setActiveChallenge(atIndex: index)
-    }
-    
-    func saveCurrentColor(accentColor: AppColor) {
-        coreData.saveCurrentColor(accentColor: accentColor)
     }
     
     func updateChallengeInContainer() {
@@ -111,6 +105,14 @@ class SettingsViewModel: ObservableObject {
     
     func viewModelForTimePicker() -> TimePickerViewModel {
         TimePickerViewModel(activeChallenge: activeChallenge, valuesHandler: updateValues)
+    }
+    
+    func viewModelForAppearanceView() -> AppearanceViewModel {
+        AppearanceViewModel(newThemeHandler: updateTheme)
+    }
+    
+    func updateTheme(theme: ThemeSet) {
+        coreData.updateActive(themeSet: theme)
     }
     
     func updateValues(_ notiEnabled: Bool, _ notiTime: Date, _ notiStartDate: Date, _ selectedFrequency: Int) {

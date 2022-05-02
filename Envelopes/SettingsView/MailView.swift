@@ -13,21 +13,19 @@ import MessageUI
 struct MailView: UIViewControllerRepresentable {
     @Binding var isShowing: Bool
     @Binding var result: Result<MFMailComposeResult, Error>?
-    var appColor: AppColor
+    @EnvironmentObject var colorThemeViewModel: ColorThemeViewModel
+    @Environment(\.colorScheme) var colorScheme
 
     
     class Coordinator: NSObject, MFMailComposeViewControllerDelegate {
 
         @Binding var isShowing: Bool
         @Binding var result: Result<MFMailComposeResult, Error>?
-        var appColor: AppColor
 
         init(isShowing: Binding<Bool>,
-             result: Binding<Result<MFMailComposeResult, Error>?>,
-             appColor: AppColor) {
+             result: Binding<Result<MFMailComposeResult, Error>?>) {
             _isShowing = isShowing
             _result = result
-            self.appColor = appColor
         }
 
         func mailComposeController(_ controller: MFMailComposeViewController,
@@ -46,8 +44,7 @@ struct MailView: UIViewControllerRepresentable {
 
     func makeCoordinator() -> Coordinator {
         return Coordinator(isShowing: $isShowing,
-                           result: $result,
-                           appColor: appColor)
+                           result: $result)
     }
 
     func makeUIViewController(context: UIViewControllerRepresentableContext<MailView>) -> MFMailComposeViewController {
@@ -55,7 +52,8 @@ struct MailView: UIViewControllerRepresentable {
         vc.mailComposeDelegate = context.coordinator
         vc.setToRecipients(["mkuzdev@gmail.com"])
         vc.setSubject("App feedback")
-        vc.view.tintColor = UIColor(appColor.color)
+        vc.view.tintColor = UIColor(colorThemeViewModel.accentColor(for: colorScheme))
+        vc.view.backgroundColor = UIColor(colorThemeViewModel.backgroundColor(for: colorScheme))
         return vc
     }
 

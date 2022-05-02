@@ -39,6 +39,8 @@ struct ParentOnboardingView: View {
 }
 
 struct OnboardingViewTwo: View {
+    @EnvironmentObject var colorThemeViewModel: ColorThemeViewModel
+    @Environment(\.colorScheme) var colorScheme
     
     var buttonAction: () -> Void
     
@@ -72,7 +74,7 @@ struct OnboardingViewTwo: View {
                         .font(.system(size: 15, weight: .medium))
                         .foregroundColor(Color.white)
                         .frame(width: 300, height: 45, alignment: .center)
-                        .background(AppColor.blue.color)
+                        .background(colorThemeViewModel.accentColor(for: colorScheme))
                         .cornerRadius(15)
                         .padding()
                     Spacer()
@@ -83,6 +85,9 @@ struct OnboardingViewTwo: View {
 }
 
 struct OnboardingViewOne: View {
+    @EnvironmentObject var colorThemeViewModel: ColorThemeViewModel
+    @Environment(\.colorScheme) var colorScheme
+    
     var buttonAction: () -> Void
     
     var body: some View {
@@ -113,7 +118,7 @@ struct OnboardingViewOne: View {
                         .font(.system(size: 15, weight: .medium))
                         .foregroundColor(Color.white)
                         .frame(width: 300, height: 45, alignment: .center)
-                        .background(AppColor.blue.color)
+                        .background(colorThemeViewModel.accentColor(for: colorScheme))
                         .cornerRadius(15)
                         .padding()
                     Spacer()
@@ -124,6 +129,9 @@ struct OnboardingViewOne: View {
 }
 
 struct OnboardingViewThree: View {
+    @EnvironmentObject var colorThemeViewModel: ColorThemeViewModel
+    @Environment(\.colorScheme) var colorScheme
+    
     var buttonAction: () -> Void
     
     var body: some View {
@@ -153,7 +161,7 @@ struct OnboardingViewThree: View {
                         .font(.system(size: 15, weight: .medium))
                         .foregroundColor(Color.white)
                         .frame(width: 300, height: 45, alignment: .center)
-                        .background(AppColor.blue.color)
+                        .background(colorThemeViewModel.accentColor(for: colorScheme))
                         .cornerRadius(15)
                         .padding()
                     Spacer()

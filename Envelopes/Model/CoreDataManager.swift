@@ -48,7 +48,25 @@ class CoreDataManager {
         return data
     }
     
-    func saveChallenge(goal: String, days: Int, totalSum: Float, step: Float,correction: Float, currentColor: AppColor, isReminderSet: Bool, notificationTime: Date, notificationStartDate: Date?, notificationFrequency: Int) {
+    func saveTheme(darkTheme: Theme, lightTheme: Theme, isDefault: Bool = false) {
+        guard let entity = NSEntityDescription.entity(forEntityName: "ThemeSet", in: context) else { return }
+        let newTheme = NSManagedObject(entity: entity, insertInto: context) as! ThemeSet
+        
+        guard let entity = NSEntityDescription.entity(forEntityName: "ColorSet", in: context) else { return }
+        
+        let darkSet = NSManagedObject(entity: entity, insertInto: context) as! ColorSet
+        darkSet.theme = darkTheme
+        newTheme.dark = darkSet
+        
+        let lightSet = NSManagedObject(entity: entity, insertInto: context) as! ColorSet
+        lightSet.theme = lightTheme
+        newTheme.light = lightSet
+        
+        newTheme.isDefault = isDefault
+        saveContext()
+    }
+    
+    func saveChallenge(goal: String, days: Int, totalSum: Float, step: Float, correction: Float, isReminderSet: Bool, notificationTime: Date, notificationStartDate: Date?, notificationFrequency: Int, colorThemeSet: ThemeSet? = nil) {
         guard let entity = NSEntityDescription.entity(forEntityName: "Challenge", in: context) else { return }
         let newChallenge = NSManagedObject(entity: entity, insertInto: context) as! Challenge
 
@@ -58,8 +76,8 @@ class CoreDataManager {
         newChallenge.savedSum = 0.0
         newChallenge.step = step
         newChallenge.correction = correction
-        newChallenge.colorString = currentColor.rawValue
         newChallenge.isReminderSet = isReminderSet
+        newChallenge.appTheme = colorThemeSet
         
         if isReminderSet {
             newChallenge.reminderStartDate = notificationStartDate
@@ -89,6 +107,7 @@ class CoreDataManager {
         challenges.append(newChallenge)
         saveContext()
         NotificationCenter.default.post(name: NSNotification.Name("ModelWasUpdated"), object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name("ThemeWasUpdated"), object: nil)
     }
     
     func openEnvelope(for challenge: Challenge, at index: Int) {
@@ -107,6 +126,7 @@ class CoreDataManager {
         challenges[index].isActive = true
         saveContext()
         NotificationCenter.default.post(name: NSNotification.Name("ModelWasUpdated"), object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name("ThemeWasUpdated"), object: nil)
     }
     
     
@@ -125,16 +145,24 @@ class CoreDataManager {
         NotificationCenter.default.post(name: NSNotification.Name("ModelWasUpdated"), object: nil)
     }
     
-    func saveCurrentColor(accentColor: AppColor) {
-        guard let challenge = activeChallenge else { return }
-        challenge.colorString = accentColor.rawValue
+    func updateActive(themeSet: ThemeSet) {
+        activeChallenge?.appTheme = themeSet
         saveContext()
+        #warning("Do we need ModelWasUpdated here?")
         NotificationCenter.default.post(name: NSNotification.Name("ModelWasUpdated"), object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name("ThemeWasUpdated"), object: nil)
     }
     
     func delete(_ object: NSManagedObject) {
         context.delete(object)
         challenges.removeAll { $0 == object }
+        saveContext()
+        NotificationCenter.default.post(name: NSNotification.Name("ModelWasUpdated"), object: nil)
+    }
+    
+    
+    func deleteThemeForPreview(_ object: NSManagedObject) {
+        context.delete(object)
         saveContext()
         NotificationCenter.default.post(name: NSNotification.Name("ModelWasUpdated"), object: nil)
     }

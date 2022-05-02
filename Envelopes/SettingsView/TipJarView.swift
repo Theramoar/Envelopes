@@ -47,7 +47,9 @@ struct TipJarView: View {
                         .foregroundColor(.primary)
                     })
                 }
+                .themedList()
             }
+            .themedBackground()
             .navigationTitle("Tip Jar")
     }
 }
