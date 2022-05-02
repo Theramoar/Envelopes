@@ -148,8 +148,6 @@ class CoreDataManager {
     func updateActive(themeSet: ThemeSet) {
         activeChallenge?.appTheme = themeSet
         saveContext()
-        #warning("Do we need ModelWasUpdated here?")
-        NotificationCenter.default.post(name: NSNotification.Name("ModelWasUpdated"), object: nil)
         NotificationCenter.default.post(name: NSNotification.Name("ThemeWasUpdated"), object: nil)
     }
     

@@ -66,10 +66,14 @@ class ColorThemeViewModel: ObservableObject {
     }
     
     @objc private func updateCurrentTheme(notification: NSNotification) {
-        let themeSet = notification.userInfo?["themeSet"] as? ThemeSet ?? coreData.activeChallenge?.appTheme ?? defaultThemes.first!
-        withAnimation {
-            currentThemeSet = themeSet
+        #warning("Fixed bug. App is not crashing if you delete active challenge. However find the way for better implementation")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+            let themeSet = notification.userInfo?["themeSet"] as? ThemeSet ?? self.coreData.activeChallenge?.appTheme ?? self.defaultThemes.first!
+            withAnimation {
+                self.currentThemeSet = themeSet
+            }
         }
+        
     }
     
     

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="21D49" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21E258" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Challenge" representedClassName="Challenge" syncable="YES">
         <attribute name="correction" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="days" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
@@ -34,8 +34,8 @@
     </entity>
     <elements>
         <element name="Challenge" positionX="-661.411865234375" positionY="-328.5838165283203" width="128" height="239"/>
-        <element name="ColorSet" positionX="-194.0997314453125" positionY="-226.4379730224609" width="128" height="88"/>
+        <element name="ColorSet" positionX="-194.0997314453125" positionY="-226.4379730224609" width="128" height="74"/>
         <element name="Envelope" positionX="-491.4361572265625" positionY="-7.83807373046875" width="128" height="89"/>
-        <element name="ThemeSet" positionX="-452.905517578125" positionY="-208.5100708007812" width="128" height="88"/>
+        <element name="ThemeSet" positionX="-452.905517578125" positionY="-208.5100708007812" width="128" height="74"/>
     </elements>
 </model>

@@ -46,7 +46,7 @@ struct TimePickerView: View {
                     .font(.system(size: 12, weight: .regular))
                 Spacer()
                 Picker("Frequency", selection: $viewModel.selectedFrequency) {
-                    ForEach(0 ..< Frequency.allCases.count) {
+                    ForEach(0 ..< Frequency.allCases.count, id: \.self) {
                         Text("\(Frequency.allCases[$0].rawValue)")
                     }
                 }
