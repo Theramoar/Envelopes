@@ -137,10 +137,10 @@
 				BB1E15B126A58A9D002CF495 /* EnvelopeAlertView.swift */,
 				D25A2B7A2674FF98003BBFFA /* ProgressStackView.swift */,
 				D25A2B6826710196003BBFFA /* ChallengeView.swift */,
+				BB1E15B326A58AD6002CF495 /* ChallengeViewModel.swift */,
 				D2C5F1F5281C032A002E5F31 /* NoChallengesView.swift */,
 				D2C5F1F7281C034D002E5F31 /* SettingsButton.swift */,
 				D2C5F1F3281C030F002E5F31 /* EnvelopeView.swift */,
-				BB1E15B326A58AD6002CF495 /* ChallengeViewModel.swift */,
 			);
 			path = ChallengeView;
 			sourceTree = "<group>";
