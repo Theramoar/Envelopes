@@ -39,7 +39,7 @@ class ChallengeViewModel: ObservableObject {
         challenge = coreData.activeChallenge
         self.localNotiManager = localNotiManager
         self.shouldPresentOnboarding = shouldPresentOnboarding
-        NotificationCenter.default.addObserver(self, selector: #selector(updateModel), name: NSNotification.Name("ModelWasUpdated"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateModel), name: .challengeModelWasUpdated, object: nil)
         
     }
     

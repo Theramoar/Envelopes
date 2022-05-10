@@ -46,7 +46,7 @@ class SettingsViewModel: ObservableObject {
         notificationsEnabled = coreData.activeChallenge?.isReminderSet ?? false
         oneEnvelopePerDay = userSettings.oneEnvelopePerDay
         self.localNotiManager = localNotiManager
-        NotificationCenter.default.addObserver(self, selector: #selector(updateModel), name: NSNotification.Name("ModelWasUpdated"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateModel), name: .challengeModelWasUpdated, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(presentAlert), name: NSNotification.Name("AlertShouldBePresented"), object: nil)
     }
     
@@ -78,11 +78,8 @@ class SettingsViewModel: ObservableObject {
     }
     
     func setActiveChallenge(atIndex index: Int) {
-        coreData.setActiveChallenge(atIndex: index)
-    }
-    
-    func updateChallengeInContainer() {
-        coreData.saveContext()
+        let newActiveChallenge = coreData.challenges[index]
+        coreData.setActive(challenge: newActiveChallenge)
     }
     
     func deleteChallengesAt(indexSet: IndexSet) {
@@ -112,7 +109,7 @@ class SettingsViewModel: ObservableObject {
     }
     
     func updateTheme(theme: ThemeSet) {
-        coreData.updateActive(themeSet: theme)
+        coreData.setActive(themeSet: theme)
     }
     
     func updateValues(_ notiEnabled: Bool, _ notiTime: Date, _ notiStartDate: Date, _ selectedFrequency: Int) {

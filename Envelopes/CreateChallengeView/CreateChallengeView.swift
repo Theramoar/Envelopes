@@ -20,7 +20,7 @@ struct CreateChallengeView: View {
                 TextField("Enter total sum", text: $viewModel.totalSumString)
                     .keyboardType(.decimalPad)
                 TimePickerView(viewModel: viewModel.viewModelForTimePicker())
-                ColorPickerView(tapAction: viewModel.setup(themeSet:))
+                ColorThemePickerView(type: .defaultThemes, tapAction: viewModel.setup(themeSet:))
             }
             .themedList()
             Section(footer:

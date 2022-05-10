@@ -1,10 +1,3 @@
-//
-//  TimePickerView.swift
-//  Envelopes
-//
-//  Created by MihailsKuznecovs on 27/07/2021.
-//
-
 import SwiftUI
 
 enum Frequency: String, CaseIterable {
@@ -112,7 +105,6 @@ class TimePickerViewModel: ObservableObject {
         }
     }
     
-//    @Published var appColor: Color
     var frequency: Frequency {
             return Frequency.allCases[selectedFrequency]
         }
@@ -123,7 +115,6 @@ class TimePickerViewModel: ObservableObject {
         self.challengeExists = activeChallenge != nil
         self.notificationsEnabled = activeChallenge?.isReminderSet ?? false
         self.notificationTime = activeChallenge?.reminderTime ?? SettingsViewModel.defaultTime
-//        self.appColor = activeChallenge?.appTheme?.theme(for: colorScheme).accentColor ?? AppColor.blue.color
         self.selectedFrequency = Int(activeChallenge?.reminderFrequency ?? 0)
         let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date())!
         self.notificationStartDate = activeChallenge?.reminderStartDate ?? tomorrow
@@ -134,7 +125,6 @@ class TimePickerViewModel: ObservableObject {
         self.challengeExists = false
         self.notificationsEnabled = isReminderSet
         self.notificationTime = reminderTime
-//        self.appColor = accentColor.color
         self.selectedFrequency = Int(reminderFrequency)
         
         let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date())!

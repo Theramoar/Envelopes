@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		BB1E15A526A07897002CF495 /* AboutDevView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E15A426A07897002CF495 /* AboutDevView.swift */; };
 		BB1E15A726A56CD0002CF495 /* HexColor Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E15A626A56CD0002CF495 /* HexColor Ext.swift */; };
-		BB1E15A926A56D0E002CF495 /* AppColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E15A826A56D0E002CF495 /* AppColorView.swift */; };
+		BB1E15A926A56D0E002CF495 /* ColorThemePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E15A826A56D0E002CF495 /* ColorThemePickerView.swift */; };
 		BB1E15AB26A57D64002CF495 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E15AA26A57D64002CF495 /* CoreDataManager.swift */; };
 		BB1E15AD26A5824F002CF495 /* CreateChallengeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E15AC26A5824F002CF495 /* CreateChallengeViewModel.swift */; };
 		BB1E15B026A58A87002CF495 /* RoundedFloat Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E15AF26A58A87002CF495 /* RoundedFloat Ext.swift */; };
@@ -35,6 +35,9 @@
 		D260E21227AFCCF500ADEBE7 /* AppearanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D260E21127AFCCF500ADEBE7 /* AppearanceView.swift */; };
 		D2A3BE4926761D030058339B /* CreateChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A3BE4826761D030058339B /* CreateChallengeView.swift */; };
 		D2A3BE4B267629520058339B /* HideKeyboard Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A3BE4A267629520058339B /* HideKeyboard Ext.swift */; };
+		D2A44F1F2828F95C00239CD1 /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A44F1E2828F95B00239CD1 /* NotificationNames.swift */; };
+		D2ADEF672823D417006DA6CC /* ThemePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2ADEF662823D417006DA6CC /* ThemePreviewView.swift */; };
+		D2ADEF6B28251FA1006DA6CC /* UserThemeSetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2ADEF6A28251FA1006DA6CC /* UserThemeSetsView.swift */; };
 		D2C5F1F2281681C5002E5F31 /* ColorTheme Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C5F1F1281681C5002E5F31 /* ColorTheme Modifiers.swift */; };
 		D2C5F1F4281C030F002E5F31 /* EnvelopeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C5F1F3281C030F002E5F31 /* EnvelopeView.swift */; };
 		D2C5F1F6281C032A002E5F31 /* NoChallengesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C5F1F5281C032A002E5F31 /* NoChallengesView.swift */; };
@@ -54,7 +57,7 @@
 /* Begin PBXFileReference section */
 		BB1E15A426A07897002CF495 /* AboutDevView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutDevView.swift; sourceTree = "<group>"; };
 		BB1E15A626A56CD0002CF495 /* HexColor Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HexColor Ext.swift"; sourceTree = "<group>"; };
-		BB1E15A826A56D0E002CF495 /* AppColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColorView.swift; sourceTree = "<group>"; };
+		BB1E15A826A56D0E002CF495 /* ColorThemePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorThemePickerView.swift; sourceTree = "<group>"; };
 		BB1E15AA26A57D64002CF495 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		BB1E15AC26A5824F002CF495 /* CreateChallengeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChallengeViewModel.swift; sourceTree = "<group>"; };
 		BB1E15AF26A58A87002CF495 /* RoundedFloat Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RoundedFloat Ext.swift"; sourceTree = "<group>"; };
@@ -82,6 +85,9 @@
 		D260E21127AFCCF500ADEBE7 /* AppearanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceView.swift; sourceTree = "<group>"; };
 		D2A3BE4826761D030058339B /* CreateChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChallengeView.swift; sourceTree = "<group>"; };
 		D2A3BE4A267629520058339B /* HideKeyboard Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HideKeyboard Ext.swift"; sourceTree = "<group>"; };
+		D2A44F1E2828F95B00239CD1 /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
+		D2ADEF662823D417006DA6CC /* ThemePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePreviewView.swift; sourceTree = "<group>"; };
+		D2ADEF6A28251FA1006DA6CC /* UserThemeSetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserThemeSetsView.swift; sourceTree = "<group>"; };
 		D2C5F1F1281681C5002E5F31 /* ColorTheme Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ColorTheme Modifiers.swift"; sourceTree = "<group>"; };
 		D2C5F1F3281C030F002E5F31 /* EnvelopeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvelopeView.swift; sourceTree = "<group>"; };
 		D2C5F1F5281C032A002E5F31 /* NoChallengesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoChallengesView.swift; sourceTree = "<group>"; };
@@ -149,11 +155,13 @@
 			isa = PBXGroup;
 			children = (
 				D2FEF00626976AC70075E397 /* SettingsView.swift */,
-				BBAC1E5D26B00B67002691CC /* TimePickerView.swift */,
 				BB1E15BC26A856A0002CF495 /* SettingsViewModel.swift */,
-				BB1E15A826A56D0E002CF495 /* AppColorView.swift */,
-				D260E20F27AEF16E00ADEBE7 /* CreateThemeView.swift */,
+				BBAC1E5D26B00B67002691CC /* TimePickerView.swift */,
 				D260E21127AFCCF500ADEBE7 /* AppearanceView.swift */,
+				BB1E15A826A56D0E002CF495 /* ColorThemePickerView.swift */,
+				D2ADEF6A28251FA1006DA6CC /* UserThemeSetsView.swift */,
+				D2ADEF662823D417006DA6CC /* ThemePreviewView.swift */,
+				D260E20F27AEF16E00ADEBE7 /* CreateThemeView.swift */,
 				BB1E15A426A07897002CF495 /* AboutDevView.swift */,
 				BB1E15C126A963CF002CF495 /* TipJarView.swift */,
 				BB1E15BF26A960F1002CF495 /* MailView.swift */,
@@ -203,6 +211,7 @@
 				BBAC1E6426B96B0D002691CC /* IAPManager.swift */,
 				D260E20D27AEF0F600ADEBE7 /* AppColorTheme.swift */,
 				BB1E15AF26A58A87002CF495 /* RoundedFloat Ext.swift */,
+				D2A44F1E2828F95B00239CD1 /* NotificationNames.swift */,
 				D25A2B6A2671019B003BBFFA /* Assets.xcassets */,
 				D25A2B742671019C003BBFFA /* Info.plist */,
 				D25A2B6C2671019B003BBFFA /* Preview Content */,
@@ -309,6 +318,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2ADEF6B28251FA1006DA6CC /* UserThemeSetsView.swift in Sources */,
 				D2D766E327B1A8AC005C6898 /* Challenge+CoreDataClass.swift in Sources */,
 				D2D766D927B1A74D005C6898 /* ThemeSet+CoreDataProperties.swift in Sources */,
 				D25A2B6926710196003BBFFA /* ChallengeView.swift in Sources */,
@@ -326,12 +336,14 @@
 				D2D766DB27B1A74D005C6898 /* ColorSet+CoreDataProperties.swift in Sources */,
 				BBAC1E6726BE94B1002691CC /* OnboardingView.swift in Sources */,
 				D2E59128280740D600AA99F2 /* ColorThemeViewModel.swift in Sources */,
+				D2ADEF672823D417006DA6CC /* ThemePreviewView.swift in Sources */,
 				BB1E15C426A97730002CF495 /* UserSettings.swift in Sources */,
 				D25A2B6726710195003BBFFA /* EnvelopesApp.swift in Sources */,
 				D2A3BE4926761D030058339B /* CreateChallengeView.swift in Sources */,
 				BB1E15A726A56CD0002CF495 /* HexColor Ext.swift in Sources */,
 				D260E20E27AEF0F600ADEBE7 /* AppColorTheme.swift in Sources */,
 				D2C5F1F6281C032A002E5F31 /* NoChallengesView.swift in Sources */,
+				D2A44F1F2828F95C00239CD1 /* NotificationNames.swift in Sources */,
 				BB1E15C026A960F1002CF495 /* MailView.swift in Sources */,
 				D260E21027AEF16E00ADEBE7 /* CreateThemeView.swift in Sources */,
 				BBAC1E6526B96B0D002691CC /* IAPManager.swift in Sources */,
@@ -340,7 +352,7 @@
 				D2C5F1F2281681C5002E5F31 /* ColorTheme Modifiers.swift in Sources */,
 				D2D766DE27B1A856005C6898 /* Envelope+CoreDataProperties.swift in Sources */,
 				D2D766E027B1A867005C6898 /* Challenge+CoreDataProperties.swift in Sources */,
-				BB1E15A926A56D0E002CF495 /* AppColorView.swift in Sources */,
+				BB1E15A926A56D0E002CF495 /* ColorThemePickerView.swift in Sources */,
 				BBAC1E5E26B00B67002691CC /* TimePickerView.swift in Sources */,
 				BB1E15AB26A57D64002CF495 /* CoreDataManager.swift in Sources */,
 				D2D766DA27B1A74D005C6898 /* ColorSet+CoreDataClass.swift in Sources */,
@@ -486,7 +498,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.02;
+				MARKETING_VERSION = 1.03;
 				PRODUCT_BUNDLE_IDENTIFIER = mishak.envelopesapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -510,7 +522,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.02;
+				MARKETING_VERSION = 1.03;
 				PRODUCT_BUNDLE_IDENTIFIER = mishak.envelopesapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

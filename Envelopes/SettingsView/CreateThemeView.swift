@@ -2,37 +2,44 @@ import SwiftUI
 
 struct CreateThemeView: View {
     @EnvironmentObject var colorThemeViewModel: ColorThemeViewModel
+    @StateObject var viewModel: CreateThemeViewModel
     @Environment(\.colorScheme) var colorScheme
-    @State var accentColor: Color
-    @State var backgroundColor: Color
-    @State var foregroundColor: Color
-    
-    @State var themes = ["Light", "Dark"]
-    @State var selectedTheme = 0
-    
-    
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         ScrollView(showsIndicators: false) {
-            ThemePreviewView(viewModel: ThemePreviewViewModel(colorScheme: colorScheme))
+            viewModel.themePreview
                 .padding()
             
             VStack {
-                ColorPicker("Accent Color", selection: $accentColor, supportsOpacity: false)
-                .font(.system(size: 15, weight: .medium)).padding(5)
+                ColorPicker("Accent Color", selection: $viewModel.previewAccentColor, supportsOpacity: false)
+                .font(.system(size: 15, weight: .medium))
+                .padding(5)
+                .onChange(of: viewModel.previewAccentColor) { newValue in
+                    viewModel.changePreview(accentColor: newValue)
+                }
                 
                 Divider()
                 
-                ColorPicker("Background Color", selection: $backgroundColor, supportsOpacity: false)
-                .font(.system(size: 15, weight: .medium)).padding(5)
+                ColorPicker("Background Color", selection: $viewModel.previewBackgroundColor, supportsOpacity: false)
+                .font(.system(size: 15, weight: .medium))
+                .padding(5)
+                .onChange(of: viewModel.previewBackgroundColor) { newValue in
+                    viewModel.changePreview(backgroundColor: newValue)
+                }
                 
                 Divider()
                 
-                ColorPicker("Foreground Color", selection: $foregroundColor, supportsOpacity: false)
-                .font(.system(size: 15, weight: .medium)).padding(5)
+                ColorPicker("Foreground Color", selection: $viewModel.previewForegroundColor, supportsOpacity: false)
+                .font(.system(size: 15, weight: .medium))
+                .padding(5)
+                .onChange(of: viewModel.previewForegroundColor) { newValue in
+                    viewModel.changePreview(foregroundColor: newValue)
+                }
                 
                 Button {
-                    print("SAVED")
+                    viewModel.saveNewTheme()
+                    presentationMode.wrappedValue.dismiss()
                 } label: {
                     HStack {
                         Spacer()
@@ -54,8 +61,86 @@ struct CreateThemeView: View {
     }
 }
 
-struct CreateThemeView_Previews: PreviewProvider {
-    static var previews: some View {
-        CreateThemeView(accentColor: .blue, backgroundColor: .blue, foregroundColor: .blue)
+class CreateThemeViewModel: ObservableObject {
+    private var previewColorThemeViewModel: ColorThemeViewModel
+    private var currentPreviewColorScheme: ColorScheme
+    
+    @Published var previewBackgroundColor: Color!
+    @Published var previewForegroundColor: Color!
+    @Published var previewAccentColor: Color!
+    
+    var themePreview: some View {
+        ThemePreviewView(viewModel: ThemePreviewViewModel(colorScheme: self.currentPreviewColorScheme, previewThemeChangedHandler: self.previewThemeChangedHandler))
+            .environmentObject(previewColorThemeViewModel)
+    }
+    
+    init(colorScheme: ColorScheme) {
+        previewColorThemeViewModel = ColorThemeViewModel(type: .newThemePreview)
+        currentPreviewColorScheme = colorScheme
+        
+        switch currentPreviewColorScheme {
+        case .light:
+            previewBackgroundColor = previewColorThemeViewModel.previewLightBackgroundColor
+            previewForegroundColor = previewColorThemeViewModel.previewLightForegroundColor
+            previewAccentColor = previewColorThemeViewModel.previewLightAccentColor
+        case .dark:
+            previewBackgroundColor = previewColorThemeViewModel.previewDarkBackgroundColor
+            previewForegroundColor = previewColorThemeViewModel.previewDarkForegroundColor
+            previewAccentColor = previewColorThemeViewModel.previewDarkAccentColor
+        @unknown default:
+            print("Unknown ColorScheme while changing preview colours")
+        }
+    }
+    
+    func previewThemeChangedHandler(newColorScheme: ColorScheme) {
+        currentPreviewColorScheme = newColorScheme
+        
+        switch currentPreviewColorScheme {
+        case .light:
+            previewBackgroundColor = previewColorThemeViewModel.previewLightBackgroundColor
+            previewForegroundColor = previewColorThemeViewModel.previewLightForegroundColor
+            previewAccentColor = previewColorThemeViewModel.previewLightAccentColor
+        case .dark:
+            previewBackgroundColor = previewColorThemeViewModel.previewDarkBackgroundColor
+            previewForegroundColor = previewColorThemeViewModel.previewDarkForegroundColor
+            previewAccentColor = previewColorThemeViewModel.previewDarkAccentColor
+        @unknown default:
+            print("Unknown ColorScheme while changing preview colours")
+        }
+    }
+    
+    func changePreview(accentColor: Color) {
+        switch currentPreviewColorScheme {
+        case .light:
+            previewColorThemeViewModel.previewLightAccentColor = accentColor
+        case .dark:
+            previewColorThemeViewModel.previewDarkAccentColor = accentColor
+        @unknown default:
+            print("Unknown ColorScheme while changing preview colours")
+        }
+    }
+    func changePreview(backgroundColor: Color) {
+        switch currentPreviewColorScheme {
+        case .light:
+            previewColorThemeViewModel.previewLightBackgroundColor = backgroundColor
+        case .dark:
+            previewColorThemeViewModel.previewDarkBackgroundColor = backgroundColor
+        @unknown default:
+            print("Unknown ColorScheme while changing preview colours")
+        }
+    }
+    func changePreview(foregroundColor: Color) {
+        switch currentPreviewColorScheme {
+        case .light:
+            previewColorThemeViewModel.previewLightForegroundColor = foregroundColor
+        case .dark:
+            previewColorThemeViewModel.previewDarkForegroundColor = foregroundColor
+        @unknown default:
+            print("Unknown ColorScheme while changing preview colours")
+        }
+    }
+    
+    func saveNewTheme() {
+        previewColorThemeViewModel.saveNewTheme()
     }
 }
