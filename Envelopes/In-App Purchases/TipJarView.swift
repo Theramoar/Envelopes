@@ -1,12 +1,4 @@
-//
-//  TipJarView.swift
-//  Envelopes
-//
-//  Created by MihailsKuznecovs on 22/07/2021.
-//
-
 import SwiftUI
-
 
 struct TipJarView: View {
     @StateObject var viewModel = TipJarViewModel()
@@ -14,7 +6,7 @@ struct TipJarView: View {
     var body: some View {
             Form {
                 Section(footer: Text(viewModel.gratitudeString).padding()) {
-                    Button(action: {IAPManager.shared.purchase(productWith: IAPProducts.smallTip.rawValue)}, label: {
+                    Button(action: {IAPManager.shared.purchase(product: .smallTip)}, label: {
                         HStack {
                             Text("🤑 Great Tip")
                                 .fontWeight(.medium)
@@ -24,7 +16,7 @@ struct TipJarView: View {
                         }
                         .foregroundColor(.primary)
                     })
-                    Button(action: {IAPManager.shared.purchase(productWith: IAPProducts.mediumTip.rawValue)}, label: {
+                    Button(action: {IAPManager.shared.purchase(product: .mediumTip)}, label: {
                         HStack {
                             Text("😱 Amazing Tip")
                                 .fontWeight(.medium)
@@ -35,7 +27,7 @@ struct TipJarView: View {
                         .foregroundColor(.primary)
                     })
                     Button(action: {
-                        IAPManager.shared.purchase(productWith: IAPProducts.largeTip.rawValue)
+                        IAPManager.shared.purchase(product: .largeTip)
                     }, label: {
                         HStack {
                             Text("🤯 Generous Tip")
@@ -56,10 +48,10 @@ struct TipJarView: View {
 
 class TipJarViewModel: ObservableObject {
     
-    let gratitudeString = "The app is completely free! But if you like, you can leave a tip. I greatly appreciate your support and try to make this app better!"
-    @Published var smallTipPrice = IAPManager.shared.priceStringForProduct(withIdentifier: IAPProducts.smallTip.rawValue)
-    @Published var mediumTipPrice = IAPManager.shared.priceStringForProduct(withIdentifier: IAPProducts.mediumTip.rawValue)
-    @Published var largeTipPrice = IAPManager.shared.priceStringForProduct(withIdentifier: IAPProducts.largeTip.rawValue)
+    let gratitudeString = "If you like, you can leave a tip. I greatly appreciate your support and try to make this app better!"
+    @Published var smallTipPrice = IAPManager.shared.priceStringFor(product: .smallTip)
+    @Published var mediumTipPrice = IAPManager.shared.priceStringFor(product: .mediumTip)
+    @Published var largeTipPrice = IAPManager.shared.priceStringFor(product: .largeTip)
     
     @Published var gratitudePresented = false
     
@@ -71,6 +63,6 @@ class TipJarViewModel: ObservableObject {
     
     @objc func completeTransaction() {
         print("Transaction completed")
-        NotificationCenter.default.post(name: NSNotification.Name("AlertShouldBePresented"), object: nil)
+        NotificationCenter.default.post(name: .purchaseWasSuccesful, object: nil)
     }
 }

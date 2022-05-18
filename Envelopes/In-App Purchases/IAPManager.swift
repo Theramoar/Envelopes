@@ -5,6 +5,8 @@ enum IAPProducts: String {
     case smallTip = "smallTip"
     case mediumTip = "mediumTip"
     case largeTip = "largeTip"
+    case designBundle = "designBundlePurchase"
+    case allIn = "allInBundlePurchase"
 }
 
 class IAPManager: NSObject  {
@@ -28,21 +30,23 @@ class IAPManager: NSObject  {
     public func getProducts() {
         let identifiers: Set = [IAPProducts.smallTip.rawValue,
                                 IAPProducts.mediumTip.rawValue,
-                                IAPProducts.largeTip.rawValue]
+                                IAPProducts.largeTip.rawValue,
+                                IAPProducts.designBundle.rawValue,
+                                IAPProducts.allIn.rawValue]
         productRequest = SKProductsRequest(productIdentifiers: identifiers)
         productRequest?.delegate = self
         productRequest?.start()
     }
     
-    public func purchase(productWith identifier: String) {
-        guard let product = products.filter({ $0.productIdentifier == identifier }).first else { return }
+    public func purchase(product: IAPProducts) {
+        guard let product = products.filter({ $0.productIdentifier == product.rawValue }).first else { return }
         let payment = SKPayment(product: product)
         //отправляет платёж в очередь. Далее работает метод func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction])
         SKPaymentQueue.default().add(payment)
     }
 
-    public func priceStringForProduct(withIdentifier identifier: String) -> String {
-        guard let product = products.first(where: {$0.productIdentifier == identifier }) else { return "--" }
+    public func priceStringFor(product: IAPProducts) -> String {
+        guard let product = products.first(where: {$0.productIdentifier == product.rawValue }) else { return "--" }
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.locale = product.priceLocale
@@ -63,8 +67,8 @@ extension IAPManager: SKPaymentTransactionObserver {
             case .purchased: purchased(transaction)
             case .failed: failed(transaction)
             case .restored: restored(transaction)
-            case .purchasing: break
-            case .deferred: break
+            case .purchasing: purchasing(transaction)
+            case .deferred: defered(transaction)
             @unknown default: break
             }
         }
@@ -76,6 +80,7 @@ extension IAPManager: SKPaymentTransactionObserver {
                 print("Transaction Error: \(transactionError.localizedDescription)")
             }
         }
+        NotificationCenter.default.post(name: NSNotification.Name("failed_\(transaction.payment.productIdentifier)"), object: nil)
         SKPaymentQueue.default().finishTransaction(transaction)
     }
     private func purchased(_ transaction: SKPaymentTransaction) {
@@ -89,6 +94,10 @@ extension IAPManager: SKPaymentTransactionObserver {
         NotificationCenter.default.post(name: NSNotification.Name("restored_\(transaction.payment.productIdentifier)"), object: nil)
         SKPaymentQueue.default().finishTransaction(transaction)
     }
+    
+    private func defered(_ transaction: SKPaymentTransaction) {}
+    
+    private func purchasing(_ transaction: SKPaymentTransaction) {}
 }
 
 extension IAPManager: SKProductsRequestDelegate {

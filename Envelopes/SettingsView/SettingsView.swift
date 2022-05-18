@@ -118,20 +118,24 @@ struct SettingsView: View {
                         }
                     }
                     .themedList()
-                    Section(header: Text("About the developer")) {
+                    Section(header: Text("Other")) {
                         HStack {
-                            Image(systemName: "paperplane")
+                            Image(systemName: "dollarsign.circle")
                                 .resizable()
                                 .frame(width: 25, height: 25, alignment: .center)
                                 .font(.system(size: 20, weight: .thin))
-                            Text("Leave your feedback")
-                                .fontWeight(.medium)
-                            
+                            NavigationLink(
+                                destination: UpgradeAppView(),
+                                isActive: $viewModel.navigateToUpgrateAppView,
+                                label: {
+                                    Text("Upgrade App")
+                                        .fontWeight(.medium)
+                                })
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .contentShape(Rectangle())
                         .onTapGesture {
-                            viewModel.navigateToMailView = true
+                            viewModel.navigateToUpgrateAppView = true
                         }
                         
                         HStack {
@@ -154,24 +158,21 @@ struct SettingsView: View {
                         }
                         
                         HStack {
-                            Image(systemName: "dollarsign.circle")
+                            Image(systemName: "paperplane")
                                 .resizable()
                                 .frame(width: 25, height: 25, alignment: .center)
                                 .font(.system(size: 20, weight: .thin))
-                            NavigationLink(
-                                destination: TipJarView(),
-                                isActive: $viewModel.navigateToTipJarView,
-                                label: {
-                                    Text("Tip Jar")
-                                        .fontWeight(.medium)
-                                })
+                            Text("Leave your feedback")
+                                .fontWeight(.medium)
+                            
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .contentShape(Rectangle())
                         .onTapGesture {
-                            viewModel.navigateToTipJarView = true
+                            viewModel.navigateToMailView = true
                         }
                         
+
                     }
                     .themedList()
                 }

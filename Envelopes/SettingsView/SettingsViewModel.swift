@@ -23,7 +23,7 @@ class SettingsViewModel: ObservableObject {
     }
     @Published var navigateToCreateView = false
     @Published var navigateToMailView = false
-    @Published var navigateToTipJarView = false
+    @Published var navigateToUpgrateAppView = false
     @Published var alertPresented = false
     @Published var currentAlertType: AlertType!
     @Published var mailResult: Result<MFMailComposeResult, Error>? = nil
@@ -47,7 +47,7 @@ class SettingsViewModel: ObservableObject {
         oneEnvelopePerDay = userSettings.oneEnvelopePerDay
         self.localNotiManager = localNotiManager
         NotificationCenter.default.addObserver(self, selector: #selector(updateModel), name: .challengeModelWasUpdated, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(presentAlert), name: NSNotification.Name("AlertShouldBePresented"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(presentAlert), name: .purchaseWasSuccesful, object: nil)
     }
     
     @objc func updateModel() {
@@ -71,7 +71,7 @@ class SettingsViewModel: ObservableObject {
     }
     
     @objc func presentAlert() {
-        currentAlertType = .infoAlert("Thank you!\n\nYour support is very important!")
+        currentAlertType = .infoAlert("Thank you for your purchase!")
         withAnimation {
             alertPresented = true
         }

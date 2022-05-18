@@ -30,18 +30,21 @@
 		D25A2B6E2671019B003BBFFA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D25A2B6D2671019B003BBFFA /* Preview Assets.xcassets */; };
 		D25A2B732671019B003BBFFA /* Envelopes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D25A2B712671019B003BBFFA /* Envelopes.xcdatamodeld */; };
 		D25A2B7B2674FF99003BBFFA /* ProgressStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25A2B7A2674FF98003BBFFA /* ProgressStackView.swift */; };
-		D260E20E27AEF0F600ADEBE7 /* AppColorTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D260E20D27AEF0F600ADEBE7 /* AppColorTheme.swift */; };
 		D260E21027AEF16E00ADEBE7 /* CreateThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D260E20F27AEF16E00ADEBE7 /* CreateThemeView.swift */; };
 		D260E21227AFCCF500ADEBE7 /* AppearanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D260E21127AFCCF500ADEBE7 /* AppearanceView.swift */; };
 		D2A3BE4926761D030058339B /* CreateChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A3BE4826761D030058339B /* CreateChallengeView.swift */; };
 		D2A3BE4B267629520058339B /* HideKeyboard Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A3BE4A267629520058339B /* HideKeyboard Ext.swift */; };
 		D2A44F1F2828F95C00239CD1 /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A44F1E2828F95B00239CD1 /* NotificationNames.swift */; };
+		D2A44F23282EBC1700239CD1 /* BundleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A44F22282EBC1700239CD1 /* BundleView.swift */; };
 		D2ADEF672823D417006DA6CC /* ThemePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2ADEF662823D417006DA6CC /* ThemePreviewView.swift */; };
 		D2ADEF6B28251FA1006DA6CC /* UserThemeSetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2ADEF6A28251FA1006DA6CC /* UserThemeSetsView.swift */; };
 		D2C5F1F2281681C5002E5F31 /* ColorTheme Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C5F1F1281681C5002E5F31 /* ColorTheme Modifiers.swift */; };
 		D2C5F1F4281C030F002E5F31 /* EnvelopeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C5F1F3281C030F002E5F31 /* EnvelopeView.swift */; };
 		D2C5F1F6281C032A002E5F31 /* NoChallengesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C5F1F5281C032A002E5F31 /* NoChallengesView.swift */; };
 		D2C5F1F8281C034D002E5F31 /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C5F1F7281C034D002E5F31 /* SettingsButton.swift */; };
+		D2CC31D3283214BF00CCEF16 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CC31D2283214BF00CCEF16 /* ActionButton.swift */; };
+		D2CC31D528322CB600CCEF16 /* UpgradeAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CC31D428322CB600CCEF16 /* UpgradeAppView.swift */; };
+		D2CC31D92832C7D400CCEF16 /* UserPurchases.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CC31D82832C7D400CCEF16 /* UserPurchases.swift */; };
 		D2D766D827B1A74D005C6898 /* ThemeSet+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D766D427B1A74D005C6898 /* ThemeSet+CoreDataClass.swift */; };
 		D2D766D927B1A74D005C6898 /* ThemeSet+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D766D527B1A74D005C6898 /* ThemeSet+CoreDataProperties.swift */; };
 		D2D766DA27B1A74D005C6898 /* ColorSet+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D766D627B1A74D005C6898 /* ColorSet+CoreDataClass.swift */; };
@@ -80,18 +83,21 @@
 		D25A2B722671019B003BBFFA /* Envelopes.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Envelopes.xcdatamodel; sourceTree = "<group>"; };
 		D25A2B742671019C003BBFFA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D25A2B7A2674FF98003BBFFA /* ProgressStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressStackView.swift; sourceTree = "<group>"; };
-		D260E20D27AEF0F600ADEBE7 /* AppColorTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColorTheme.swift; sourceTree = "<group>"; };
 		D260E20F27AEF16E00ADEBE7 /* CreateThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateThemeView.swift; sourceTree = "<group>"; };
 		D260E21127AFCCF500ADEBE7 /* AppearanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceView.swift; sourceTree = "<group>"; };
 		D2A3BE4826761D030058339B /* CreateChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChallengeView.swift; sourceTree = "<group>"; };
 		D2A3BE4A267629520058339B /* HideKeyboard Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HideKeyboard Ext.swift"; sourceTree = "<group>"; };
 		D2A44F1E2828F95B00239CD1 /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
+		D2A44F22282EBC1700239CD1 /* BundleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleView.swift; sourceTree = "<group>"; };
 		D2ADEF662823D417006DA6CC /* ThemePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePreviewView.swift; sourceTree = "<group>"; };
 		D2ADEF6A28251FA1006DA6CC /* UserThemeSetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserThemeSetsView.swift; sourceTree = "<group>"; };
 		D2C5F1F1281681C5002E5F31 /* ColorTheme Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ColorTheme Modifiers.swift"; sourceTree = "<group>"; };
 		D2C5F1F3281C030F002E5F31 /* EnvelopeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvelopeView.swift; sourceTree = "<group>"; };
 		D2C5F1F5281C032A002E5F31 /* NoChallengesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoChallengesView.swift; sourceTree = "<group>"; };
 		D2C5F1F7281C034D002E5F31 /* SettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
+		D2CC31D2283214BF00CCEF16 /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
+		D2CC31D428322CB600CCEF16 /* UpgradeAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeAppView.swift; sourceTree = "<group>"; };
+		D2CC31D82832C7D400CCEF16 /* UserPurchases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPurchases.swift; sourceTree = "<group>"; };
 		D2D766D427B1A74D005C6898 /* ThemeSet+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThemeSet+CoreDataClass.swift"; sourceTree = "<group>"; };
 		D2D766D527B1A74D005C6898 /* ThemeSet+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThemeSet+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D2D766D627B1A74D005C6898 /* ColorSet+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ColorSet+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -163,7 +169,6 @@
 				D2ADEF662823D417006DA6CC /* ThemePreviewView.swift */,
 				D260E20F27AEF16E00ADEBE7 /* CreateThemeView.swift */,
 				BB1E15A426A07897002CF495 /* AboutDevView.swift */,
-				BB1E15C126A963CF002CF495 /* TipJarView.swift */,
 				BB1E15BF26A960F1002CF495 /* MailView.swift */,
 			);
 			path = SettingsView;
@@ -202,16 +207,13 @@
 				BBAC1E6626BE94B0002691CC /* OnboardingView.swift */,
 				D2E59127280740D600AA99F2 /* ColorThemeViewModel.swift */,
 				D2C5F1F1281681C5002E5F31 /* ColorTheme Modifiers.swift */,
+				D2CC31D2283214BF00CCEF16 /* ActionButton.swift */,
 				BB1E159B269ED88A002CF495 /* Model */,
 				BB1E15BE26A8574D002CF495 /* SettingsView */,
 				BB1E15B526A58AFD002CF495 /* ChallengeView */,
 				BB1E15AE26A58282002CF495 /* CreateChallengeView */,
-				D2A3BE4A267629520058339B /* HideKeyboard Ext.swift */,
-				BB1E15A626A56CD0002CF495 /* HexColor Ext.swift */,
-				BBAC1E6426B96B0D002691CC /* IAPManager.swift */,
-				D260E20D27AEF0F600ADEBE7 /* AppColorTheme.swift */,
-				BB1E15AF26A58A87002CF495 /* RoundedFloat Ext.swift */,
-				D2A44F1E2828F95B00239CD1 /* NotificationNames.swift */,
+				D2CC31D628322CDF00CCEF16 /* In-App Purchases */,
+				D2CC31D728322D4200CCEF16 /* Utils */,
 				D25A2B6A2671019B003BBFFA /* Assets.xcassets */,
 				D25A2B742671019C003BBFFA /* Info.plist */,
 				D25A2B6C2671019B003BBFFA /* Preview Content */,
@@ -225,6 +227,29 @@
 				D25A2B6D2671019B003BBFFA /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		D2CC31D628322CDF00CCEF16 /* In-App Purchases */ = {
+			isa = PBXGroup;
+			children = (
+				D2CC31D82832C7D400CCEF16 /* UserPurchases.swift */,
+				BBAC1E6426B96B0D002691CC /* IAPManager.swift */,
+				D2CC31D428322CB600CCEF16 /* UpgradeAppView.swift */,
+				BB1E15C126A963CF002CF495 /* TipJarView.swift */,
+				D2A44F22282EBC1700239CD1 /* BundleView.swift */,
+			);
+			path = "In-App Purchases";
+			sourceTree = "<group>";
+		};
+		D2CC31D728322D4200CCEF16 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				BB1E15A626A56CD0002CF495 /* HexColor Ext.swift */,
+				D2A3BE4A267629520058339B /* HideKeyboard Ext.swift */,
+				BB1E15AF26A58A87002CF495 /* RoundedFloat Ext.swift */,
+				D2A44F1E2828F95B00239CD1 /* NotificationNames.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		D2D766E527B1A8C3005C6898 /* CoreData Classes */ = {
@@ -321,6 +346,7 @@
 				D2ADEF6B28251FA1006DA6CC /* UserThemeSetsView.swift in Sources */,
 				D2D766E327B1A8AC005C6898 /* Challenge+CoreDataClass.swift in Sources */,
 				D2D766D927B1A74D005C6898 /* ThemeSet+CoreDataProperties.swift in Sources */,
+				D2CC31D3283214BF00CCEF16 /* ActionButton.swift in Sources */,
 				D25A2B6926710196003BBFFA /* ChallengeView.swift in Sources */,
 				D260E21227AFCCF500ADEBE7 /* AppearanceView.swift in Sources */,
 				BB1E15B226A58A9D002CF495 /* EnvelopeAlertView.swift in Sources */,
@@ -339,12 +365,14 @@
 				D2ADEF672823D417006DA6CC /* ThemePreviewView.swift in Sources */,
 				BB1E15C426A97730002CF495 /* UserSettings.swift in Sources */,
 				D25A2B6726710195003BBFFA /* EnvelopesApp.swift in Sources */,
+				D2A44F23282EBC1700239CD1 /* BundleView.swift in Sources */,
 				D2A3BE4926761D030058339B /* CreateChallengeView.swift in Sources */,
 				BB1E15A726A56CD0002CF495 /* HexColor Ext.swift in Sources */,
-				D260E20E27AEF0F600ADEBE7 /* AppColorTheme.swift in Sources */,
 				D2C5F1F6281C032A002E5F31 /* NoChallengesView.swift in Sources */,
+				D2CC31D528322CB600CCEF16 /* UpgradeAppView.swift in Sources */,
 				D2A44F1F2828F95C00239CD1 /* NotificationNames.swift in Sources */,
 				BB1E15C026A960F1002CF495 /* MailView.swift in Sources */,
+				D2CC31D92832C7D400CCEF16 /* UserPurchases.swift in Sources */,
 				D260E21027AEF16E00ADEBE7 /* CreateThemeView.swift in Sources */,
 				BBAC1E6526B96B0D002691CC /* IAPManager.swift in Sources */,
 				D2A3BE4B267629520058339B /* HideKeyboard Ext.swift in Sources */,
