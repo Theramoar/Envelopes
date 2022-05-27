@@ -61,7 +61,7 @@ struct CreateThemeView: View {
                     NavigationLink(destination: BundleView(ofType: .designBundle), isActive: $viewModel.presentDesignBundleView) {
                         HStack {
                             Spacer()
-                            Text("Buy Design Bundle")
+                            Text("Check out Design Bundle")
                                 .font(.system(size: 15, weight: .medium))
                                 .foregroundColor(Color.white)
                                 .frame(width: 300, height: 45, alignment: .center)

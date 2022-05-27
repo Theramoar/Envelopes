@@ -77,7 +77,7 @@ class UpgradeViewModel: ObservableObject {
     @objc private func dismissBundleViews() {
         navigateToDesignBundleView = false
         navigateToAllInBundleView = false
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.updatePublishers()
         }
         
