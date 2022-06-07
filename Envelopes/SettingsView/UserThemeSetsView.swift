@@ -26,7 +26,7 @@ struct UserThemeSetsView: View {
                 NavigationLink("Create Theme", destination: CreateThemeView(viewModel: CreateThemeViewModel(colorScheme: colorScheme)))
                     .font(.system(size: 15, weight: .medium))
             }.themedList()
-        }.themedBackground()
+        }.themedScreenBackground()
             .navigationTitle("Custom Themes")
     }
 }

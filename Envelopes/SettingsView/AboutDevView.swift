@@ -43,7 +43,7 @@ struct AboutDevView: View {
             }
             .edgesIgnoringSafeArea(.bottom)
             .navigationTitle("About the Developer")
-            .themedBackground()
+            .themedScreenBackground()
     }
 }
 

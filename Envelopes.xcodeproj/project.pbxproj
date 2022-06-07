@@ -32,6 +32,7 @@
 		D25A2B7B2674FF99003BBFFA /* ProgressStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25A2B7A2674FF98003BBFFA /* ProgressStackView.swift */; };
 		D260E21027AEF16E00ADEBE7 /* CreateThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D260E20F27AEF16E00ADEBE7 /* CreateThemeView.swift */; };
 		D260E21227AFCCF500ADEBE7 /* AppearanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D260E21127AFCCF500ADEBE7 /* AppearanceView.swift */; };
+		D2948C00284112A10029F5F6 /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2948BFF284112A00029F5F6 /* AnalyticsView.swift */; };
 		D2A3BE4926761D030058339B /* CreateChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A3BE4826761D030058339B /* CreateChallengeView.swift */; };
 		D2A3BE4B267629520058339B /* HideKeyboard Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A3BE4A267629520058339B /* HideKeyboard Ext.swift */; };
 		D2A44F1F2828F95C00239CD1 /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A44F1E2828F95B00239CD1 /* NotificationNames.swift */; };
@@ -85,6 +86,7 @@
 		D25A2B7A2674FF98003BBFFA /* ProgressStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressStackView.swift; sourceTree = "<group>"; };
 		D260E20F27AEF16E00ADEBE7 /* CreateThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateThemeView.swift; sourceTree = "<group>"; };
 		D260E21127AFCCF500ADEBE7 /* AppearanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceView.swift; sourceTree = "<group>"; };
+		D2948BFF284112A00029F5F6 /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
 		D2A3BE4826761D030058339B /* CreateChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChallengeView.swift; sourceTree = "<group>"; };
 		D2A3BE4A267629520058339B /* HideKeyboard Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HideKeyboard Ext.swift"; sourceTree = "<group>"; };
 		D2A44F1E2828F95B00239CD1 /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 				D2E59127280740D600AA99F2 /* ColorThemeViewModel.swift */,
 				D2C5F1F1281681C5002E5F31 /* ColorTheme Modifiers.swift */,
 				D2CC31D2283214BF00CCEF16 /* ActionButton.swift */,
+				D2948BFF284112A00029F5F6 /* AnalyticsView.swift */,
 				BB1E159B269ED88A002CF495 /* Model */,
 				BB1E15BE26A8574D002CF495 /* SettingsView */,
 				BB1E15B526A58AFD002CF495 /* ChallengeView */,
@@ -348,6 +351,7 @@
 				D2D766D927B1A74D005C6898 /* ThemeSet+CoreDataProperties.swift in Sources */,
 				D2CC31D3283214BF00CCEF16 /* ActionButton.swift in Sources */,
 				D25A2B6926710196003BBFFA /* ChallengeView.swift in Sources */,
+				D2948C00284112A10029F5F6 /* AnalyticsView.swift in Sources */,
 				D260E21227AFCCF500ADEBE7 /* AppearanceView.swift in Sources */,
 				BB1E15B226A58A9D002CF495 /* EnvelopeAlertView.swift in Sources */,
 				D2D766D827B1A74D005C6898 /* ThemeSet+CoreDataClass.swift in Sources */,
@@ -526,7 +530,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.04;
+				MARKETING_VERSION = 1.05;
 				PRODUCT_BUNDLE_IDENTIFIER = mishak.envelopesapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -550,7 +554,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.04;
+				MARKETING_VERSION = 1.05;
 				PRODUCT_BUNDLE_IDENTIFIER = mishak.envelopesapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

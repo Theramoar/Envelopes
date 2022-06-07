@@ -24,22 +24,10 @@ struct CreateChallengeView: View {
             }
             .themedList()
             Section(footer:
-                        Button {
-                viewModel.saveNewChallenge()
-                presentationMode.wrappedValue.dismiss()
-            } label: {
-                HStack {
-                    Spacer()
-                    Text("Create challenge")
-                        .font(.system(size: 15, weight: .medium))
-                        .foregroundColor(Color.white)
-                        .frame(width: 300, height: 45, alignment: .center)
-                        .background(colorThemeViewModel.accentColor(for: colorScheme))
-                        .cornerRadius(15)
-                        .padding()
-                    Spacer()
-                }
-            }
+                        ActionButton(title: "Create challenge") {
+                            viewModel.saveNewChallenge()
+                            presentationMode.wrappedValue.dismiss()
+                        }
             ) {
                 TextField("Days of challenge", text: $viewModel.daysString)
                     .disabled(viewModel.deadlineEnabled)
@@ -65,8 +53,8 @@ struct CreateChallengeView: View {
             }
             .themedList()
         }
-        .themedBackground()
-        .accentColor(colorThemeViewModel.accentColor(for: colorScheme))
+        .themedScreenBackground()
+        .themedAccent()
         .onTapGesture {
             hideKeyboard()
         }

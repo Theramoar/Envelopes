@@ -48,8 +48,6 @@ struct AppColorView: View {
     let currentColor: Bool
     var tapAction: (ThemeSet) -> Void
     
-    @EnvironmentObject var colorThemeViewModel: ColorThemeViewModel
-    
     var body: some View {
         ZStack {
             themeSet.theme(for: colorScheme).accentColor

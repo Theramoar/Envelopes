@@ -43,15 +43,6 @@ extension Challenge {
         let position = Int(reminderFrequency)
         return Frequency.allCases[position]
     }
-    
-//    var accentColor: AppColor {
-//        for color in AppColor.allCases {
-//            if color.rawValue == colorString {
-//                return color
-//            }
-//        }
-//        return .blue
-//    }
 }
 
 // MARK: Generated accessors for envelopes

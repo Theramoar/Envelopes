@@ -38,6 +38,10 @@ class IAPManager: NSObject  {
         productRequest?.start()
     }
     
+    public func isProductAvailable(product: IAPProducts) -> Bool {
+        products.contains(where: { $0.productIdentifier == product.rawValue })
+    }
+    
     public func purchase(product: IAPProducts) {
         guard let product = products.filter({ $0.productIdentifier == product.rawValue }).first else { return }
         let payment = SKPayment(product: product)

@@ -1,9 +1,6 @@
 import SwiftUI
 
-struct NoChallengesView: View {
-    @EnvironmentObject var colorThemeViewModel: ColorThemeViewModel
-    @Environment(\.colorScheme) var colorScheme
-    
+struct NoChallengesView: View {    
     var tapAction: () -> Void
     var body: some View {
         VStack {
@@ -15,8 +12,7 @@ struct NoChallengesView: View {
                 .padding()
             Button(action: tapAction, label: {
                 Text("Create new challenge")
-                    .foregroundColor(colorThemeViewModel.accentColor(for: colorScheme))
-                
+                    .themedForeground()
             })
             .font(.system(size: 20, weight: .medium))
         }

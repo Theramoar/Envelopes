@@ -44,7 +44,7 @@ struct UpgradeAppView: View {
             }
             .themedList()
         }
-        .themedBackground()
+        .themedScreenBackground()
         .navigationTitle("Upgrade App")
     }
 }

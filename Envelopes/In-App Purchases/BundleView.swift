@@ -33,8 +33,12 @@ struct BundleView: View {
                     }
                 }
                 .padding(.horizontal, 10)
-                ActionButton(title: "Buy for \(viewModel.designBundlePrice)",
+                
+                ActionButton(title: viewModel.buyButtonTitle,
                              tapAction: viewModel.initiatePurchase)
+                .disabled(!viewModel.isProductAvailable)
+                .opacity(viewModel.isProductAvailable ? 1 : 0.5)
+                
                 if viewModel.showAllInNavigation {
                     NavigationLink(destination: BundleView(ofType: .allInBundle)) {
                         Text("This bundle is included in \"Savelope All-in\"")
@@ -47,7 +51,7 @@ struct BundleView: View {
                 ActivityIndicatorView()
             }
         }
-        .themedBackground()
+        .themedScreenBackground()
         .navigationTitle(viewModel.title)
     }
 }
@@ -61,6 +65,8 @@ class BundleViewModel: ObservableObject {
     let designBundlePrice: String
     let title: String
     let showAllInNavigation: Bool
+    let isProductAvailable: Bool
+    let buyButtonTitle: String
     private let product: IAPProducts
     
     init(type: ViewType) {
@@ -71,6 +77,8 @@ class BundleViewModel: ObservableObject {
         title = type.title
         showAllInNavigation = type != .allInBundle
         product = type.product
+        isProductAvailable = IAPManager.shared.isProductAvailable(product: type.product)
+        buyButtonTitle = isProductAvailable ? "Buy for \(designBundlePrice)" : "Product is unavailable right now"
         NotificationCenter.default.addObserver(self, selector: #selector(hideActivityIndicator), name: NSNotification.Name("failed_\(type.product.rawValue)"), object: nil)
     }
     
@@ -157,12 +165,3 @@ struct ActivityIndicatorView: View {
         }
     }
 }
-//struct DesignBundleView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        Group {
-//            BundleView(ofType: .designBundle)
-//                .previewDevice("iPhone 13 mini")
-//                .environmentObject(ColorThemeViewModel())
-//        }
-//    }
-//}

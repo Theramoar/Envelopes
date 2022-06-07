@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ThemedBackground: ViewModifier {
+struct ThemedScreenBackground: ViewModifier {
     @EnvironmentObject var colorThemeViewModel: ColorThemeViewModel
     @Environment(\.colorScheme) var colorScheme
     
@@ -23,9 +23,52 @@ struct ThemedList: ViewModifier {
     }
 }
 
+struct ThemedActionButtonBackground: ViewModifier {
+    @EnvironmentObject var colorThemeViewModel: ColorThemeViewModel
+    @Environment(\.colorScheme) var colorScheme
+
+    func body(content: Content) -> some View {
+        content
+            .background(colorThemeViewModel.accentColor(for: colorScheme))
+    }
+}
+
+struct ThemedAccent: ViewModifier {
+    @EnvironmentObject var colorThemeViewModel: ColorThemeViewModel
+    @Environment(\.colorScheme) var colorScheme
+
+    func body(content: Content) -> some View {
+        content
+            .accentColor(colorThemeViewModel.accentColor(for: colorScheme))
+    }
+}
+
+struct ThemedForeground: ViewModifier {
+    @EnvironmentObject var colorThemeViewModel: ColorThemeViewModel
+    @Environment(\.colorScheme) var colorScheme
+
+    func body(content: Content) -> some View {
+        content
+            .foregroundColor(colorThemeViewModel.accentColor(for: colorScheme))
+    }
+}
+
+
 extension View {
-    func themedBackground() -> some View {
-        modifier(ThemedBackground())
+    func themedScreenBackground() -> some View {
+        modifier(ThemedScreenBackground())
+    }
+    
+    func themedActionButtonBackground() -> some View {
+        modifier(ThemedActionButtonBackground())
+    }
+    
+    func themedForeground() -> some View {
+        modifier(ThemedForeground())
+    }
+    
+    func themedAccent() -> some View {
+        modifier(ThemedAccent())
     }
     
     func themedList() -> some View {

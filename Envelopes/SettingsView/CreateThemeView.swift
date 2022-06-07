@@ -1,9 +1,7 @@
 import SwiftUI
 
 struct CreateThemeView: View {
-    @EnvironmentObject var colorThemeViewModel: ColorThemeViewModel
     @StateObject var viewModel: CreateThemeViewModel
-    @Environment(\.colorScheme) var colorScheme
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -38,38 +36,15 @@ struct CreateThemeView: View {
                     }
                 
                 if viewModel.designBundleEnabled {
-
-                    Button {
+                    ActionButton(title: "Create theme") {
                         viewModel.saveNewTheme()
                         presentationMode.wrappedValue.dismiss()
-                    } label: {
-                        HStack {
-                            Spacer()
-                            Text("Create theme")
-                                .font(.system(size: 15, weight: .medium))
-                                .foregroundColor(Color.white)
-                                .frame(width: 300, height: 45, alignment: .center)
-                                .background(colorThemeViewModel.accentColor(for: colorScheme))
-                                .cornerRadius(15)
-                                .padding()
-                            Spacer()
-                        }
                     }
                 }
                 
                 else {
                     NavigationLink(destination: BundleView(ofType: .designBundle), isActive: $viewModel.presentDesignBundleView) {
-                        HStack {
-                            Spacer()
-                            Text("Check out Design Bundle")
-                                .font(.system(size: 15, weight: .medium))
-                                .foregroundColor(Color.white)
-                                .frame(width: 300, height: 45, alignment: .center)
-                                .background(colorThemeViewModel.accentColor(for: colorScheme))
-                                .cornerRadius(15)
-                                .padding()
-                            Spacer()
-                        }
+                        ActionButtonLabel(title: "Check out Design Bundle")
                     }
                 }
                 
@@ -77,7 +52,7 @@ struct CreateThemeView: View {
             .padding(.horizontal)
         }
         .navigationTitle("Create theme")
-        .themedBackground()
+        .themedScreenBackground()
     }
 }
 

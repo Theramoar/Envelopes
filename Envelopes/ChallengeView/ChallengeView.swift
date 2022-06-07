@@ -20,6 +20,7 @@ struct ChallengeView: View {
     
     @State private var presentMenuView = false
     @State private var presentCreateChallengeView = false
+    @State private var presentAnalyticsView = false
     
     let gridEdgePadding: CGFloat = 10
     
@@ -51,6 +52,9 @@ struct ChallengeView: View {
                         .background(themeViewModel.foregroundColor(for: colorScheme))
                         .cornerRadius(15)
                         .padding(gridEdgePadding)
+//                        .onTapGesture {
+//                            presentAnalyticsView = true
+//                        }
                     
                     
                     LazyVGrid(columns: columns, spacing: nil) {
@@ -98,16 +102,10 @@ struct ChallengeView: View {
             }
             
         }
-//        .themedBackground()
-        .sheet(isPresented: $presentMenuView) {
-            SettingsView()
-        }
-        .sheet(isPresented: $presentCreateChallengeView) {
-            CreateChallengeView(viewModel: CreateChallengeViewModel())
-        }
-        .sheet(isPresented: $viewModel._shouldPresentOnboarding) {
-            ParentOnboardingView()
-        }
+        .sheet(isPresented: $presentMenuView) { SettingsView() }
+        .sheet(isPresented: $presentCreateChallengeView) { CreateChallengeView(viewModel: CreateChallengeViewModel()) }
+        .sheet(isPresented: $viewModel._shouldPresentOnboarding) { ParentOnboardingView() }
+//        .sheet(isPresented: $presentAnalyticsView) { AnalyticsView() }
     }
     
     func cancelAlert() {

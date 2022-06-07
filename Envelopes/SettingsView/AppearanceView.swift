@@ -32,7 +32,7 @@ struct AppearanceView: View {
             .padding(.horizontal)
         }
         .navigationBarTitle("Appearance")
-        .themedBackground()
+        .themedScreenBackground()
     }
 }
 

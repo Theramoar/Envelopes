@@ -16,7 +16,7 @@ struct TimePickerNavigationView: View {
             }
             .themedList()
         }
-        .themedBackground()
+        .themedScreenBackground()
         .navigationTitle("Reminders")
     }
 }

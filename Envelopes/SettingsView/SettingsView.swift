@@ -176,7 +176,7 @@ struct SettingsView: View {
                     }
                     .themedList()
                 }
-                .themedBackground()
+                .themedScreenBackground()
                 .navigationTitle("Settings")
                 .sheet(isPresented: $viewModel.navigateToMailView, content: {
                     MailView(isShowing: $viewModel.navigateToMailView, result: $viewModel.mailResult)
