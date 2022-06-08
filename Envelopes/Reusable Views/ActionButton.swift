@@ -1,10 +1,3 @@
-//
-//  ActionButton.swift
-//  Envelopes
-//
-//  Created by Misha Kuznecov on 16/05/2022.
-//
-
 import SwiftUI
 
 struct ActionButton: View {    

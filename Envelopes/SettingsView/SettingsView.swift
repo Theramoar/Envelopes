@@ -1,10 +1,3 @@
-//
-//  MainMenuView.swift
-//  Envelopes
-//
-//  Created by Misha Kuznecov on 08/07/2021.
-//
-
 import SwiftUI
 
 struct SettingsView: View {

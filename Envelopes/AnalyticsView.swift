@@ -1,10 +1,3 @@
-//
-//  AnalyticsView.swift
-//  Envelopes
-//
-//  Created by Misha Kuznecov on 27/05/2022.
-//
-
 import SwiftUI
 
 struct AnalyticsView: View {

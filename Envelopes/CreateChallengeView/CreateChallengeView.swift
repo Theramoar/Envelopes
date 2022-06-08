@@ -1,10 +1,3 @@
-//
-//  CreateChallengeView.swift
-//  Envelopes
-//
-//  Created by Misha Kuznecov on 13/06/2021.
-//
-
 import SwiftUI
 
 struct CreateChallengeView: View {

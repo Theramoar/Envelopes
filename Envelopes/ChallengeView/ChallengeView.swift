@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  Envelopes
-//
-//  Created by Misha Kuznecov on 09/06/2021.
-//
-
 import SwiftUI
 import CoreData
 
@@ -52,9 +45,9 @@ struct ChallengeView: View {
                         .background(themeViewModel.foregroundColor(for: colorScheme))
                         .cornerRadius(15)
                         .padding(gridEdgePadding)
-//                        .onTapGesture {
-//                            presentAnalyticsView = true
-//                        }
+                        .onTapGesture {
+                            presentAnalyticsView = true
+                        }
                     
                     
                     LazyVGrid(columns: columns, spacing: nil) {
@@ -105,7 +98,7 @@ struct ChallengeView: View {
         .sheet(isPresented: $presentMenuView) { SettingsView() }
         .sheet(isPresented: $presentCreateChallengeView) { CreateChallengeView(viewModel: CreateChallengeViewModel()) }
         .sheet(isPresented: $viewModel._shouldPresentOnboarding) { ParentOnboardingView() }
-//        .sheet(isPresented: $presentAnalyticsView) { AnalyticsView() }
+        .sheet(isPresented: $presentAnalyticsView) { AnalyticsView() }
     }
     
     func cancelAlert() {

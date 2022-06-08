@@ -1,10 +1,3 @@
-//
-//  MailView.swift
-//  Envelopes
-//
-//  Created by MihailsKuznecovs on 22/07/2021.
-//
-
 import SwiftUI
 import UIKit
 import MessageUI

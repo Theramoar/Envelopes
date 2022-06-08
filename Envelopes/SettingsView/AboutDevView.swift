@@ -1,10 +1,3 @@
-//
-//  AboutDevView.swift
-//  Envelopes
-//
-//  Created by MihailsKuznecovs on 15/07/2021.
-//
-
 import SwiftUI
 
 struct AboutDevView: View {    

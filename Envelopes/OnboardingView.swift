@@ -1,10 +1,3 @@
-//
-//  OnboardingView.swift
-//  Envelopes
-//
-//  Created by MihailsKuznecovs on 07/08/2021.
-//
-
 import SwiftUI
 
 

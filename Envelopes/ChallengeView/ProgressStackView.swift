@@ -1,10 +1,3 @@
-//
-//  ProgressStackView.swift
-//  Envelopes
-//
-//  Created by Misha Kuznecov on 12/06/2021.
-//
-
 import SwiftUI
 
 

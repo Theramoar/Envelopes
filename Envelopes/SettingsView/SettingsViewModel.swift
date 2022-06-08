@@ -1,10 +1,3 @@
-//
-//  SettingsViewModel.swift
-//  Envelopes
-//
-//  Created by MihailsKuznecovs on 21/07/2021.
-//
-
 import Foundation
 import MessageUI
 import SwiftUI
