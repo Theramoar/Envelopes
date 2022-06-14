@@ -17,6 +17,8 @@ class SettingsViewModel: ObservableObject {
     @Published var navigateToCreateView = false
     @Published var navigateToMailView = false
     @Published var navigateToUpgrateAppView = false
+    @Published var navigateToTipJarView = false
+    
     @Published var alertPresented = false
     @Published var currentAlertType: AlertType!
     @Published var mailResult: Result<MFMailComposeResult, Error>? = nil

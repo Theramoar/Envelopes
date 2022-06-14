@@ -15,6 +15,20 @@ struct SettingsView: View {
         ZStack {
             NavigationView {
                 Form {
+                    
+                    if !UserPurchases.shared.allInEnabled {
+                        Section {
+                            NavigationLink(
+                                destination: UpgradeAppView(),
+                                isActive: $viewModel.navigateToUpgrateAppView,
+                                label: {
+                                    IconCellView(imageName: "plus.app", text: "Upgrade App")
+                                })
+                            
+                        }
+                        .themedList()
+                    }
+                    
                     if let challenge = viewModel.activeChallenge {
                         Section(
                             header:
@@ -32,59 +46,37 @@ struct SettingsView: View {
                                                 .font(.system(size: 10, weight: .medium))
                                         }
                                     }
-                                    .padding(.vertical, 10)
-                                },
-                            
-                            footer:
-                                HStack {
-                                    Spacer()
-                                    Button("Delete challenge", action: {
-                                        presentAlert(type: .actionAlert(message: "Do you want to delete this challenge?",
-                                                                        cancelTitle: "Cancel",
-                                                                        cancelAction: cancelAlert,
-                                                                        successTitle: "Delete",
-                                                                        successAction: {
-                                                                            viewModel.deleteActiveChallenge()
-                                                                            cancelAlert()
-                                                                        }))
-                                    })
-                                    .font(.system(size: 15, weight: .medium))
-                                    .foregroundColor(.red)
-                                    .padding()
-                                    Spacer()
                                 }
                         ) {
                             Toggle(isOn: $viewModel.oneEnvelopePerDay.animation()) {
-                                Text("One envelope per day")
-                                    .fontWeight(.medium)
+                                IconCellView(imageName: "envelope", text: "One envelope per day")
                             }
                             .toggleStyle(SwitchToggleStyle(tint: colorThemeViewModel.accentColor(for: colorScheme)))
                             NavigationLink(destination: TimePickerNavigationView(viewModel: viewModel.viewModelForTimePicker())) {
-                                Text("Reminders")
-                                    .font(.system(size: 15, weight: .medium))
+                                IconCellView(imageName: "clock", text: "Reminders")
                             }
                             NavigationLink(destination: AppearanceView(viewModel: viewModel.viewModelForAppearanceView())) {
-                                Text("Appearance")
-                                    .font(.system(size: 15, weight: .medium))
+                                IconCellView(imageName: "paintbrush", text: "Appearance")
+                            }
+                            Button(action: {
+                                presentAlert(type:
+                                        .actionAlert(message: "Do you want to delete this challenge?",
+                                                     cancelTitle: "Cancel",
+                                                     cancelAction: cancelAlert,
+                                                     successTitle: "Delete",
+                                                     successAction: {
+                                    viewModel.deleteActiveChallenge()
+                                    cancelAlert()
+                                }))
+                            }) {
+                                IconCellView(imageName: "trash", text: "Delete Challenge")
+                                    .foregroundColor(.red)
                             }
                         }
                         .themedList()
                     }
                     
-                    Section(header: Text("Your challenges"), footer:
-                                NavigationLink(
-                                    destination: CreateChallengeView(viewModel: CreateChallengeViewModel()).environmentObject(ColorThemeViewModel(type: .newChallenge))) {
-                                    HStack {
-                                        Spacer()
-                                        Text("Create new challenge")
-                                            .font(.system(size: 15, weight: .medium))
-                                            .foregroundColor(Color.blue)
-                                            .padding()
-                                        Spacer()
-                                    }
-                                }
-                            
-                    ) {
+                    Section(header: Text("Your challenges")) {
                         ForEach(viewModel.challenges.indices, id: \.self) { index in
                             HStack {
                                 Text(viewModel.challenges[index].goal!)
@@ -104,68 +96,40 @@ struct SettingsView: View {
                                                                 cancelAction: cancelAlert,
                                                                 successTitle: "Set active",
                                                                 successAction: {
-                                                                    viewModel.setActiveChallenge(atIndex: index)
-                                                                    cancelAlert()
-                                                                }))
+                                    viewModel.setActiveChallenge(atIndex: index)
+                                    cancelAlert()
+                                }))
                             }
+                        }
+                        NavigationLink(destination: CreateChallengeView(viewModel: CreateChallengeViewModel()).environmentObject(ColorThemeViewModel(type: .newChallenge))) {
+                            IconCellView(imageName: "square.and.pencil", text: "Create new challenge")
+                                .foregroundColor(colorThemeViewModel.accentColor(for: colorScheme))
                         }
                     }
                     .themedList()
                     Section(header: Text("Other")) {
-                        HStack {
-                            Image(systemName: "dollarsign.circle")
-                                .resizable()
-                                .frame(width: 25, height: 25, alignment: .center)
-                                .font(.system(size: 20, weight: .thin))
-                            NavigationLink(
-                                destination: UpgradeAppView(),
-                                isActive: $viewModel.navigateToUpgrateAppView,
-                                label: {
-                                    Text("Upgrade App")
-                                        .fontWeight(.medium)
-                                })
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            viewModel.navigateToUpgrateAppView = true
-                        }
                         
-                        HStack {
-                            Image(systemName: "person")
-                                .resizable()
-                                .frame(width: 25, height: 25, alignment: .center)
-                                .font(.system(size: 20, weight: .thin))
-                            NavigationLink(
-                                destination: AboutDevView(),
-                                isActive: $viewModel.navigateToCreateView,
-                                label: {
-                                    Text("About the Developer")
-                                        .fontWeight(.medium)
-                                })
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            viewModel.navigateToCreateView = true
-                        }
+                        NavigationLink(
+                            destination: AboutDevView(),
+                            isActive: $viewModel.navigateToCreateView,
+                            label: {
+                                IconCellView(imageName: "person", text: "About the Developer")
+                            })
                         
-                        HStack {
-                            Image(systemName: "paperplane")
-                                .resizable()
-                                .frame(width: 25, height: 25, alignment: .center)
-                                .font(.system(size: 20, weight: .thin))
-                            Text("Leave your feedback")
-                                .fontWeight(.medium)
-                            
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            viewModel.navigateToMailView = true
-                        }
                         
-
+                        NavigationLink(
+                            destination: TipJarView(),
+                            isActive: $viewModel.navigateToTipJarView,
+                            label: {
+                                IconCellView(imageName: "dollarsign.circle", text: "Tip Jar")
+                            })
+                        
+                        
+                        Button( action: { viewModel.navigateToMailView = true} )
+                        {
+                            IconCellView(imageName: "paperplane", text: "Leave your feedback")
+                        }
+                        .foregroundColor(.primary)
                     }
                     .themedList()
                 }
@@ -188,6 +152,7 @@ struct SettingsView: View {
             }
         }
     }
+    
     func cancelAlert() {
         withAnimation{
             viewModel.alertPresented = false
@@ -198,6 +163,20 @@ struct SettingsView: View {
         viewModel.currentAlertType = type
         withAnimation {
             viewModel.alertPresented = true
+        }
+    }
+}
+
+struct IconCellView: View {
+    let imageName: String
+    let text: String
+    
+    var body: some View {
+        HStack {
+            Image(systemName: imageName)
+            Text(text)
+                .fontWeight(.medium)
+            
         }
     }
 }

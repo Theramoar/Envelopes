@@ -38,11 +38,6 @@ struct UpgradeAppView: View {
                 .background(colorThemeViewModel.backgroundColor(for: colorScheme))
                 
             }
-            Section(header: Text("Other")) {
-                NavigationLink(destination: TipJarView(),
-                               label: { Text("🫙 Tip Jar").fontWeight(.medium) })
-            }
-            .themedList()
         }
         .themedScreenBackground()
         .navigationTitle("Upgrade App")

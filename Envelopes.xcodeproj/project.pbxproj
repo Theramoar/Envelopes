@@ -24,6 +24,7 @@
 		BBAC1E6326B9654E002691CC /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBAC1E6226B9654D002691CC /* StoreKit.framework */; };
 		BBAC1E6526B96B0D002691CC /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBAC1E6426B96B0D002691CC /* IAPManager.swift */; };
 		BBAC1E6726BE94B1002691CC /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBAC1E6626BE94B0002691CC /* OnboardingView.swift */; };
+		D203ADEB2850DB1F0070F84B /* PieSliceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D203ADEA2850DB1F0070F84B /* PieSliceView.swift */; };
 		D25A2B6726710195003BBFFA /* EnvelopesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25A2B6626710195003BBFFA /* EnvelopesApp.swift */; };
 		D25A2B6926710196003BBFFA /* ChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25A2B6826710196003BBFFA /* ChallengeView.swift */; };
 		D25A2B6B2671019B003BBFFA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D25A2B6A2671019B003BBFFA /* Assets.xcassets */; };
@@ -76,6 +77,7 @@
 		BBAC1E6226B9654D002691CC /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		BBAC1E6426B96B0D002691CC /* IAPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
 		BBAC1E6626BE94B0002691CC /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		D203ADEA2850DB1F0070F84B /* PieSliceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieSliceView.swift; sourceTree = "<group>"; };
 		D25A2B6326710195003BBFFA /* Envelopes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Envelopes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D25A2B6626710195003BBFFA /* EnvelopesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvelopesApp.swift; sourceTree = "<group>"; };
 		D25A2B6826710196003BBFFA /* ChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeView.swift; sourceTree = "<group>"; };
@@ -192,6 +194,24 @@
 			path = "Reusable Views";
 			sourceTree = "<group>";
 		};
+		D203ADE82850DA240070F84B /* AnalyticsView */ = {
+			isa = PBXGroup;
+			children = (
+				D2948BFF284112A00029F5F6 /* AnalyticsView.swift */,
+				D203ADEA2850DB1F0070F84B /* PieSliceView.swift */,
+			);
+			path = AnalyticsView;
+			sourceTree = "<group>";
+		};
+		D203ADE92850DA600070F84B /* Color Themes */ = {
+			isa = PBXGroup;
+			children = (
+				D2E59127280740D600AA99F2 /* ColorThemeViewModel.swift */,
+				D2C5F1F1281681C5002E5F31 /* ColorTheme Modifiers.swift */,
+			);
+			path = "Color Themes";
+			sourceTree = "<group>";
+		};
 		D25A2B5A26710195003BBFFA = {
 			isa = PBXGroup;
 			children = (
@@ -215,14 +235,13 @@
 				D25A2B6626710195003BBFFA /* EnvelopesApp.swift */,
 				BB1E15C526AAE940002CF495 /* LocalNotificationManager.swift */,
 				BBAC1E6626BE94B0002691CC /* OnboardingView.swift */,
-				D2E59127280740D600AA99F2 /* ColorThemeViewModel.swift */,
-				D2C5F1F1281681C5002E5F31 /* ColorTheme Modifiers.swift */,
-				D2948BFF284112A00029F5F6 /* AnalyticsView.swift */,
+				D203ADE92850DA600070F84B /* Color Themes */,
 				D203ADE72850D94D0070F84B /* Reusable Views */,
 				BB1E159B269ED88A002CF495 /* Model */,
 				BB1E15BE26A8574D002CF495 /* SettingsView */,
 				BB1E15B526A58AFD002CF495 /* ChallengeView */,
 				BB1E15AE26A58282002CF495 /* CreateChallengeView */,
+				D203ADE82850DA240070F84B /* AnalyticsView */,
 				D2CC31D628322CDF00CCEF16 /* In-App Purchases */,
 				D2CC31D728322D4200CCEF16 /* Utils */,
 				D25A2B6A2671019B003BBFFA /* Assets.xcassets */,
@@ -378,6 +397,7 @@
 				BB1E15C426A97730002CF495 /* UserSettings.swift in Sources */,
 				D25A2B6726710195003BBFFA /* EnvelopesApp.swift in Sources */,
 				D2A44F23282EBC1700239CD1 /* BundleView.swift in Sources */,
+				D203ADEB2850DB1F0070F84B /* PieSliceView.swift in Sources */,
 				D2A3BE4926761D030058339B /* CreateChallengeView.swift in Sources */,
 				BB1E15A726A56CD0002CF495 /* HexColor Ext.swift in Sources */,
 				D2C5F1F6281C032A002E5F31 /* NoChallengesView.swift in Sources */,

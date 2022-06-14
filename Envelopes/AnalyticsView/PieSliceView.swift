@@ -1,26 +1,24 @@
+//
+//  PieSliceView.swift
+//  Envelopes
+//
+//  Created by Misha Kuznecov on 08/06/2022.
+//
+
 import SwiftUI
 
-struct AnalyticsView: View {
-    var body: some View {
-        
-        NavigationView {
-            ScrollView {
-                PieSliceView(pieSliceData: PieSliceData(startAngle: .degrees(0.0), endAngle: .degrees(200), color: .blue))
-            }
-                .navigationTitle("Analytics")
-        }
-    }
+struct PieSliceData {
+    var startAngle: Angle
+    var endAngle: Angle
+    var text: String
+    var color: Color
 }
-
-struct AnalyticsView_Previews: PreviewProvider {
-    static var previews: some View {
-        AnalyticsView()
-    }
-}
-
 
 struct PieSliceView: View {
     var pieSliceData: PieSliceData
+    var midRadians: Double {
+        return Double.pi / 2.0 - (pieSliceData.startAngle + pieSliceData.endAngle).radians / 2.0
+    }
     
     var body: some View {
         GeometryReader { geometry in
@@ -41,13 +39,16 @@ struct PieSliceView: View {
                 
             }
             .fill(pieSliceData.color)
+            
+            Text(pieSliceData.text)
+                                .position(
+                                    x: geometry.size.width * 0.5 * CGFloat(1.0 + 0.78 * cos(self.midRadians)),
+                                    y: geometry.size.height * 0.5 * CGFloat(1.0 - 0.78 * sin(self.midRadians))
+                                )
+                                .foregroundColor(Color.white)
         }
         .aspectRatio(1, contentMode: .fit)
     }
 }
 
-struct PieSliceData {
-    var startAngle: Angle
-    var endAngle: Angle
-    var color: Color
-}
+
