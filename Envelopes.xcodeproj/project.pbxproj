@@ -25,6 +25,13 @@
 		BBAC1E6526B96B0D002691CC /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBAC1E6426B96B0D002691CC /* IAPManager.swift */; };
 		BBAC1E6726BE94B1002691CC /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBAC1E6626BE94B0002691CC /* OnboardingView.swift */; };
 		D203ADEB2850DB1F0070F84B /* PieSliceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D203ADEA2850DB1F0070F84B /* PieSliceView.swift */; };
+		D227506D2858C98000F8E80C /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D227506C2858C98000F8E80C /* WidgetKit.framework */; };
+		D227506F2858C98000F8E80C /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D227506E2858C98000F8E80C /* SwiftUI.framework */; };
+		D22750722858C98000F8E80C /* SavelopeWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22750712858C98000F8E80C /* SavelopeWidget.swift */; };
+		D22750752858C98400F8E80C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D22750742858C98400F8E80C /* Assets.xcassets */; };
+		D22750772858C98400F8E80C /* SavelopeWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = D22750732858C98100F8E80C /* SavelopeWidget.intentdefinition */; };
+		D22750782858C98400F8E80C /* SavelopeWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = D22750732858C98100F8E80C /* SavelopeWidget.intentdefinition */; };
+		D227507B2858C98400F8E80C /* SavelopeWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D227506B2858C98000F8E80C /* SavelopeWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D25A2B6726710195003BBFFA /* EnvelopesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25A2B6626710195003BBFFA /* EnvelopesApp.swift */; };
 		D25A2B6926710196003BBFFA /* ChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25A2B6826710196003BBFFA /* ChallengeView.swift */; };
 		D25A2B6B2671019B003BBFFA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D25A2B6A2671019B003BBFFA /* Assets.xcassets */; };
@@ -59,6 +66,30 @@
 		D2FEF00726976AC70075E397 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FEF00626976AC70075E397 /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		D22750792858C98400F8E80C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D25A2B5B26710195003BBFFA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D227506A2858C98000F8E80C;
+			remoteInfo = SavelopeWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D227507C2858C98400F8E80C /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				D227507B2858C98400F8E80C /* SavelopeWidgetExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		BB1E15A426A07897002CF495 /* AboutDevView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutDevView.swift; sourceTree = "<group>"; };
 		BB1E15A626A56CD0002CF495 /* HexColor Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HexColor Ext.swift"; sourceTree = "<group>"; };
@@ -78,6 +109,13 @@
 		BBAC1E6426B96B0D002691CC /* IAPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
 		BBAC1E6626BE94B0002691CC /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		D203ADEA2850DB1F0070F84B /* PieSliceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieSliceView.swift; sourceTree = "<group>"; };
+		D227506B2858C98000F8E80C /* SavelopeWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SavelopeWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		D227506C2858C98000F8E80C /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		D227506E2858C98000F8E80C /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		D22750712858C98000F8E80C /* SavelopeWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavelopeWidget.swift; sourceTree = "<group>"; };
+		D22750732858C98100F8E80C /* SavelopeWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = SavelopeWidget.intentdefinition; sourceTree = "<group>"; };
+		D22750742858C98400F8E80C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D22750762858C98400F8E80C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D25A2B6326710195003BBFFA /* Envelopes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Envelopes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D25A2B6626710195003BBFFA /* EnvelopesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvelopesApp.swift; sourceTree = "<group>"; };
 		D25A2B6826710196003BBFFA /* ChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeView.swift; sourceTree = "<group>"; };
@@ -115,6 +153,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		D22750682858C98000F8E80C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D227506F2858C98000F8E80C /* SwiftUI.framework in Frameworks */,
+				D227506D2858C98000F8E80C /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D25A2B6026710195003BBFFA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -182,6 +229,8 @@
 			isa = PBXGroup;
 			children = (
 				BBAC1E6226B9654D002691CC /* StoreKit.framework */,
+				D227506C2858C98000F8E80C /* WidgetKit.framework */,
+				D227506E2858C98000F8E80C /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -212,10 +261,22 @@
 			path = "Color Themes";
 			sourceTree = "<group>";
 		};
+		D22750702858C98000F8E80C /* SavelopeWidget */ = {
+			isa = PBXGroup;
+			children = (
+				D22750712858C98000F8E80C /* SavelopeWidget.swift */,
+				D22750732858C98100F8E80C /* SavelopeWidget.intentdefinition */,
+				D22750742858C98400F8E80C /* Assets.xcassets */,
+				D22750762858C98400F8E80C /* Info.plist */,
+			);
+			path = SavelopeWidget;
+			sourceTree = "<group>";
+		};
 		D25A2B5A26710195003BBFFA = {
 			isa = PBXGroup;
 			children = (
 				D25A2B6526710195003BBFFA /* Envelopes */,
+				D22750702858C98000F8E80C /* SavelopeWidget */,
 				D25A2B6426710195003BBFFA /* Products */,
 				BBAC1E6126B9654D002691CC /* Frameworks */,
 			);
@@ -225,6 +286,7 @@
 			isa = PBXGroup;
 			children = (
 				D25A2B6326710195003BBFFA /* Envelopes.app */,
+				D227506B2858C98000F8E80C /* SavelopeWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -307,6 +369,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		D227506A2858C98000F8E80C /* SavelopeWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D227507F2858C98400F8E80C /* Build configuration list for PBXNativeTarget "SavelopeWidgetExtension" */;
+			buildPhases = (
+				D22750672858C98000F8E80C /* Sources */,
+				D22750682858C98000F8E80C /* Frameworks */,
+				D22750692858C98000F8E80C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SavelopeWidgetExtension;
+			productName = SavelopeWidgetExtension;
+			productReference = D227506B2858C98000F8E80C /* SavelopeWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		D25A2B6226710195003BBFFA /* Envelopes */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D25A2B772671019C003BBFFA /* Build configuration list for PBXNativeTarget "Envelopes" */;
@@ -314,10 +393,12 @@
 				D25A2B5F26710195003BBFFA /* Sources */,
 				D25A2B6026710195003BBFFA /* Frameworks */,
 				D25A2B6126710195003BBFFA /* Resources */,
+				D227507C2858C98400F8E80C /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				D227507A2858C98400F8E80C /* PBXTargetDependency */,
 			);
 			name = Envelopes;
 			productName = Envelopes;
@@ -330,9 +411,12 @@
 		D25A2B5B26710195003BBFFA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1250;
+				LastSwiftUpdateCheck = 1340;
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
+					D227506A2858C98000F8E80C = {
+						CreatedOnToolsVersion = 13.4;
+					};
 					D25A2B6226710195003BBFFA = {
 						CreatedOnToolsVersion = 12.5;
 					};
@@ -352,11 +436,20 @@
 			projectRoot = "";
 			targets = (
 				D25A2B6226710195003BBFFA /* Envelopes */,
+				D227506A2858C98000F8E80C /* SavelopeWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		D22750692858C98000F8E80C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D22750752858C98400F8E80C /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D25A2B6126710195003BBFFA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -369,6 +462,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		D22750672858C98000F8E80C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D22750722858C98000F8E80C /* SavelopeWidget.swift in Sources */,
+				D22750772858C98400F8E80C /* SavelopeWidget.intentdefinition in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D25A2B5F26710195003BBFFA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -384,6 +486,7 @@
 				D2D766D827B1A74D005C6898 /* ThemeSet+CoreDataClass.swift in Sources */,
 				BB1E15B426A58AD6002CF495 /* ChallengeViewModel.swift in Sources */,
 				D2C5F1F4281C030F002E5F31 /* EnvelopeView.swift in Sources */,
+				D22750782858C98400F8E80C /* SavelopeWidget.intentdefinition in Sources */,
 				BB1E15B026A58A87002CF495 /* RoundedFloat Ext.swift in Sources */,
 				D2FEF00726976AC70075E397 /* SettingsView.swift in Sources */,
 				BB1E15AD26A5824F002CF495 /* CreateChallengeViewModel.swift in Sources */,
@@ -425,7 +528,73 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		D227507A2858C98400F8E80C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D227506A2858C98000F8E80C /* SavelopeWidgetExtension */;
+			targetProxy = D22750792858C98400F8E80C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		D227507D2858C98400F8E80C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7367KKMU64;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SavelopeWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SavelopeWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = mishak.envelopesapp.SavelopeWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D227507E2858C98400F8E80C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7367KKMU64;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SavelopeWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SavelopeWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = mishak.envelopesapp.SavelopeWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		D25A2B752671019C003BBFFA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -545,6 +714,7 @@
 		D25A2B782671019C003BBFFA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -569,6 +739,7 @@
 		D25A2B792671019C003BBFFA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -593,6 +764,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		D227507F2858C98400F8E80C /* Build configuration list for PBXNativeTarget "SavelopeWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D227507D2858C98400F8E80C /* Debug */,
+				D227507E2858C98400F8E80C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D25A2B5E26710195003BBFFA /* Build configuration list for PBXProject "Envelopes" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
