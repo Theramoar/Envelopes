@@ -45,9 +45,9 @@ struct ChallengeView: View {
                         .background(themeViewModel.foregroundColor(for: colorScheme))
                         .cornerRadius(15)
                         .padding(gridEdgePadding)
-//                        .onTapGesture {
-//                            presentAnalyticsView = true
-//                        }
+                        .onTapGesture {
+                            presentAnalyticsView = true
+                        }
                     
                     
                     LazyVGrid(columns: columns, spacing: nil) {
