@@ -40,11 +40,13 @@ struct CreateThemeView: View {
                         viewModel.saveNewTheme()
                         presentationMode.wrappedValue.dismiss()
                     }
+                    .padding()
                 }
                 
                 else {
                     NavigationLink(destination: BundleView(ofType: .designBundle), isActive: $viewModel.presentDesignBundleView) {
                         ActionButtonLabel(title: "Check out Design Bundle")
+                            .padding(.bottom)
                     }
                 }
                 

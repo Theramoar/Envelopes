@@ -52,6 +52,12 @@ struct SettingsView: View {
                                 IconCellView(imageName: "envelope", text: "One envelope per day")
                             }
                             .toggleStyle(SwitchToggleStyle(tint: colorThemeViewModel.accentColor(for: colorScheme)))
+                            
+                            Toggle(isOn: $viewModel.showOpenedEnvelopes.animation()) {
+                                IconCellView(imageName: "envelope.open", text: "Show opened envelopes")
+                            }
+                            .toggleStyle(SwitchToggleStyle(tint: colorThemeViewModel.accentColor(for: colorScheme)))
+                            
                             NavigationLink(destination: TimePickerNavigationView(viewModel: viewModel.viewModelForTimePicker())) {
                                 IconCellView(imageName: "clock", text: "Reminders")
                             }
@@ -113,7 +119,7 @@ struct SettingsView: View {
                             destination: AboutDevView(),
                             isActive: $viewModel.navigateToCreateView,
                             label: {
-                                IconCellView(imageName: "person", text: "About the Developer")
+                                IconCellView(imageName: "person", text: "About the developer")
                             })
                         
                         
@@ -128,6 +134,11 @@ struct SettingsView: View {
                         Button( action: { viewModel.navigateToMailView = true} )
                         {
                             IconCellView(imageName: "paperplane", text: "Leave your feedback")
+                        }
+                        .foregroundColor(.primary)
+                        
+                        Link(destination: viewModel.reviewUrl) {
+                            IconCellView(imageName: "star", text: "Rate this app")
                         }
                         .foregroundColor(.primary)
                     }

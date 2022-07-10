@@ -4,7 +4,6 @@ import CoreData
 struct ChallengeView: View {
     @StateObject var viewModel: ChallengeViewModel
     @EnvironmentObject var themeViewModel: ColorThemeViewModel
-    
     @Environment(\.colorScheme) var colorScheme
    
     @State private var alertPresented = false
@@ -54,17 +53,16 @@ struct ChallengeView: View {
                         ForEach(challenge.envelopesArray.indices, id: \.self) { index in
                             let envelope = challenge.envelopesArray[index]
                             
-                            if  index != 0, index % 16 == 0 {
-                                Section(header: Divider()) {}
+                            if viewModel.showOpenedEnvelopes ||
+                            !viewModel.showOpenedEnvelopes && !envelope.isOpened {
                                 EnvelopeView(envelope: envelope,
-                                             envelopeStatus: viewModel.getEnvelopeStatus(at: index),
+                                             envelopeStatus: viewModel.getEnvelopeStatus(at: index, in: challenge.envelopesArray),
                                              dayText: "Day \(index + 1)",
                                              processEnvelope: processEnvelope)
-                            } else {
-                                EnvelopeView(envelope: envelope,
-                                             envelopeStatus: viewModel.getEnvelopeStatus(at: index),
-                                             dayText: "Day \(index + 1)",
-                                             processEnvelope: processEnvelope)
+                                
+                                if viewModel.shouldPresentDivider(after: envelope) {
+                                    Section(footer: Divider()) {}
+                                }
                             }
                         }
                         .padding(10)
@@ -96,8 +94,10 @@ struct ChallengeView: View {
             
         }
         .sheet(isPresented: $presentMenuView) { SettingsView() }
-        .sheet(isPresented: $presentCreateChallengeView) { CreateChallengeView(viewModel: CreateChallengeViewModel()) }
-        .sheet(isPresented: $viewModel._shouldPresentOnboarding) { ParentOnboardingView() }
+        .sheet(isPresented: $presentCreateChallengeView) { CreateChallengeView(viewModel: CreateChallengeViewModel())
+            .environmentObject(ColorThemeViewModel(type: .newChallenge)) }
+        .sheet(isPresented: $viewModel._shouldPresentOnboarding) { OnboardingView() }
+        .sheet(isPresented: $viewModel._shouldPresentWhatsNew) { WhatsNewView() }
         .sheet(isPresented: $presentAnalyticsView) { AnalyticsView() }
     }
     
@@ -145,7 +145,7 @@ struct ChallengeView: View {
         
         viewModel.currentIndex = index
         viewModel.simpleSuccess(.success)
-        let message = "Let's save\n$\(rounded)" + "!\n\nAre you ready?"
+        let message = "Let's save\n$\(rounded)" + "\n\nAre you ready?"
         presentAlert(type: .actionAlert(message: message,
                                         cancelTitle: "Later",
                                         cancelAction: cancelAlert,
@@ -153,9 +153,13 @@ struct ChallengeView: View {
                                         successAction: {
                                             viewModel.openEnvelope()
                                             cancelAlert()
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                                presentAlert(type: .infoAlert("Well done!\n\nYou are one step closer!"))
-                                            }
+                                            presentResultAlert()
         }))
+    }
+    
+    func presentResultAlert() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            presentAlert(type: .infoAlert("Well done!\n\nYou are one step closer!"))
+        }
     }
 }

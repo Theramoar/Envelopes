@@ -19,6 +19,8 @@ struct EnvelopeView: View {
             Text(dayText)
                 .fontWeight(.bold)
                 .foregroundColor(.secondary)
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
         }
         .onTapGesture {
             processEnvelope(envelope)
