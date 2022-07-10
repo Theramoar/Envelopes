@@ -119,7 +119,7 @@ struct SettingsView: View {
                             destination: AboutDevView(),
                             isActive: $viewModel.navigateToCreateView,
                             label: {
-                                IconCellView(imageName: "person", text: "About the Developer")
+                                IconCellView(imageName: "person", text: "About the developer")
                             })
                         
                         
