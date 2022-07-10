@@ -14,6 +14,11 @@ class SettingsViewModel: ObservableObject {
             userSettings.oneEnvelopePerDay = oneEnvelopePerDay
         }
     }
+    @Published var showOpenedEnvelopes: Bool {
+        didSet {
+            userSettings.showOpenedEnvelopes = showOpenedEnvelopes
+        }
+    }
     @Published var navigateToCreateView = false
     @Published var navigateToMailView = false
     @Published var navigateToUpgrateAppView = false
@@ -24,7 +29,7 @@ class SettingsViewModel: ObservableObject {
     @Published var mailResult: Result<MFMailComposeResult, Error>? = nil
     
     
-    
+    var reviewUrl = URL(string: "https://apps.apple.com/app/id1578843165?action=write-review")!
     var activeChallenge: Challenge? {
         challenges.first { $0.isActive }
     }
@@ -40,6 +45,7 @@ class SettingsViewModel: ObservableObject {
         self.challenges = coreData.challenges
         notificationsEnabled = coreData.activeChallenge?.isReminderSet ?? false
         oneEnvelopePerDay = userSettings.oneEnvelopePerDay
+        showOpenedEnvelopes = userSettings.showOpenedEnvelopes
         self.localNotiManager = localNotiManager
         NotificationCenter.default.addObserver(self, selector: #selector(updateModel), name: .challengeModelWasUpdated, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(presentAlert), name: .purchaseWasSuccesful, object: nil)

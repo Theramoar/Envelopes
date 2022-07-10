@@ -40,6 +40,10 @@
 		D2A44F23282EBC1700239CD1 /* BundleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A44F22282EBC1700239CD1 /* BundleView.swift */; };
 		D2ADEF672823D417006DA6CC /* ThemePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2ADEF662823D417006DA6CC /* ThemePreviewView.swift */; };
 		D2ADEF6B28251FA1006DA6CC /* UserThemeSetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2ADEF6A28251FA1006DA6CC /* UserThemeSetsView.swift */; };
+		D2AFDD4E286C642800CF282B /* PresentationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AFDD4D286C642800CF282B /* PresentationView.swift */; };
+		D2AFDD50286C645400CF282B /* PresentationSlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AFDD4F286C645400CF282B /* PresentationSlideView.swift */; };
+		D2C1B4192876BAE500E569A6 /* WhatsNewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C1B4182876BAE500E569A6 /* WhatsNewView.swift */; };
+		D2C1B41B2876CA5100E569A6 /* EnvelopesAppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C1B41A2876CA5000E569A6 /* EnvelopesAppViewModel.swift */; };
 		D2C5F1F2281681C5002E5F31 /* ColorTheme Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C5F1F1281681C5002E5F31 /* ColorTheme Modifiers.swift */; };
 		D2C5F1F4281C030F002E5F31 /* EnvelopeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C5F1F3281C030F002E5F31 /* EnvelopeView.swift */; };
 		D2C5F1F6281C032A002E5F31 /* NoChallengesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C5F1F5281C032A002E5F31 /* NoChallengesView.swift */; };
@@ -95,6 +99,10 @@
 		D2A44F22282EBC1700239CD1 /* BundleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleView.swift; sourceTree = "<group>"; };
 		D2ADEF662823D417006DA6CC /* ThemePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePreviewView.swift; sourceTree = "<group>"; };
 		D2ADEF6A28251FA1006DA6CC /* UserThemeSetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserThemeSetsView.swift; sourceTree = "<group>"; };
+		D2AFDD4D286C642800CF282B /* PresentationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationView.swift; sourceTree = "<group>"; };
+		D2AFDD4F286C645400CF282B /* PresentationSlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationSlideView.swift; sourceTree = "<group>"; };
+		D2C1B4182876BAE500E569A6 /* WhatsNewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewView.swift; sourceTree = "<group>"; };
+		D2C1B41A2876CA5000E569A6 /* EnvelopesAppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvelopesAppViewModel.swift; sourceTree = "<group>"; };
 		D2C5F1F1281681C5002E5F31 /* ColorTheme Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ColorTheme Modifiers.swift"; sourceTree = "<group>"; };
 		D2C5F1F3281C030F002E5F31 /* EnvelopeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvelopeView.swift; sourceTree = "<group>"; };
 		D2C5F1F5281C032A002E5F31 /* NoChallengesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoChallengesView.swift; sourceTree = "<group>"; };
@@ -233,8 +241,12 @@
 			isa = PBXGroup;
 			children = (
 				D25A2B6626710195003BBFFA /* EnvelopesApp.swift */,
+				D2C1B41A2876CA5000E569A6 /* EnvelopesAppViewModel.swift */,
 				BB1E15C526AAE940002CF495 /* LocalNotificationManager.swift */,
 				BBAC1E6626BE94B0002691CC /* OnboardingView.swift */,
+				D2C1B4182876BAE500E569A6 /* WhatsNewView.swift */,
+				D2AFDD4D286C642800CF282B /* PresentationView.swift */,
+				D2AFDD4F286C645400CF282B /* PresentationSlideView.swift */,
 				D203ADE92850DA600070F84B /* Color Themes */,
 				D203ADE72850D94D0070F84B /* Reusable Views */,
 				BB1E159B269ED88A002CF495 /* Model */,
@@ -376,12 +388,15 @@
 				D2ADEF6B28251FA1006DA6CC /* UserThemeSetsView.swift in Sources */,
 				D2D766E327B1A8AC005C6898 /* Challenge+CoreDataClass.swift in Sources */,
 				D2D766D927B1A74D005C6898 /* ThemeSet+CoreDataProperties.swift in Sources */,
+				D2AFDD50286C645400CF282B /* PresentationSlideView.swift in Sources */,
 				D2CC31D3283214BF00CCEF16 /* ActionButton.swift in Sources */,
 				D25A2B6926710196003BBFFA /* ChallengeView.swift in Sources */,
 				D2948C00284112A10029F5F6 /* AnalyticsView.swift in Sources */,
 				D260E21227AFCCF500ADEBE7 /* AppearanceView.swift in Sources */,
 				BB1E15B226A58A9D002CF495 /* EnvelopeAlertView.swift in Sources */,
+				D2AFDD4E286C642800CF282B /* PresentationView.swift in Sources */,
 				D2D766D827B1A74D005C6898 /* ThemeSet+CoreDataClass.swift in Sources */,
+				D2C1B4192876BAE500E569A6 /* WhatsNewView.swift in Sources */,
 				BB1E15B426A58AD6002CF495 /* ChallengeViewModel.swift in Sources */,
 				D2C5F1F4281C030F002E5F31 /* EnvelopeView.swift in Sources */,
 				BB1E15B026A58A87002CF495 /* RoundedFloat Ext.swift in Sources */,
@@ -402,6 +417,7 @@
 				BB1E15A726A56CD0002CF495 /* HexColor Ext.swift in Sources */,
 				D2C5F1F6281C032A002E5F31 /* NoChallengesView.swift in Sources */,
 				D2CC31D528322CB600CCEF16 /* UpgradeAppView.swift in Sources */,
+				D2C1B41B2876CA5100E569A6 /* EnvelopesAppViewModel.swift in Sources */,
 				D2A44F1F2828F95C00239CD1 /* NotificationNames.swift in Sources */,
 				BB1E15C026A960F1002CF495 /* MailView.swift in Sources */,
 				D2CC31D92832C7D400CCEF16 /* UserPurchases.swift in Sources */,
@@ -558,7 +574,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.06;
+				MARKETING_VERSION = 1.07;
 				PRODUCT_BUNDLE_IDENTIFIER = mishak.envelopesapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -582,7 +598,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.06;
+				MARKETING_VERSION = 1.07;
 				PRODUCT_BUNDLE_IDENTIFIER = mishak.envelopesapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
