@@ -38,6 +38,7 @@ struct BundleView: View {
                              tapAction: viewModel.initiatePurchase)
                 .disabled(!viewModel.isProductAvailable)
                 .opacity(viewModel.isProductAvailable ? 1 : 0.5)
+                .padding()
                 
                 if viewModel.showAllInNavigation {
                     NavigationLink(destination: BundleView(ofType: .allInBundle)) {
@@ -45,6 +46,7 @@ struct BundleView: View {
                             .foregroundColor(colorThemeViewModel.accentColor(for: colorScheme))
                             .fontWeight(.medium)
                     }
+                    .padding(.bottom)
                 }
             }
             if viewModel.showActivityIndicator {

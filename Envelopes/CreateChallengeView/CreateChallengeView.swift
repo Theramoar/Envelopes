@@ -21,6 +21,7 @@ struct CreateChallengeView: View {
                             viewModel.saveNewChallenge()
                             presentationMode.wrappedValue.dismiss()
                         }
+                        .padding()
             ) {
                 TextField("Days of challenge", text: $viewModel.daysString)
                     .disabled(viewModel.deadlineEnabled)
